@@ -1,0 +1,6 @@
+# build directories
+cmake-build-*/
+build/
+
+# imgui saved state
+imgui.ini
