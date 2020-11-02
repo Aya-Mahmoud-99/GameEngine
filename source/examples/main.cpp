@@ -2,6 +2,7 @@
 #include <shader.hpp>
 
 
+
 class UniformsApplication : public our::Application {
 
     our::ShaderProgram program;
@@ -18,8 +19,8 @@ class UniformsApplication : public our::Application {
 
     void onInitialize() override {
         program.create();
-        program.attach("assets/shaders/ex03_uniforms/quad.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/ex03_uniforms/uniform_color.frag", GL_FRAGMENT_SHADER);
+        program.attach("assets/shaders/ForTesting/quad.vert", GL_VERTEX_SHADER);
+        program.attach("assets/shaders/ForTesting/uniform_color.frag", GL_FRAGMENT_SHADER);
         program.link();
 
         glGenVertexArrays(1, &vertex_array);
@@ -28,13 +29,17 @@ class UniformsApplication : public our::Application {
     }
 
     void onDraw(double deltaTime) override {
+        //get mouse position and normalize it
+        auto mouse_window_space = mouse.getMousePosition();
+        mouse_window_space.y = ((getFrameBufferSize().y/2)-mouse_window_space.y)/getFrameBufferSize().y;
+        mouse_window_space.x = (mouse_window_space.x-(getFrameBufferSize().x/2))/getFrameBufferSize().x;
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(program);
 
         GLuint scale_uniform_location = glGetUniformLocation(program, "scale");
         glUniform2f(scale_uniform_location, scale.x, scale.y);
         GLuint translation_uniform_location = glGetUniformLocation(program, "translation");
-        glUniform2f(translation_uniform_location, translation.x, translation.y);
+        glUniform2f(translation_uniform_location, mouse_window_space.x, mouse_window_space.y);
         GLuint color_uniform_location = glGetUniformLocation(program, "color");
         glUniform3f(color_uniform_location, color.r, color.g, color.b);
 
@@ -59,7 +64,7 @@ class UniformsApplication : public our::Application {
     void onImmediateGui(ImGuiIO &io) override {
         ImGui::Begin("Controls");
         ImGui::SliderFloat2("Scale", glm::value_ptr(scale), 0, 1);
-        ImGui::SliderFloat2("Translation", glm::value_ptr(translation), -2, 2);
+       // ImGui::SliderFloat2("Translation", glm::value_ptr(translation), -2, 2);
         ImGui::ColorEdit3("Color", glm::value_ptr(color));
         ImGui::Checkbox("Vibrate", &vibrate);
         ImGui::Checkbox("Flicker", &flicker);
