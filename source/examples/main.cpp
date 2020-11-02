@@ -19,8 +19,8 @@ class UniformsApplication : public our::Application {
 
     void onInitialize() override {
         program.create();
-        program.attach("assets/shaders/ForTesting/quad.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/ForTesting/uniform_color.frag", GL_FRAGMENT_SHADER);
+        program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
+        program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
         program.link();
 
         glGenVertexArrays(1, &vertex_array);
@@ -52,7 +52,7 @@ class UniformsApplication : public our::Application {
 
 
         glBindVertexArray(vertex_array);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 9);
         glBindVertexArray(0);
     }
 

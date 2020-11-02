@@ -5,25 +5,31 @@
 // so it is uniform across all executions of the shader
 uniform vec2 scale;
 uniform vec2 translation;
+//out vec2 translation;
 uniform float time;
 uniform bool vibrate;
-
+out vec3 position;
 // Just a constant
 #define PI 3.1415926535897932384626433832795
 
 void main() {
     // This time we have 6 points since we are drawing a Quad (in NDC, it is a square).
-    const vec3 positions[6] = vec3[6](
-    vec3(-0.5, -0.5, 0.0),
-    vec3( 0.5, -0.5, 0.0),
-    vec3( 0.5,  0.5, 0.0),
-    vec3( 0.5,  0.5, 0.0),
-    vec3(-0.5,  0.5, 0.0),
-    vec3(-0.5, -0.5, 0.0)
+    const vec3 positions[9] = vec3[9](
+    vec3(-0.25, 0.25, 0.0),
+    vec3( 0.25, 0.25, 0.0),
+    vec3( 0,-0.25, 0.0),
+    vec3(-0.25, 0.25, 0.0),
+    vec3( 0.25, 0.25, 0.0),
+    vec3( 0.25, 0.5, 0.0),
+    vec3(-0.25, 0.25, 0.0),
+    vec3( 0.25, 0.5, 0.0),
+    vec3( -0.25, 0.5, 0.0)
+
+
     );
 
     // get the position based on the vertex id
-    vec3 position = positions[gl_VertexID];
+    position = positions[gl_VertexID];
     // Scale it
     position.xy *= scale;
     // If vibrate is on, scale it with a sinusoidal wave that oscillates over time
