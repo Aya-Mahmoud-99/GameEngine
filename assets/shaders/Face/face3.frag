@@ -1,0 +1,31 @@
+#version 330 core
+
+
+uniform vec3 color;
+uniform float time;
+uniform bool flicker;
+uniform vec2 translation;
+
+out vec4 frag_color;
+in vec3 position;
+
+
+// Just a constant
+#define PI 3.1415926535897932384626433832795
+
+void main() {
+    float radius=0.25;
+    float x=translation.x;
+    float y=translation.y;
+    vec3 center1=vec3(x,y,0);
+    if(distance(center1,position)>radius &&distance(center1,position)>radius &&distance(center1,position)>radius){
+        frag_color = vec4(0,0,0,1.0);
+    }
+    else{
+
+        frag_color = vec4(color, 1.0);
+    }
+    // If flickering, multiply it with a sinusoidal wave that oscillates over time
+    if(flicker)
+        frag_color.rgb *= 0.5 * (1 + cos(2 * PI * time));
+}

@@ -19,8 +19,10 @@ class UniformsApplication : public our::Application {
 
     void onInitialize() override {
         program.create();
-        program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
+        //program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
+        //program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
+        program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
+        program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
         program.link();
 
         glGenVertexArrays(1, &vertex_array);
