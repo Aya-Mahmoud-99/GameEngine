@@ -14,15 +14,17 @@ in vec3 position;
 #define PI 3.1415926535897932384626433832795
 
 void main() {
-    float radius=0.25;
+    float radius1=0.25;
+    float radius2=0.0625;
     float x=translation.x;
     float y=translation.y;
     vec3 center1=vec3(x,y,0);
-    if(distance(center1,position)>radius &&distance(center1,position)>radius &&distance(center1,position)>radius){
+    float y2=y+0.125;
+    vec3 center2=vec3(x,y2,0);
+    if((distance(center1,position)>radius1 &&distance(center1,position)>radius1) || distance(center2,position)<radius2){
         frag_color = vec4(0,0,0,1.0);
     }
     else{
-
         frag_color = vec4(color, 1.0);
     }
     // If flickering, multiply it with a sinusoidal wave that oscillates over time

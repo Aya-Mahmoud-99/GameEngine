@@ -11,16 +11,23 @@ out vec3 position;
 
 void main() {
     
-    const vec3 positions[9] = vec3[9](
+    const vec3 positions[12] = vec3[12](
+    //First upper triangle
     vec3(0.0, 0.0, 0.0),
     vec3(-0.25, 0.25, 0.0),
     vec3( 0.25, 0.25, 0.0),
-    vec3(0.0, 0.0, 0.0),
-    vec3(-0.25, -0.25, 0.0),
-    vec3( -0.25, 0.25, 0.0),
-    vec3(0.0, 0.0, 0.0),
+    //Second big triangle contains left and lower traingle
+    vec3( -0.25,0.25, 0.0),
     vec3( 0.25,-0.25, 0.0),
-    vec3( -0.25,-0.25, 0.0)
+    vec3( -0.25,-0.25, 0.0),
+    //Third small uppertriangle for the eye
+    vec3( 0.0,0.0625, 0.0),
+    vec3( 0.0,0.1875, 0.0),
+    vec3( -0.125,0.1875, 0.0),
+    //Fourth small lowertriangle for the eye
+    vec3( 0.0,0.0625, 0.0),
+    vec3( -0.125,0.0625, 0.0),
+    vec3( -0.125,0.1875, 0.0)
     );
 
     // get the position based on the vertex id
