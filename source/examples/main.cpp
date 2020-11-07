@@ -38,8 +38,9 @@ class UniformsApplication : public our::Application {
     void onDraw(double deltaTime) override {
         //get mouse position and normalize it
         auto mouse_window_space = mouse.getMousePosition();
-        mouse_window_space.y = ((getFrameBufferSize().y/2)-mouse_window_space.y)/getFrameBufferSize().y;
-        mouse_window_space.x = (mouse_window_space.x-(getFrameBufferSize().x/2))/getFrameBufferSize().x;
+        mouse_window_space.y = ((getFrameBufferSize().y/2)-mouse_window_space.y)/(getFrameBufferSize().y/2);
+        mouse_window_space.y-=0.25;
+        mouse_window_space.x = (mouse_window_space.x-(getFrameBufferSize().x/2))/(getFrameBufferSize().x/2);
         glClear(GL_COLOR_BUFFER_BIT);
         glUseProgram(program);
 

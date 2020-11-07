@@ -17,6 +17,7 @@ in vec3 position;
 #define PI 3.1415926535897932384626433832795
 
 void main() {
+
     // Convert RGB to RGBA (in other words, add an alpha value).
     float x=translation.x+0.125;
     float y=translation.y+0.25;
