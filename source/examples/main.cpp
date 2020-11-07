@@ -20,11 +20,11 @@ class UniformsApplication : public our::Application {
     void onInitialize() override {
         program.create();
         // smile face
-        program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
+       // program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
+       // program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
         // heart
-        //program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
-        //program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
+        program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
+        program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
         // face3
         //program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
         //program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
@@ -59,7 +59,7 @@ class UniformsApplication : public our::Application {
 
 
         glBindVertexArray(vertex_array);
-        glDrawArrays(GL_TRIANGLES, 0, 9);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
         glBindVertexArray(0);
     }
 

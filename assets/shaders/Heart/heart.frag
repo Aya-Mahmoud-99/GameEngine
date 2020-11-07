@@ -23,11 +23,15 @@ void main() {
     vec3 center1=vec3(x,y,0);
     x=translation.x-0.125;
     vec3 center2=vec3(x,y,0);
-    if(position.y>(translation.y+0.25)&&distance(center1,position)>0.125&&distance(center2,position)>0.125){
-        frag_color = vec4(0,0,0,1.0);
+    if(position.y>=(translation.y+0.25)&&(distance(center1,position)<0.125||distance(center2,position)<0.125)){
+        frag_color = vec4(color,1.0);
+    }
+    else if(position.y<(translation.y+0.25)&&position.y>(translation.y-0.25)&&position.y-translation.y+0.25>2*position.x-2*translation.x&&
+    position.y-translation.y+0.25>-2*position.x+2*translation.x){
+        frag_color = vec4(color,1.0);
     }
     else{
-        frag_color = vec4(color, 1.0);
+        frag_color = vec4(0,0,0,1.0);
     }
 
     // If flickering, multiply it with a sinusoidal wave that oscillates over time
