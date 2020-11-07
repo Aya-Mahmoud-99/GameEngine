@@ -4,10 +4,20 @@
 
 
 class UniformsApplication : public our::Application {
+    char lastPressed='3';
 
     our::ShaderProgram program;
     GLuint vertex_array = 0;
 
+    our::ShaderProgram program2;
+    GLuint vertex_array2 = 0;
+    our::ShaderProgram program3;
+    GLuint vertex_array3 = 0;
+    our::ShaderProgram program4;
+    GLuint vertex_array4 = 0;
+    //our::ShaderProgram  programFlag;
+
+    GLuint  vertex_arrayFlag ;
     glm::vec2 scale = glm::vec2(1,1);
     glm::vec2 translation = glm::vec2(0,0);
     glm::vec3 color = glm::vec3(1, 0, 0);
@@ -19,7 +29,7 @@ class UniformsApplication : public our::Application {
     }
 
     void onInitialize() override {
-        program.create();
+
 
         // smile face
 
@@ -29,22 +39,41 @@ class UniformsApplication : public our::Application {
         //}
         // heart
         //if(shape[1]) {
+            program.create();
             program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
             program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
-        //}
+            program.link();
+            glGenVertexArrays(1, &vertex_array);
+        //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
+        program2.create();
+        program2.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
+        program2.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
+        program2.link();
+        glGenVertexArrays(1, &vertex_array2);
 
+        program3.create();
+        program3.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
+        program3.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
+        program3.link();
+        glGenVertexArrays(1, &vertex_array3);
 
+        /*
+         *
+         * program4.create();
+        program4.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
+        program4.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
+        program4.link();
+        //glGenVertexArrays(1, &vertex_array3);
+         */
+        //glGenVertexArrays(1, &vertex_array);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         // face3
        // if(shape[2]) {
           //  program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
           //  program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
        // }
-        program.link();
 
-        glGenVertexArrays(1, &vertex_array);
-
-        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     }
 
     void onDraw(double deltaTime) override {
@@ -53,35 +82,52 @@ class UniformsApplication : public our::Application {
         mouse_window_space.y = ((getFrameBufferSize().y/2)-mouse_window_space.y)/(getFrameBufferSize().y/2);
         mouse_window_space.x = (mouse_window_space.x-(getFrameBufferSize().x/2))/(getFrameBufferSize().x/2);
 
-        glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(program);
+          if(keyboard.isPressed(GLFW_KEY_1)){
+            lastPressed='1';
+        }
+        else if(keyboard.isPressed(GLFW_KEY_2)){
+              lastPressed='2';
+          }
+        else if(keyboard.isPressed(GLFW_KEY_3)){
+              lastPressed='3';
 
-        GLuint scale_uniform_location = glGetUniformLocation(program, "scale");
+          }
+        auto& programFlag=lastPressed=='1'? program:
+                          lastPressed=='2'? program2: program3;
+                          //lastPressed=='3'? program3:;
+
+        vertex_arrayFlag = lastPressed=='1'? vertex_array:
+                           lastPressed=='2'? vertex_array2: vertex_array3;
+        //lastPressed=='3'? vertex_array3:;
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        glUseProgram(programFlag);
+
+        GLuint scale_uniform_location = glGetUniformLocation(programFlag, "scale");
         glUniform2f(scale_uniform_location, scale.x, scale.y);
-        GLuint translation_uniform_location = glGetUniformLocation(program, "translation");
+        GLuint translation_uniform_location = glGetUniformLocation( programFlag, "translation");
         glUniform2f(translation_uniform_location, mouse_window_space.x, mouse_window_space.y);
-        GLuint color_uniform_location = glGetUniformLocation(program, "color");
+        GLuint color_uniform_location = glGetUniformLocation(programFlag, "color");
         glUniform3f(color_uniform_location, color.r, color.g, color.b);
 
-        GLuint time_uniform_location = glGetUniformLocation(program, "time");
+        GLuint time_uniform_location = glGetUniformLocation(programFlag, "time");
         glUniform1f(time_uniform_location, glfwGetTime());
-        GLuint vibrate_uniform_location = glGetUniformLocation(program, "vibrate");
+        GLuint vibrate_uniform_location = glGetUniformLocation(programFlag, "vibrate");
         glUniform1i(vibrate_uniform_location, vibrate);
-        GLuint flicker_uniform_location = glGetUniformLocation(program, "flicker");
+        GLuint flicker_uniform_location = glGetUniformLocation(programFlag, "flicker");
         glUniform1i(flicker_uniform_location, flicker);
-        GLuint shape1_radio_button = glGetUniformLocation(program, "Shape1");
+
+        GLuint shape1_radio_button = glGetUniformLocation( programFlag, "Shape1");
         glUniform1i(shape1_radio_button,shape[0]);
-        GLuint shape2_radio_button = glGetUniformLocation(program, "Shape2");
+        GLuint shape2_radio_button = glGetUniformLocation( programFlag, "Shape2");
         glUniform1i(shape1_radio_button,shape[1]);
-        GLuint shape3_radio_button = glGetUniformLocation(program, "Shape3");
+        GLuint shape3_radio_button = glGetUniformLocation(programFlag, "Shape3");
         glUniform1i(shape1_radio_button,shape[2]);
-        GLuint shape4_radio_button = glGetUniformLocation(program, "Shape4");
+        GLuint shape4_radio_button = glGetUniformLocation( programFlag, "Shape4");
         glUniform1i(shape1_radio_button,shape[3]);
 
-
-        glBindVertexArray(vertex_array);
-
-       // glDrawArrays(GL_TRIANGLES, 0, 13);
+        glBindVertexArray(vertex_arrayFlag);
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
@@ -90,7 +136,7 @@ class UniformsApplication : public our::Application {
 
     void onDestroy() override {
         program.destroy();
-        glDeleteVertexArrays(1, &vertex_array);
+        glDeleteVertexArrays(1, &vertex_arrayFlag);
     }
 
     void onImmediateGui(ImGuiIO &io) override {
