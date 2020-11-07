@@ -29,16 +29,16 @@ class UniformsApplication : public our::Application {
         //}
         // heart
         //if(shape[1]) {
-            program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
-            program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
+            //program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
+            //program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
         //}
 
 
 
         // face3
        // if(shape[2]) {
-          //  program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
-          //  program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
+          program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
+          program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
        // }
         program.link();
 

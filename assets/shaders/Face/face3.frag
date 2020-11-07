@@ -21,7 +21,13 @@ void main() {
     vec3 center1=vec3(x,y,0);
     float y2=y+0.125;
     vec3 center2=vec3(x,y2,0);
-    if((distance(center1,position)>radius1 &&distance(center1,position)>radius1) || distance(center2,position)<radius2){
+    float x5=position.x-translation.x;
+    float y5=position.y-translation.y;
+    vec2 V=vec2(-y5,x5);
+    float ResV_L=-1*y5-x5;
+    float ResV_R=x5-y5;
+
+    if((distance(center1,position)>radius1 &&distance(center1,position)>radius1 ) || distance(center2,position)<radius2 || (ResV_L<0 && ResV_R>0)){
         frag_color = vec4(0,0,0,1.0);
     }
     else{
