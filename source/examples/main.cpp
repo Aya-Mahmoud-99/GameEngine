@@ -22,28 +22,24 @@ class UniformsApplication : public our::Application {
         program.create();
 
         // smile face
-<<<<<<< HEAD
+
         //if(shape[1]) {
             program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
             program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
         //}
         // heart
-        if(shape[1]) {
-            program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
-            program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
-        }
-=======
-       // program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
-       // program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
-        // heart
-        program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
->>>>>>> 5c409fb80265366444df652a294bdbce910c39b2
+        //if(shape[1]) {
+           // program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
+           // program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
+        //}
+
+
+
         // face3
-        if(shape[2]) {
-            program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
-            program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
-        }
+       // if(shape[2]) {
+          //  program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
+          //  program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
+       // }
         program.link();
 
         glGenVertexArrays(1, &vertex_array);
@@ -55,7 +51,6 @@ class UniformsApplication : public our::Application {
         //get mouse position and normalize it
         auto mouse_window_space = mouse.getMousePosition();
         mouse_window_space.y = ((getFrameBufferSize().y/2)-mouse_window_space.y)/(getFrameBufferSize().y/2);
-        //mouse_window_space.y-=0.25f;
         mouse_window_space.x = (mouse_window_space.x-(getFrameBufferSize().x/2))/(getFrameBufferSize().x/2);
 
         glClear(GL_COLOR_BUFFER_BIT);
@@ -85,11 +80,11 @@ class UniformsApplication : public our::Application {
 
 
         glBindVertexArray(vertex_array);
-<<<<<<< HEAD
+
         glDrawArrays(GL_TRIANGLES, 0, 13);
-=======
+
         glDrawArrays(GL_TRIANGLES, 0, 6);
->>>>>>> 5c409fb80265366444df652a294bdbce910c39b2
+
         glBindVertexArray(0);
     }
 
