@@ -22,6 +22,7 @@ class UniformsApplication : public our::Application {
         program.create();
 
         // smile face
+<<<<<<< HEAD
         //if(shape[1]) {
             program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
             program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
@@ -31,6 +32,13 @@ class UniformsApplication : public our::Application {
             program.attach("assets/shaders/Heart/Heart.vert", GL_VERTEX_SHADER);
             program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
         }
+=======
+       // program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
+       // program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
+        // heart
+        program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
+        program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
+>>>>>>> 5c409fb80265366444df652a294bdbce910c39b2
         // face3
         if(shape[2]) {
             program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
@@ -77,7 +85,11 @@ class UniformsApplication : public our::Application {
 
 
         glBindVertexArray(vertex_array);
+<<<<<<< HEAD
         glDrawArrays(GL_TRIANGLES, 0, 13);
+=======
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+>>>>>>> 5c409fb80265366444df652a294bdbce910c39b2
         glBindVertexArray(0);
     }
 

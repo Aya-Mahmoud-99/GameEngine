@@ -14,8 +14,8 @@ out vec3 position;
 
 void main() {
     // This time we have 6 points since we are drawing a Quad (in NDC, it is a square).
-    const vec3 positions[9] = vec3[9](
-    vec3(-0.25, 0.25, 0.0),
+    const vec3 positions[6] = vec3[6](
+    /*vec3(-0.25, 0.25, 0.0),
     vec3( 0.25, 0.25, 0.0),
     vec3( 0,-0.25, 0.0),
     vec3(-0.25, 0.25, 0.0),
@@ -23,7 +23,13 @@ void main() {
     vec3( 0.25, 0.5, 0.0),
     vec3(-0.25, 0.25, 0.0),
     vec3( 0.25, 0.5, 0.0),
-    vec3( -0.25, 0.5, 0.0)
+    vec3( -0.25, 0.5, 0.0)*/
+    vec3(-1, -1, 0.0),
+    vec3( -1, 1, 0.0),
+    vec3( 1,1, 0.0),
+    vec3(-1, -1, 0.0),
+    vec3( 1, 1, 0.0),
+    vec3( 1, -1, 0.0)
 
 
     );
