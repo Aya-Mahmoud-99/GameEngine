@@ -8,3 +8,6 @@ Entity* World::createEntity() {
     Entities.push_back(e);
     return e;
 }
+vector<Entity *> World::getEntities() {
+    return Entities;
+}
