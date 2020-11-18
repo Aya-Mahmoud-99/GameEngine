@@ -10,7 +10,7 @@ class World {
 vector<Entity*> Entities;
 public:
     Entity* createEntity();
-    void assignComponentToEntity(Entity* e,Component* c);
+    //void assignComponentToEntity(Entity* e,Component* c);
     vector<Entity*> getEntities();
 };
 
