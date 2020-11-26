@@ -10,9 +10,12 @@
 class Transform: public Component{
     glm::vec3 translation, rotation, scale;
     Entity* parent;
+public:
     Transform(glm::vec3 translation={0,0,0} ,glm::vec3 rotation={0,0,0},glm::vec3 scale={0,0,0},Entity*parent= nullptr);
     glm::mat4 to_mat4() const;
     Entity* getParent();
+
+    glm::mat4 parents_mat() ;// this function return transform matrix of all parents * transform of an object
 };
 
 

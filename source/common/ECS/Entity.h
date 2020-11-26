@@ -20,6 +20,7 @@ public:
     void removeComponent(Component* c);
     template<typename T>
     T* getComponent();
+
 };
 
 

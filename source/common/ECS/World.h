@@ -12,6 +12,7 @@ public:
     Entity* createEntity();
     //void assignComponentToEntity(Entity* e,Component* c);
     vector<Entity*> getEntities();
+    void Rendering();
 };
 
 
