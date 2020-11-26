@@ -14,7 +14,7 @@ Entity* World::createEntity() {
 vector<Entity *> World::getEntities() {
     return Entities;
 }
-
+// this function should be called in main game state 
 void World::Rendering(){
     int Size=Entities.size();
     for(int i=0;i<Size;i++)
