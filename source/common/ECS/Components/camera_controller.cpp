@@ -1,5 +1,5 @@
 #include "camera_controller.h"
-
+#include "Transform.h"
     // Allows you to control the camera freely in world space
 
 CameraController::CameraController(){
@@ -7,11 +7,11 @@ CameraController::CameraController(){
             position_sensitivity = {3.0f, 3.0f, 3.0f};
             fov_sensitivity = glm::pi<float>()/10;
 
-            //position = camera->getEyePosition();///////////////////////////////////////////////ask
-            //auto direction = camera->getDirection();///////////////////////////////////////////
-            //yaw = glm::atan(-direction.z, direction.x);
-            //float base_length = glm::sqrt(direction.x * direction.x + direction.z * direction.z);
-            //pitch = glm::atan(direction.y, base_length);
+            position =getEye();
+            auto direction = getDirection();
+            yaw = glm::atan(-direction.z, direction.x);
+            float base_length = glm::sqrt(direction.x * direction.x + direction.z * direction.z);
+            pitch = glm::atan(direction.y, base_length);
         }
 
         void CameraController::release(){
@@ -44,21 +44,17 @@ CameraController::CameraController(){
             fov = glm::clamp(fov, glm::pi<float>() * 0.01f, glm::pi<float>() * 0.99f);
             camera->setVerticalFieldOfView(fov);
 
-            //glm::vec3 front = camera->Forward(), up = camera->Up(), right = camera->Right();////////////////////
 
             glm::vec3 current_sensitivity = this->position_sensitivity;
             if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= speedup_factor;
-            ///////////////////////////////////////////////////ask//////////////////////////////////////////////////////////
-            /*if(app->getKeyboard().isPressed(GLFW_KEY_W)) position += front * ((float)delta_time * current_sensitivity.z);
-            if(app->getKeyboard().isPressed(GLFW_KEY_S)) position -= front * ((float)delta_time * current_sensitivity.z);
-            if(app->getKeyboard().isPressed(GLFW_KEY_Q)) position += up * ((float)delta_time * current_sensitivity.y);
-            if(app->getKeyboard().isPressed(GLFW_KEY_E)) position -= up * ((float)delta_time * current_sensitivity.y);
-            if(app->getKeyboard().isPressed(GLFW_KEY_D)) position += right * ((float)delta_time * current_sensitivity.x);
-            if(app->getKeyboard().isPressed(GLFW_KEY_A)) position -= right * ((float)delta_time * current_sensitivity.x);
-
-            camera->setDirection(glm::vec3(glm::cos(yaw), 0, -glm::sin(yaw)) * glm::cos(pitch) + glm::vec3(0, glm::sin(pitch), 0));
-            camera->setEyePosition(position);*/
-            //////////////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            if(app->getKeyboard().isPressed(GLFW_KEY_W)) T->CameraTransform(0,(float)delta_time,current_sensitivity.z);
+            if(app->getKeyboard().isPressed(GLFW_KEY_S)) T->CameraTransform(1,(float)delta_time,current_sensitivity.z);
+            if(app->getKeyboard().isPressed(GLFW_KEY_Q)) T->CameraTransform(2,(float)delta_time,current_sensitivity.y);
+            if(app->getKeyboard().isPressed(GLFW_KEY_E)) T->CameraTransform(3,(float)delta_time,current_sensitivity.y);
+            if(app->getKeyboard().isPressed(GLFW_KEY_D)) T->CameraTransform(4,(float)delta_time,current_sensitivity.x);
+            if(app->getKeyboard().isPressed(GLFW_KEY_A)) T->CameraTransform(5,(float)delta_time,current_sensitivity.x);
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
         [[nodiscard]] float CameraController::getYaw() const {return yaw;}
@@ -88,5 +84,28 @@ CameraController::CameraController(){
         void CameraController::setPitchSensitivity(float sensitivity){this->pitch_sensitivity = sensitivity;}
         void CameraController::setFieldOfViewSensitivity(float sensitivity){this->fov_sensitivity = sensitivity;}
         void CameraController::setPositionSensitivity(glm::vec3 sensitivity){this->position_sensitivity = sensitivity;}
-
-
+        void CameraController::setEyeUpDirection(glm::mat4 mat){
+            eye={mat[0][0], mat[1][0], mat[2][0]};
+            up={mat[0][1], mat[1][1], mat[2][1]};
+            direction={mat[0][2], mat[1][2], mat[2][2]};
+        }
+glm::vec3 CameraController::getEye(){
+    return eye;
+}
+glm::vec3 CameraController::getUp(){
+    return up;
+}
+glm::vec3 CameraController::getDirection(){
+    return direction;
+}
+glm::mat4 CameraController::getViewMatrix(){
+    glm::mat4 V=glm::mat4(1.0);
+    if(camera->dirtyFlags & camera->V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
+        V = glm::lookAt(eye, eye + direction, up);
+        camera->dirtyFlags &= ~camera->V_DIRTY; // V is no longer dirty
+    }
+    return V;
+}
+void CameraController::setTransform(Transform* T){
+    this->T=T;
+}

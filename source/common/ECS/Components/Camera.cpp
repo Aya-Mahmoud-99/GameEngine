@@ -5,6 +5,7 @@
 #include "Camera.h"
 Camera::Camera(){
     dirtyFlags = V_DIRTY | P_DIRTY | VP_DIRTY;
+
 }
 
 // Setup the camera as a perspective camera
@@ -79,6 +80,24 @@ glm::mat4 Camera::getProjectionMatrix(){
     }
     return P;
 }
+/*
+glm::mat4 getViewMatrix(){
+    if(dirtyFlags & V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
+        V = glm::lookAt(eye, eye + direction, up);
+        dirtyFlags &= ~V_DIRTY; // V is no longer dirty
+    }
+    return V;
+}
+
+glm::mat4 getVPMatrix(){
+    if(dirtyFlags & VP_DIRTY){
+        VP = getProjectionMatrix() * getViewMatrix();
+        // Note that we called the functions getProjectionMatrix & getViewMatrix instead of directly using V & P
+        // to make sure that they are not outdated
+        dirtyFlags = 0; // Nothing is dirty anymore
+    }
+    return VP;
+}*/
 
 
 

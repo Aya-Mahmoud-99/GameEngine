@@ -5,7 +5,7 @@
 #include "World.h"
 #include "Components\MeshRenderer.h"
 #include "Components\Transform.h"
-#include "Components\Camera.h"
+//#include "Components\Camera.h"
 Entity* World::createEntity() {
     Entity* e=new Entity();
     Entities.push_back(e);
@@ -27,4 +27,30 @@ void World::Rendering(){
 
         }
     }
+}
+glm::mat4 World::getCameraEntityTransform(){
+    glm::mat4 mat=glm::mat4(1.0);
+    int Size=Entities.size();
+    for(int i=0;i<Size;i++)
+    {
+        if(Entities.at(i)->getComponent<Camera>()!=NULL)
+        {
+            Transform* t=Entities.at(i)->getComponent<Transform>();
+            return t->to_mat4();
+
+        }
+    }
+    return mat;
+}
+ Entity* World::getCameraEntity(){
+
+    int Size=Entities.size();
+    for(int i=0;i<Size;i++)
+    {
+        if(Entities.at(i)->getComponent<Camera>()!=NULL)
+        {
+            return Entities.at(i);
+        }
+    }
+    return NULL;
 }

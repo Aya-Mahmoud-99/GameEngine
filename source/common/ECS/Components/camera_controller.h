@@ -7,8 +7,9 @@
 #include <glm/gtx/fast_trigonometry.hpp>
 #include <../common/application.hpp>
 #include "Camera.h"
+#include "Transform.h"
 
-
+    ///x=eye,up=y,z=direction
     // Allows you to control the camera freely in world space
     class CameraController: public Component{
     private:
@@ -16,11 +17,11 @@
         Camera *camera;/////////////////////////////////////ask
         float yaw, pitch;
         glm::vec3 position;
-
+        glm::vec3 eye = {0, 0, 0}, direction = {0, 0, -1}, up = {0, 1, 0};
         float yaw_sensitivity, pitch_sensitivity, fov_sensitivity;
         glm::vec3 position_sensitivity;
         float speedup_factor = 5.0f; // A speed multiplier if "Left Shift" is held.
-
+        Transform *T;
         bool mouse_locked = false;
 
     public:
@@ -43,11 +44,16 @@
         void setYaw(float _yaw);
         void setPitch(float _pitch);
         void setPosition(glm::vec3 _pos);
+        void setTransform(Transform* T);
 
         void setYawSensitivity(float sensitivity);
         void setPitchSensitivity(float sensitivity);
         void setFieldOfViewSensitivity(float sensitivity);
         void setPositionSensitivity(glm::vec3 sensitivity);
-
+        void setEyeUpDirection(glm::mat4 mat);
+        glm::vec3 getEye();
+        glm::vec3 getUp();
+        glm::vec3 getDirection();
+        glm::mat4 getViewMatrix();
     };
 

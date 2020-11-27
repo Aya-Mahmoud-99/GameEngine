@@ -18,8 +18,7 @@
         // 1- The inputs were changed.
         // 2- The output is needed.
         // Where we have flags for whether the View, Projection & ViewProjection matrices needed to be regenerated.
-        static const uint8_t V_DIRTY = 1, P_DIRTY = 2, VP_DIRTY = 4;
-        uint8_t dirtyFlags = 0;
+
 
         CameraType type = CameraType::Perspective;
 
@@ -28,9 +27,11 @@
         float field_of_view_y = glm::radians(
                 90.0f), orthographic_height = 2.0f, aspect_ratio = 1.0f, near = 0.01f, far = 100.0f;
 
-        glm::mat4 P{};
+        glm::mat4 V{}, P{}, VP{};
 
     public:
+        static const uint8_t V_DIRTY = 1, P_DIRTY = 2, VP_DIRTY = 4;
+        uint8_t dirtyFlags = 0;
         Camera();
 
         // Setup the camera as a perspective camera
@@ -45,7 +46,8 @@
         void setAspectRatio(float aspect_ratio);
         void setNearPlane(float near);
         void setFarPlane(float far);
-
+        glm::mat4 getViewMatrix();
+        glm::mat4 getVPMatrix();
 
 
         glm::mat4 getProjectionMatrix();
