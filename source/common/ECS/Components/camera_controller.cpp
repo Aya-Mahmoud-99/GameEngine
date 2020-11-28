@@ -2,7 +2,9 @@
 #include "Transform.h"
     // Allows you to control the camera freely in world space
 
-CameraController::CameraController(){
+CameraController::CameraController(our::Application* application, Camera* cameraParam){
+            app=application;
+            camera=cameraParam;
             yaw_sensitivity = pitch_sensitivity = 0.01f;
             position_sensitivity = {3.0f, 3.0f, 3.0f};
             fov_sensitivity = glm::pi<float>()/10;

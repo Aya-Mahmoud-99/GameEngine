@@ -12,6 +12,7 @@
 class MeshRenderer : public Component{
     our::Mesh* mesh;
     our::ShaderProgram* program;
+public:
     MeshRenderer(our::Mesh* mesh= nullptr,our::ShaderProgram* program= nullptr);
     our::Mesh* getPointerToMesh();
     our::ShaderProgram* getPointerToProgram();

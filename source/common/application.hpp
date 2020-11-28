@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <imgui.h>
 
+#include "./ECS/GameState.h"
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 
@@ -26,6 +27,8 @@ namespace our {
         Keyboard keyboard;                  // Instance of "our" keyboard class that handles keyboard functionalities.
         Mouse mouse;                        // Instance of "our" mouse class that handles mouse functionalities.
 
+
+
         // Virtual functions to be overrode and change the default behaviour of the application
         // according to the example needs.
         virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
@@ -39,7 +42,8 @@ namespace our {
         virtual void onDestroy(){}                      // Called once after the game loop ends for house cleaning.
 
 
-        // Override these functions to get mouse and keyboard event.
+
+         // Override these functions to get mouse and keyboard event.
         virtual void onKeyEvent(int key, int scancode, int action, int mods){}      
         virtual void onCursorMoveEvent(double x, double y){}
         virtual void onCursorEnterEvent(int entered){}

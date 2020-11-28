@@ -27,7 +27,7 @@ void main() {
     float ResV_L=-1*y5-x5;
     float ResV_R=x5-y5;
 
-    if((distance(center1,position)>radius1 &&distance(center1,position)>radius1 ) || distance(center2,position)<radius2 || (ResV_L<0 && ResV_R>0)){
+    if((distance(center1,position)>radius1) || distance(center2,position)<radius2 || (ResV_L<0 && ResV_R>0)){
         frag_color = vec4(0,0,0,1.0);
     }
     else{

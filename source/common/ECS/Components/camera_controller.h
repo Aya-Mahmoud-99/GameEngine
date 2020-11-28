@@ -6,7 +6,6 @@
 #include <glm/trigonometric.hpp>
 #include <glm/gtx/fast_trigonometry.hpp>
 #include <../common/application.hpp>
-#include "Camera.h"
 #include "Transform.h"
 
     ///x=eye,up=y,z=direction
@@ -25,7 +24,7 @@
         bool mouse_locked = false;
 
     public:
-        CameraController();
+        CameraController(Application* application, Camera* camera);
 
         void release();
 
