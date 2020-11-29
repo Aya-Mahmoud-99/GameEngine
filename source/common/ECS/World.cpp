@@ -28,9 +28,8 @@ void World::Rendering(){
             MeshRenderer* mesh=Entities.at(i)->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();
             our::ShaderProgram* p=mesh->getPointerToProgram();
-            glUseProgram(p);
             glClear(GL_COLOR_BUFFER_BIT);
-            glUseProgram(program);
+            glUseProgram(p);
 
             program.set("transform", matrix1);
             program.set("tint", glm::vec4(1,1,1,1));
