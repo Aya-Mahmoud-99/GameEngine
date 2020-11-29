@@ -13,3 +13,7 @@ our::Mesh* MeshRenderer::getPointerToMesh() {
 our::ShaderProgram* MeshRenderer::getPointerToProgram() {
     return program;
 }
+MeshRenderer::~MeshRenderer() {
+    delete mesh;
+    delete program;
+}

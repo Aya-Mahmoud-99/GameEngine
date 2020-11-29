@@ -1,12 +1,12 @@
 //
 // Created by Aya on 11/17/2020.
 //
+
+#ifndef GFX_LAB_WORLD_H
+#define GFX_LAB_WORLD_H
 #include "./Components/Camera.h"
 #include "./Components/Transform.h"
 #include "Entity.h"
-#ifndef GFX_LAB_WORLD_H
-#define GFX_LAB_WORLD_H
-
 
 class World {
 vector<Entity*> Entities;

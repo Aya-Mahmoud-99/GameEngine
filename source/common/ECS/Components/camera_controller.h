@@ -24,7 +24,7 @@
         bool mouse_locked = false;
 
     public:
-        CameraController(Application* application, Camera* camera);
+        CameraController(our::Application* application, Camera* camera,Transform* T);
 
         void release();
 

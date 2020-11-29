@@ -1,6 +1,6 @@
 
 // Created by m.yasser on 11/26/2020.
-
+#include <./application.hpp>
 #include "GameState.h"
 #include "./ECS/Components/camera_controller.h"
 #include "./shader.hpp"
@@ -13,8 +13,8 @@
 
 
 void GameState::onEnter(our::Application* app,World* WorldPointer){
-    our::Application* App;
-    App=app;
+    //our::Application* App;
+    //App=app;
 //create our world
 
  // create a cam entity from world
@@ -28,8 +28,8 @@ Camera* CameraPointer=new Camera();
 
     CameraPointer->setupPerspective(glm::pi<float>()/2, static_cast<float>(width)/height, 0.1f, 100.0f);
 
-CameraController* CamControllerPointer=new CameraController(app,CameraPointer);
-
+    CameraController* CamControllerPointer=new CameraController(app,CameraPointer,TransformCamera);
+    //CamControllerPointer->setTransform(TransformCamera);
     CamControllerPointer->setFieldOfViewSensitivity(0.05f );
 
     CamEntity->addComponent(TransformCamera);

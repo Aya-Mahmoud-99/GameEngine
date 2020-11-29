@@ -1,8 +1,14 @@
 #include "camera_controller.h"
 #include "Transform.h"
+
     // Allows you to control the camera freely in world space
 
-CameraController::CameraController(our::Application* application, Camera* cameraParam){
+CameraController::CameraController(our::Application* application, Camera* cameraParam,Transform* Tr){
+    ////fe 7aga fel world
+            T=Tr;
+    /// aya
+            this->setEyeUpDirection(Tr->to_mat4());
+    ///  aya
             app=application;
             camera=cameraParam;
             yaw_sensitivity = pitch_sensitivity = 0.01f;
@@ -49,13 +55,17 @@ CameraController::CameraController(our::Application* application, Camera* camera
 
             glm::vec3 current_sensitivity = this->position_sensitivity;
             if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= speedup_factor;
+            ///Bassant and Aya
+            glm::mat4 mat;
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            if(app->getKeyboard().isPressed(GLFW_KEY_W)) T->CameraTransform(0,(float)delta_time,current_sensitivity.z);
-            if(app->getKeyboard().isPressed(GLFW_KEY_S)) T->CameraTransform(1,(float)delta_time,current_sensitivity.z);
-            if(app->getKeyboard().isPressed(GLFW_KEY_Q)) T->CameraTransform(2,(float)delta_time,current_sensitivity.y);
-            if(app->getKeyboard().isPressed(GLFW_KEY_E)) T->CameraTransform(3,(float)delta_time,current_sensitivity.y);
-            if(app->getKeyboard().isPressed(GLFW_KEY_D)) T->CameraTransform(4,(float)delta_time,current_sensitivity.x);
-            if(app->getKeyboard().isPressed(GLFW_KEY_A)) T->CameraTransform(5,(float)delta_time,current_sensitivity.x);
+            if(app->getKeyboard().isPressed(GLFW_KEY_W)) mat=T->CameraTransform(0,(float)delta_time,current_sensitivity.z);
+            if(app->getKeyboard().isPressed(GLFW_KEY_S)) mat=T->CameraTransform(1,(float)delta_time,current_sensitivity.z);
+            if(app->getKeyboard().isPressed(GLFW_KEY_Q)) mat=T->CameraTransform(2,(float)delta_time,current_sensitivity.y);
+            if(app->getKeyboard().isPressed(GLFW_KEY_E)) mat=T->CameraTransform(3,(float)delta_time,current_sensitivity.y);
+            if(app->getKeyboard().isPressed(GLFW_KEY_D)) mat=T->CameraTransform(4,(float)delta_time,current_sensitivity.x);
+            if(app->getKeyboard().isPressed(GLFW_KEY_A)) mat=T->CameraTransform(5,(float)delta_time,current_sensitivity.x);
+            this->setEyeUpDirection(mat);
+            ///Bassant and Aya
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
