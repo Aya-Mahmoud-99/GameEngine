@@ -1,6 +1,8 @@
 #include "camera_controller.h"
 #include "Transform.h"
 
+#include"Camera.h"
+
     // Allows you to control the camera freely in world space
 
 CameraController::CameraController(our::Application* application, Camera* cameraParam,Transform* Tr){

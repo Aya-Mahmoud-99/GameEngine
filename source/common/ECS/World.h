@@ -4,9 +4,11 @@
 
 #ifndef GFX_LAB_WORLD_H
 #define GFX_LAB_WORLD_H
-#include "./Components/Camera.h"
-#include "./Components/Transform.h"
-#include "Entity.h"
+#include <glm/glm.hpp>
+#include "vector"
+
+class Entity;
+using namespace std;
 
 class World {
 vector<Entity*> Entities;

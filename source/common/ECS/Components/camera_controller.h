@@ -7,7 +7,7 @@
 #include <glm/gtx/fast_trigonometry.hpp>
 #include <../common/application.hpp>
 #include "Transform.h"
-
+class Camera;
     ///x=eye,up=y,z=direction
     // Allows you to control the camera freely in world space
     class CameraController: public Component{

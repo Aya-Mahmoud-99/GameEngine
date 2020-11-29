@@ -3,8 +3,10 @@
 //
 
 #include "World.h"
-#include "Components\MeshRenderer.h"
-#include "Components\Transform.h"
+#include "Components/MeshRenderer.h"
+#include "Components/Transform.h"
+#include "Components/Camera.h"
+#include "Entity.h"
 //#include "Components\Camera.h"
 Entity* World::createEntity() {
     Entity* e=new Entity();
@@ -19,13 +21,13 @@ void World::Rendering(){
     int Size=Entities.size();
     for(int i=0;i<Size;i++)
     {
-        if(Entities.at(i)->getComponent<MeshRenderer>()!=NULL)
+        if(Entities[i]->getComponent<MeshRenderer>()!=NULL)
         {
-            Camera* c=Entities.at(i)->getComponent<Camera>();
-            Transform* t=Entities.at(i)->getComponent<Transform>();
+            Camera* c=Entities[i]->getComponent<Camera>();
+            Transform* t=Entities[i]->getComponent<Transform>();
             glm::mat4 matrix1=t->parents_mat()* c->getProjectionMatrix(); //*view
 
-            MeshRenderer* mesh=Entities.at(i)->getComponent<MeshRenderer>();
+            MeshRenderer* mesh=Entities[i]->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();
             our::ShaderProgram* p=mesh->getPointerToProgram();
             glClear(GL_COLOR_BUFFER_BIT);
@@ -44,9 +46,9 @@ glm::mat4 World::getCameraEntityTransform(){
     int Size=Entities.size();
     for(int i=0;i<Size;i++)
     {
-        if(Entities.at(i)->getComponent<Camera>()!=NULL)
+        if(Entities[i]->getComponent<Camera>()!=NULL)
         {
-            Transform* t=Entities.at(i)->getComponent<Transform>();
+            Transform* t=Entities[i]->getComponent<Transform>();
             return t->to_mat4();
 
         }

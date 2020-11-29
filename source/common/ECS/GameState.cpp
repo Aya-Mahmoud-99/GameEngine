@@ -9,7 +9,8 @@
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
 #include <ECS/Components/MeshRenderer.h>
-
+#include"Components/Camera.h"
+#include"Entity.h"
 
 
 void GameState::onEnter(our::Application* app,World* WorldPointer){
