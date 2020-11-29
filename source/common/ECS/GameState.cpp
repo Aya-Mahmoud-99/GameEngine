@@ -39,6 +39,7 @@ CameraController* CamControllerPointer=new CameraController(app,CameraPointer);
 
 /////////////////////////////////
 Entity* Object1;
+Object1=WorldPointer->createEntity();
 Transform* TransformObject1=new Transform();
 
     our::ShaderProgram* program;
@@ -69,6 +70,7 @@ Transform* TransformObject1=new Transform();
 
     ////////////////////////////////////////////////////////
     Entity* Object2;
+    Object2=WorldPointer->createEntity();
     Transform* TransformObject2=new Transform();
 
     our::ShaderProgram* program1;
