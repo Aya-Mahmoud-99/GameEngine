@@ -25,6 +25,16 @@ void World::Rendering(){
             Transform* t=Entities.at(i)->getComponent<Transform>();
             glm::mat4 matrix1=t->parents_mat()* c->getProjectionMatrix(); //*view
 
+            MeshRenderer* mesh=Entities.at(i)->getComponent<MeshRenderer>();
+            our::Mesh* m=mesh->getPointerToMesh();
+            our::ShaderProgram* p=mesh->getPointerToProgram();
+            glClear(GL_COLOR_BUFFER_BIT);
+            glUseProgram(p);
+
+            program.set("transform", matrix1);
+            program.set("tint", glm::vec4(1,1,1,1));
+            mesh.draw();
+
         }
     }
 }
@@ -53,4 +63,7 @@ glm::mat4 World::getCameraEntityTransform(){
         }
     }
     return NULL;
+}
+World::~World() {
+
 }

@@ -10,7 +10,7 @@ void Entity::addComponent(Component *c) {
 void Entity::removeComponent(Component *c) {
     for(int i=0;i<components.size();i++){
         //delete components[i];
-        components.erase(components.begin()+i);
+        if(components[i]==c)components.erase(components.begin()+i);
     }
 }
 template<typename T>
@@ -21,4 +21,9 @@ if ((t = dynamic_cast<T*>(i)) != nullptr) return t;
 }
 
 return nullptr;
+}
+Entity::~Entity() {
+    for(int i=0;i<components.size();i++){
+        delete components[i];
+    }
 }

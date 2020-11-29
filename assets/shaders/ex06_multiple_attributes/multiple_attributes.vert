@@ -19,9 +19,10 @@ layout(location = 1) in vec4 color;
 
 // The varying for the vertex color
 out vec4 vertex_color;
+uniform mat4 transform;
 
 void main() {
     // Just passing data unmodified
-    gl_Position = vec4(position, 1.0);
+    gl_Position =transform * vec4(position, 1.0);
     vertex_color = color;
 }
