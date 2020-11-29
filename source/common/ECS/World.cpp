@@ -29,11 +29,11 @@ void World::Rendering(){
             our::Mesh* m=mesh->getPointerToMesh();
             our::ShaderProgram* p=mesh->getPointerToProgram();
             glClear(GL_COLOR_BUFFER_BIT);
-            glUseProgram(p);
+            glUseProgram(*p);
 
-            program.set("transform", matrix1);
-            program.set("tint", glm::vec4(1,1,1,1));
-            mesh.draw();
+            p->set("transform", matrix1);
+            p->set("tint", glm::vec4(1,1,1,1));
+            m->draw();
 
         }
     }
