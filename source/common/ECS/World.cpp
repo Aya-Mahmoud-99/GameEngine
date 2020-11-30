@@ -6,6 +6,8 @@
 #include "Components/MeshRenderer.h"
 #include "Components/Transform.h"
 #include "Components/Camera.h"
+#include "Components/camera_controller.h"
+
 #include "Entity.h"
 //#include "Components\Camera.h"
 Entity* World::createEntity() {
@@ -25,7 +27,9 @@ void World::Rendering(){
         {
             Camera* c=Entities[i]->getComponent<Camera>();
             Transform* t=Entities[i]->getComponent<Transform>();
-            glm::mat4 matrix1=t->parents_mat()* c->getProjectionMatrix(); //*view
+            CameraController* cc=Entities[i]->getComponent<CameraController>();
+            glm::mat4 vp=c->getProjectionMatrix()*cc->getViewMatrix();
+            glm::mat4 matrix1=vp*t->parents_mat(); //*view
 
             MeshRenderer* mesh=Entities[i]->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();
