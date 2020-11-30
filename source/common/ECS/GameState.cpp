@@ -2,7 +2,7 @@
 // Created by m.yasser on 11/26/2020.
 //#include <./application.hpp>
 #include "GameState.h"
-#include "Components/camera_controller.h"
+#include "Components/CameraComponent.h"
 #include "./shader.hpp"
 #include <mesh/mesh.hpp>
 #include <mesh/mesh-utils.hpp>

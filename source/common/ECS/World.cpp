@@ -6,7 +6,7 @@
 #include "Components/MeshRenderer.h"
 #include "Components/Transform.h"
 #include "Components/Camera.h"
-#include "Components/camera_controller.h"
+#include "Components/CameraComponent.h"
 
 #include "Entity.h"
 //#include "Components\Camera.h"

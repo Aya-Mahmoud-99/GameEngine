@@ -46,8 +46,8 @@
         void setAspectRatio(float aspect_ratio);
         void setNearPlane(float near);
         void setFarPlane(float far);
-        glm::mat4 getViewMatrix();
-        glm::mat4 getVPMatrix();
+        //glm::mat4 getViewMatrix();
+        //glm::mat4 getVPMatrix();
 
 
         glm::mat4 getProjectionMatrix();
