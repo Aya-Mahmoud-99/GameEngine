@@ -3,6 +3,7 @@
 //
 
 #include "Entity.h"
+#include "Component.h"
 void Entity::addComponent(Component *c) {
     //c=new Component();
     components.push_back(c);
