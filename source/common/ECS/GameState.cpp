@@ -13,10 +13,11 @@
 #include"Entity.h"
 
 
-void GameState::onEnter(our::Application* app,World* WorldPointer){
-    //our::Application* App;
+void GameState::onEnter(our::Application* app){
+    our::Application* App;
     //App=app;
 //create our world
+    WorldPointer=new World();
 
  // create a cam entity from world
 Entity* CamEntity;
@@ -38,7 +39,7 @@ Camera* CameraPointer=new Camera();
     CamEntity->addComponent(CamControllerPointer);
 
 
-/////////////////////////////////
+/////////////////////////////////*/
 Entity* Object1;
 Object1=WorldPointer->createEntity();
 Transform* TransformObject1=new Transform();
@@ -98,6 +99,7 @@ Transform* TransformObject1=new Transform();
 // from the entitiy , get the camera controller component (generic fn)
 //PointerToCamController = camera controller component
 
+
 }
 
 void GameState::onImmediateGui(ImGuiIO& io){
@@ -106,23 +108,20 @@ void GameState::onImmediateGui(ImGuiIO& io){
 
 }
 
-void GameState::onDraw(our::Application* app,World* WorldPointer,double deltaTime){
+void GameState::onDraw(our::Application* app,double deltaTime){
     our::Application* App;
     App=app;
 
-
-while(!glfwWindowShouldClose(App->getWindow())){
 WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
 WorldPointer->Rendering();
-}
-
-onExit(App,WorldPointer);
 
 }
 
-void GameState::onExit(our::Application* app,World* WorldPointer) {
+void GameState::onExit(our::Application* app) {
     our::Application* App;
     App=app;
+    delete WorldPointer;
+
 
 }
 

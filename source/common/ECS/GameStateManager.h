@@ -1,4 +1,4 @@
-#include "GameState.cpp"
+#include "GameState.h"
 #ifndef GameStateManager_H
 #define GameStateManager_H
 
@@ -9,7 +9,7 @@ private:
 
 public:
     void GoToState(GameState* PointerToGS);
-    void run(our::Application* app,World* WorldPointer,double deltaTime);
+    void run(our::Application* app);
 
 
 };

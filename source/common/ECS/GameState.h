@@ -26,14 +26,15 @@
 class GameState{
 
 private:
-     //CameraController* PointerToCamController;
+    // CameraController* PointerToCamController;
+     World* WorldPointer;
 public:
 
-    void onEnter(our::Application* app,World* WorldPointer);
-    void onExit(our::Application* app,World* WorldPointer);
+    void onEnter(our::Application* app);
+    void onExit(our::Application* app);
     void onImmediateGui(ImGuiIO& io);
 
-    void onDraw(our::Application* app,World* WorldPointer,double deltaTime);
+    void onDraw(our::Application* app,double deltaTime);
    // void resume();
     //void update();
 
