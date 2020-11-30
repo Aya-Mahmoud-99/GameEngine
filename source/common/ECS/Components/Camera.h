@@ -63,5 +63,7 @@
         [[nodiscard]] float getNearPlane() const ;
         [[nodiscard]] float getFarPlane() const ;
 
+        ~Camera(){
 
+        }
 };

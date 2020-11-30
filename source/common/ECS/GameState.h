@@ -1,3 +1,4 @@
+#pragma once
 //
 // Created by m.yasser on 11/26/2020.
 //
@@ -6,6 +7,7 @@
 #define CameraController_H
 //class our::Application;
 #include <application.hpp>
+//#include "Components/camera_controller.h"
 
 #include <glm/vec2.hpp>
 #include <glad/gl.h>
@@ -19,12 +21,12 @@
 //#include "input/keyboard.hpp"
 //#include "input/mouse.hpp"
 
-class CameraController;
+//class CameraController;
 //using namespace our;
 class GameState{
 
 private:
-     CameraController* PointerToCamController;
+     //CameraController* PointerToCamController;
 public:
 
     void onEnter(our::Application* app,World* WorldPointer);

@@ -1,4 +1,4 @@
-
+#pragma once
 #include"ECS/Component.h"
 
 #include <glm/glm.hpp>
@@ -54,5 +54,6 @@ class Camera;
         glm::vec3 getUp();
         glm::vec3 getDirection();
         glm::mat4 getViewMatrix();
+        ~CameraController(){}
     };
 

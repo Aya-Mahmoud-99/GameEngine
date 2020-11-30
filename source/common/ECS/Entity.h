@@ -5,8 +5,6 @@
 //#include "Component.h"
 #include <string>
 #include "vector"
-#ifndef Component_H
-#define Component_H
 using namespace std;
 //#ifndef GFX_LAB_ENTITY_H
 //#define GFX_LAB_ENTITY_H
@@ -19,9 +17,15 @@ public:
     void addComponent(Component* c);
     void removeComponent(Component* c);
     template<typename T>
-    T* getComponent();
+    T* getComponent(){
+    T* t = nullptr;
+    for (auto i : components) {
+        if ((t = dynamic_cast<T*>(i)) != nullptr) return t;
+    }
+
+    return NULL;
+};
 ~Entity();
 };
 
 
-#endif //GFX_LAB_ENTITY_H
