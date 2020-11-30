@@ -8,6 +8,7 @@ Transform::Transform(glm::vec3 t, glm::vec3 r, glm::vec3 s,Entity*p) {
     rotation = r;
     scale=s;
     parent=p;
+    V=to_mat4();
 }
 glm::mat4 Transform::to_mat4() {
     return glm::translate(glm::mat4(1.0f), translation) *
@@ -18,7 +19,8 @@ Entity* Transform::getParent(){
     return parent;
 };
 glm::mat4 Transform::CameraTransform(int num,float deltatime,float currentsenstivity) {
-    glm::mat4 V=this->to_mat4();
+    //glm::mat4 V=this->to_mat4();
+    //glm::mat4 V=curr
     if(num==0){ //forward//direction
         V[0][2]*=-1* (deltatime * currentsenstivity);
         V[1][2]*=-1* (deltatime * currentsenstivity);

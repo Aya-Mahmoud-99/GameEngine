@@ -10,6 +10,7 @@
 class Transform: public Component{
     glm::vec3 translation, rotation, scale;
     Entity* parent;
+    glm::mat4 V;
 public:
     Transform(glm::vec3 translation={0,0,0} ,glm::vec3 rotation={0,0,0},glm::vec3 scale={0,0,0},Entity*parent= nullptr);
     glm::mat4 to_mat4();
