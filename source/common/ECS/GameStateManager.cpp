@@ -89,9 +89,10 @@ CurrentGameState->onEnter(app);
                     std::cerr << "Failed to save a Screenshot" << std::endl;
                 }*/
             }
-app->keyboard.update();
-            app->mouse.update();
             glfwSwapBuffers(app->window);
+
+            app->keyboard.update();
+            app->mouse.update();
         }
         CurrentGameState->onExit(app);
             /*if(NextGameState!= nullptr){

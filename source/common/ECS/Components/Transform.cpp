@@ -58,11 +58,11 @@ glm::mat4 Transform::CameraTransform(int num,float deltatime,float currentsensti
     return V;
 }
 glm::mat4 Transform::parents_mat() {
-    glm::mat4 matrix=this->to_mat4();
+    glm::mat4 matrix=V;
     Entity* temp=this->getParent();
         while (temp != NULL) {
             Transform *tempTransform = temp->getComponent<Transform>();
-            matrix = matrix * tempTransform->to_mat4();
+            matrix = matrix * tempTransform->V;
             temp = tempTransform->getParent();
         }
     return matrix;
