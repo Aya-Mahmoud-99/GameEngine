@@ -17,7 +17,7 @@ public:
     Entity* getParent();
     glm::mat4 CameraTransform(int num,float deltatime,float currentsenstivity);
     glm::mat4 parents_mat() ;// this function return transform matrix of all parents * transform of an object
-
+    glm::mat4 getMatrix();
 };
 
 

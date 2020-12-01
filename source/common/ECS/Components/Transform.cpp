@@ -15,6 +15,9 @@ glm::mat4 Transform::to_mat4() {
            glm::yawPitchRoll(rotation.y, rotation.x, rotation.z) *
            glm::scale(glm::mat4(1.0f), scale);
 }
+glm::mat4 Transform::getMatrix() {
+    return V;
+}
 Entity* Transform::getParent(){
     return parent;
 };

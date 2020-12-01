@@ -25,7 +25,7 @@ void GameState::onEnter(our::Application* app){
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
     Entity* CamEntity;
 CamEntity=WorldPointer->createEntity();
-Transform* TransformCamera=new Transform({0,0,0},{0, 0, 0},{width, height, 1});
+Transform* TransformCamera=new Transform({0,0,1},{0, 0, 0},{width, height, 1});
 Camera* CameraPointer=new Camera();
 
 
@@ -42,9 +42,9 @@ Camera* CameraPointer=new Camera();
 
 /////////////////////////////////*/
 
-Entity* Object1;
-Object1=WorldPointer->createEntity();
-Transform* TransformObject1=new Transform();
+    Entity* Object1;
+    Object1=WorldPointer->createEntity();
+    Transform* TransformObject1=new Transform({0,0,0},{0,0,0},{1,1,1});
 
     our::ShaderProgram* program=new our::ShaderProgram ();
     //our::ShaderProgram* program=&programm;
@@ -65,9 +65,9 @@ Transform* TransformObject1=new Transform();
             {{-0.5,  0.5, 0},{255, 255,   0, 255}}
     },GL_STATIC_DRAW);
     quad->setElementData<GLuint>({
-                                        0, 1, 2,
-                                        2, 3, 0
-                                },GL_STATIC_DRAW);
+                                         0, 1, 2,
+                                         2, 3, 0
+                                 },GL_STATIC_DRAW);
 
     MeshRenderer* MeshPointer=new MeshRenderer(quad,program);
 
@@ -95,9 +95,8 @@ Transform* TransformObject1=new Transform();
 
     Object2->addComponent(TransformObject2);
     Object2->addComponent(MeshPointer1);
+
 ////////////////////////////////////////////////////////////////
-
-
 
 
 // from the entitiy , get the camera controller component (generic fn)

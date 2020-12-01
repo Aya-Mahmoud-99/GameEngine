@@ -4,6 +4,7 @@
 
 #include "CameraComponent.h"
 //#include "Transform.h"
+#include <iostream>
 
 #include"Camera.h"
 
@@ -62,7 +63,7 @@ void CameraController::update(double delta_time){
     glm::vec3 current_sensitivity = this->position_sensitivity;
     if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= speedup_factor;
     // and Aya
-    glm::mat4 mat;
+    glm::mat4 mat=T->getMatrix();
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(app->getKeyboard().isPressed(GLFW_KEY_W)) mat=T->CameraTransform(0,(float)delta_time,current_sensitivity.z);
     if(app->getKeyboard().isPressed(GLFW_KEY_S)) mat=T->CameraTransform(1,(float)delta_time,current_sensitivity.z);
@@ -103,9 +104,26 @@ void CameraController::setPitchSensitivity(float sensitivity){this->pitch_sensit
 void CameraController::setFieldOfViewSensitivity(float sensitivity){this->fov_sensitivity = sensitivity;}
 void CameraController::setPositionSensitivity(glm::vec3 sensitivity){this->position_sensitivity = sensitivity;}
 void CameraController::setEyeUpDirection(glm::mat4 mat){
-    this->eye={mat[0][0], mat[1][0], mat[2][0]};
+  /*  glm::vec4 pos{0,0,0,1};
+    pos=mat*pos;
+    std::cout<<mat[0][0];
+    this->eye={pos[0], pos[1], pos[2]};
     this->up={mat[0][1], mat[1][1], mat[2][1]};
-    this->direction={mat[0][2], mat[1][2], mat[2][2]};
+    this->direction={mat[0][2], mat[1][2], mat[2][2]};*/
+ /* glm::vec4 pos={}
+   this->eye={0,0, 1};
+    this->up={0.707,0.707,0};
+    this->direction={0,0,-1};*/
+    glm::vec4 pos={0,0,0,1};
+    pos=mat*pos;
+    glm::vec4 dir={0,0,-1,0};
+    dir=mat*dir;
+    glm::vec4 up={0,1,0,0};
+    up=mat*up;
+    this->eye={pos[0],pos[1], pos[2]};
+    std::cout<<" "<<eye[0]<<" "<<eye[1]<<" "<<eye[2]<<std::endl;
+    this->up={up[0],up[1],up[2]};
+    this->direction={dir[0],dir[1],dir[2]};
 }
 glm::vec3 CameraController::getEye(){
     return eye;
@@ -118,10 +136,11 @@ glm::vec3 CameraController::getDirection(){
 }
 glm::mat4 CameraController::getViewMatrix(){
     glm::mat4 V=glm::mat4(1.0);
-    if(camera->dirtyFlags & camera->V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
+ /*   if(camera->dirtyFlags & camera->V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
         V = glm::lookAt(eye, eye + direction, up);
         camera->dirtyFlags &= ~camera->V_DIRTY; // V is no longer dirty
-    }
+    }*/
+    V = glm::lookAt(eye, eye + direction, up);
     return V;
 }
 void CameraController::setTransform(Transform* Tr){

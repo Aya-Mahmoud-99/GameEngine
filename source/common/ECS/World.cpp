@@ -21,6 +21,7 @@ vector<Entity *> World::getEntities() {
 // this function should be called in main game state 
 void World::Rendering(){
     int Size=Entities.size();
+    glClear(GL_COLOR_BUFFER_BIT);
     for(int i=0;i<Size;i++)
     {
         if(Entities[i]->getComponent<MeshRenderer>()!=NULL)
@@ -32,7 +33,6 @@ void World::Rendering(){
             //if(!cc)return;
             glm::mat4 vp=c->getProjectionMatrix()*cc->getViewMatrix();
             glm::mat4 matrix1=vp*t->parents_mat(); //*view
-
             MeshRenderer* mesh=Entities[i]->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();
             our::ShaderProgram* p=mesh->getPointerToProgram();
@@ -40,9 +40,8 @@ void World::Rendering(){
             //if(!m) return;
             //if()
            // if(*p) return;
-            glClear(GL_COLOR_BUFFER_BIT);
-            glUseProgram(*p);
 
+            glUseProgram(*p);
             p->set("transform", matrix1);
             p->set("tint", glm::vec4(1,1,1,1));
             m->draw();
@@ -59,7 +58,7 @@ glm::mat4 World::getCameraEntityTransform(){
         if(Entities[i]->getComponent<Camera>()!=NULL)
         {
             Transform* t=Entities[i]->getComponent<Transform>();
-            return t->to_mat4();
+            return t->getMatrix();
 
         }
     }
