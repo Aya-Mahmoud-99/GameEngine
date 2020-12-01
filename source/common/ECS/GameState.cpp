@@ -40,12 +40,15 @@ Camera* CameraPointer=new Camera();
 
 
 /////////////////////////////////*/
+
 Entity* Object1;
 Object1=WorldPointer->createEntity();
 Transform* TransformObject1=new Transform();
 
-    our::ShaderProgram* program;
-    our::Mesh* quad;
+    our::ShaderProgram programm;
+    our::ShaderProgram* program=&programm;
+    our::Mesh quadd;
+    our::Mesh* quad=&quadd;
 
     program->create();
     program->attach("assets/shaders/ex11_transformation/transform.vert", GL_VERTEX_SHADER);
@@ -75,7 +78,8 @@ Transform* TransformObject1=new Transform();
     Object2=WorldPointer->createEntity();
     Transform* TransformObject2=new Transform();
 
-    our::ShaderProgram* program1;
+    our::ShaderProgram program11;
+    our::ShaderProgram* program1=&program11;
     our::Mesh quad1;
     our::Mesh* PointerToquad1=&quad1;
 
@@ -90,7 +94,6 @@ Transform* TransformObject1=new Transform();
 
     Object2->addComponent(TransformObject2);
     Object2->addComponent(MeshPointer1);
-
 ////////////////////////////////////////////////////////////////
 
 

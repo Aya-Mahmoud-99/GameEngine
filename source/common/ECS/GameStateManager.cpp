@@ -65,8 +65,9 @@ CurrentGameState->onEnter(app);
             glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
 
             double current_frame_time = glfwGetTime();
-           // CurrentGameState->onDraw(app,current_frame_time - last_frame_time);
+            CurrentGameState->onDraw(app,current_frame_time - last_frame_time);
             last_frame_time=current_frame_time;
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); // Render the ImGui to the framebuffer
 
 
             glfwSwapBuffers(app->window);

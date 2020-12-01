@@ -25,15 +25,21 @@ void World::Rendering(){
     {
         if(Entities[i]->getComponent<MeshRenderer>()!=NULL)
         {
-            Camera* c=Entities[i]->getComponent<Camera>();
+            Camera* c=getCameraEntity()->getComponent<Camera>();
             Transform* t=Entities[i]->getComponent<Transform>();
-            CameraController* cc=Entities[i]->getComponent<CameraController>();
+            CameraController* cc=getCameraEntity()->getComponent<CameraController>();
+            //if(!c)return;
+            //if(!cc)return;
             glm::mat4 vp=c->getProjectionMatrix()*cc->getViewMatrix();
             glm::mat4 matrix1=vp*t->parents_mat(); //*view
 
             MeshRenderer* mesh=Entities[i]->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();
             our::ShaderProgram* p=mesh->getPointerToProgram();
+            //if(!p)return;
+            //if(!m) return;
+            //if()
+           // if(*p) return;
             glClear(GL_COLOR_BUFFER_BIT);
             glUseProgram(*p);
 
