@@ -1,9 +1,13 @@
 #include "GameStateManager.h"
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <ctime>
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD2
 #include <imgui_impl/imgui_impl_glfw.h>
 #include <imgui_impl/imgui_impl_opengl3.h>
 
-
+using namespace std;
 void GameStateManager::GoToState(GameState *PointerToGS) {
     CurrentGameState=NextGameState;
     NextGameState=PointerToGS;
@@ -31,6 +35,9 @@ void GameStateManager::GoToState(GameState *PointerToGS) {
 GameState* gamestatePointer=new GameState();
 CurrentGameState=gamestatePointer;
 
+        app->setupCallbacks();
+        app->keyboard.enable(app->window);
+        app->mouse.enable(app->window);
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
@@ -51,7 +58,8 @@ CurrentGameState->onEnter(app);
             ImGui::NewFrame();
 
             app->onImmediateGui(io); // Call to run any required Immediate GUI.
-
+            app->keyboard.setEnabled(!io.WantCaptureKeyboard, app->window);
+            app->mouse.setEnabled(!io.WantCaptureMouse, app->window);
             // If ImGui is using the mouse or keyboard, then we don't want the captured events to affect our keyboard and mouse objects.
             // For example, if you're focusing on an input and writing "W", the keyboard object shouldn't record this event.
 //            keyboard.setEnabled(!io.WantCaptureKeyboard, window);
@@ -68,8 +76,21 @@ CurrentGameState->onEnter(app);
             CurrentGameState->onDraw(app,current_frame_time - last_frame_time);
             last_frame_time=current_frame_time;
             ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); // Render the ImGui to the framebuffer
-
-
+            // If F12 is pressed, take a screenshot
+            if(app->keyboard.justPressed(GLFW_KEY_F12)){
+                glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
+                //std::stringstream stream;
+                auto time = std::time(nullptr);
+                auto localtime = std::localtime(&time);
+                //stream << "screenshots/screenshot-" << std::put_time(localtime, "%Y-%m-%d-%H-%M-%S") << ".png";
+                /*if(our::screenshot_png(stream.str())){
+                    std::cout << "Screenshot saved to: " << stream.str() << std::endl;
+                } else {
+                    std::cerr << "Failed to save a Screenshot" << std::endl;
+                }*/
+            }
+app->keyboard.update();
+            app->mouse.update();
             glfwSwapBuffers(app->window);
         }
         CurrentGameState->onExit(app);
