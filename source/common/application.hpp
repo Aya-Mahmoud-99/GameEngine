@@ -6,6 +6,7 @@
 #include <GLFW/glfw3.h>
 #include <imgui.h>
 
+//#include "./ECS/GameState.h"
 #include "input/keyboard.hpp"
 #include "input/mouse.hpp"
 
@@ -22,24 +23,34 @@ namespace our {
     // It offers the functionalities needed by all the examples.
     class Application {
     protected:
-        GLFWwindow * window = nullptr;      // Pointer to the window created by GLFW using "glfwCreateWindow()".
-        Keyboard keyboard;                  // Instance of "our" keyboard class that handles keyboard functionalities.
-        Mouse mouse;                        // Instance of "our" mouse class that handles mouse functionalities.
+//      GLFWwindow * window = nullptr;      // Pointer to the window created by GLFW using "glfwCreateWindow()".
+//      Keyboard keyboard;                  // Instance of "our" keyboard class that handles keyboard functionalities.
+//      Mouse mouse;                        // Instance of "our" mouse class that handles mouse functionalities.
+
+
 
         // Virtual functions to be overrode and change the default behaviour of the application
         // according to the example needs.
-        virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
-        virtual WindowConfiguration getWindowConfiguration();       // Returns the WindowConfiguration current struct instance.
-        virtual void setupCallbacks();                              // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
+//        virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
+//        virtual WindowConfiguration getWindowConfiguration();       // Returns the WindowConfiguration current struct instance.
+//        virtual void setupCallbacks();                              // Sets-up the window callback functions from GLFW to our (Mouse/Keyboard) classes.
 
     public:
+        GLFWwindow * window = nullptr;      // Pointer to the window created by GLFW using "glfwCreateWindow()".
+        Keyboard keyboard;                  // Instance of "our" keyboard class that handles keyboard functionalities.
+        Mouse mouse;
+
+        virtual void configureOpenGL();                             // This function sets OpenGL Window Hints in GLFW.
+        virtual WindowConfiguration getWindowConfiguration();       // Returns the WindowConfiguration current struct instance.
+        virtual void setupCallbacks();
         virtual void onInitialize(){}                   // Called once before the game loop.
         virtual void onImmediateGui(ImGuiIO& io){}      // Called every frame to draw the Immediate GUI (if any).
         virtual void onDraw(double deltaTime){}         // Called every frame in the game loop passing the time taken to draw the frame "Delta time".
         virtual void onDestroy(){}                      // Called once after the game loop ends for house cleaning.
 
 
-        // Override these functions to get mouse and keyboard event.
+
+         // Override these functions to get mouse and keyboard event.
         virtual void onKeyEvent(int key, int scancode, int action, int mods){}      
         virtual void onCursorMoveEvent(double x, double y){}
         virtual void onCursorEnterEvent(int entered){}
