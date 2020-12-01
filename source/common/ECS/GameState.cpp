@@ -25,7 +25,7 @@ void GameState::onEnter(our::Application* app){
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
     Entity* CamEntity;
 CamEntity=WorldPointer->createEntity();
-Transform* TransformCamera=new Transform({0,0,1},{0, 0, 0},{width, height, 1});
+Transform* TransformCamera=new Transform({0,0,1},{0, 0, 0},{1, 1, 1});
 Camera* CameraPointer=new Camera();
 
 
@@ -44,7 +44,7 @@ Camera* CameraPointer=new Camera();
 
     Entity* Object1;
     Object1=WorldPointer->createEntity();
-    Transform* TransformObject1=new Transform({0,0,0},{0,0,0},{1,1,1});
+    Transform* TransformObject1=new Transform({0,0,0},{0,0,0},{1,1,0});
 
     our::ShaderProgram* program=new our::ShaderProgram ();
     //our::ShaderProgram* program=&programm;
@@ -77,7 +77,7 @@ Camera* CameraPointer=new Camera();
     ////////////////////////////////////////////////////////
     Entity* Object2;
     Object2=WorldPointer->createEntity();
-    Transform* TransformObject2=new Transform();
+    Transform* TransformObject2=new Transform({0.3,0.3,0});
 
     our::ShaderProgram* program1=new our::ShaderProgram();
     //our::ShaderProgram* program1=&program11;
