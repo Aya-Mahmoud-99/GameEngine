@@ -35,37 +35,16 @@ class UniformsApplication : public our::Application {
         // smile face
 
         //if(shape[1]) {
-<<<<<<< HEAD
-        //  program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
-        //  program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
+        // program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
+        // program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
         //}
         // heart
         //if(shape[1]) {
+        program.create();
         program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
-        program.attach("assets/shaders/Heart/Heart.frag", GL_FRAGMENT_SHADER);
-        //}
-
-
-
-        // face3
-        // if(shape[2]) {
-        //  program.attach("assets/shaders/Face/face3.vert", GL_VERTEX_SHADER);
-        //  program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
-        // }
+        program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
         program.link();
-
         glGenVertexArrays(1, &vertex_array);
-=======
-           // program.attach("assets/shaders/SmileFace/Smile.vert", GL_VERTEX_SHADER);
-           // program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
-        //}
-        // heart
-        //if(shape[1]) {
-            program.create();
-            program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
-            program.attach("assets/shaders/SmileFace/Smile.frag", GL_FRAGMENT_SHADER);
-            program.link();
-            glGenVertexArrays(1, &vertex_array);
         //glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         program2.create();
@@ -101,11 +80,10 @@ class UniformsApplication : public our::Application {
         //glGenVertexArrays(1, &vertex_array);
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         // face3
-       // if(shape[2]) {
+        // if(shape[2]) {
         //  program.attach("assets/shaders/Heart/FullScreen.vert", GL_VERTEX_SHADER);
         //  program.attach("assets/shaders/Face/face3.frag", GL_FRAGMENT_SHADER);
-       // }
->>>>>>> 691937fb868e35152d3d38597a1051162154352e
+        // }
 
     }
 
@@ -115,20 +93,20 @@ class UniformsApplication : public our::Application {
         mouse_window_space.y = ((getFrameBufferSize().y/2)-mouse_window_space.y)/(getFrameBufferSize().y/2);
         mouse_window_space.x = (mouse_window_space.x-(getFrameBufferSize().x/2))/(getFrameBufferSize().x/2);
 
-          if(keyboard.isPressed(GLFW_KEY_1)){
+        if(keyboard.isPressed(GLFW_KEY_1)){
             lastPressed='1';
         }
         else if(keyboard.isPressed(GLFW_KEY_2)){
-              lastPressed='2';
-          }
+            lastPressed='2';
+        }
         else if(keyboard.isPressed(GLFW_KEY_3)){
-              lastPressed='3';
+            lastPressed='3';
 
-          }
-          else if(keyboard.isPressed(GLFW_KEY_4)){
-              lastPressed='4';
+        }
+        else if(keyboard.isPressed(GLFW_KEY_4)){
+            lastPressed='4';
 
-          }
+        }
         auto& programFlag=lastPressed=='1'? program:
                           lastPressed=='2'? program2:
                           lastPressed=='3'? program3:
@@ -136,8 +114,8 @@ class UniformsApplication : public our::Application {
 
         vertex_arrayFlag = lastPressed=='1'? vertex_array:
                            lastPressed=='2'? vertex_array2:
-                            lastPressed=='3'? vertex_array3:
-                            lastPressed=='4'? vertex_array4:vertex_arrayDefault;
+                           lastPressed=='3'? vertex_array3:
+                           lastPressed=='4'? vertex_array4:vertex_arrayDefault;
 
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -168,13 +146,6 @@ class UniformsApplication : public our::Application {
 
         glBindVertexArray(vertex_arrayFlag);
 
-<<<<<<< HEAD
-        glBindVertexArray(vertex_array);
-
-       // glDrawArrays(GL_TRIANGLES, 0, 13);
-
-=======
->>>>>>> 691937fb868e35152d3d38597a1051162154352e
         glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glBindVertexArray(0);
