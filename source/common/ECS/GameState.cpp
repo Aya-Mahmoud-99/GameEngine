@@ -45,10 +45,10 @@ Entity* Object1;
 Object1=WorldPointer->createEntity();
 Transform* TransformObject1=new Transform();
 
-    our::ShaderProgram programm;
-    our::ShaderProgram* program=&programm;
-    our::Mesh quadd;
-    our::Mesh* quad=&quadd;
+    our::ShaderProgram* program=new our::ShaderProgram ();
+    //our::ShaderProgram* program=&programm;
+    //our::Mesh quadd;
+    our::Mesh* quad=new our::Mesh();
 
     program->create();
     program->attach("assets/shaders/ex11_transformation/transform.vert", GL_VERTEX_SHADER);
@@ -78,17 +78,17 @@ Transform* TransformObject1=new Transform();
     Object2=WorldPointer->createEntity();
     Transform* TransformObject2=new Transform();
 
-    our::ShaderProgram program11;
-    our::ShaderProgram* program1=&program11;
-    our::Mesh quad1;
-    our::Mesh* PointerToquad1=&quad1;
+    our::ShaderProgram* program1=new our::ShaderProgram();
+    //our::ShaderProgram* program1=&program11;
+    our::Mesh* PointerToquad1=new our::Mesh();
+    //our::Mesh* PointerToquad1=&quad1;
 
     program1->create();
     program1->attach("assets/shaders/ex06_multiple_attributes/multiple_attributes.vert", GL_VERTEX_SHADER);
     program1->attach("assets/shaders/ex04_varyings/varying_color.frag", GL_FRAGMENT_SHADER);
     program1->link();
 
-    our::mesh_utils::loadOBJ(quad1, "assets/models/Suzanne/Suzanne.obj");
+    our::mesh_utils::loadOBJ(*PointerToquad1, "assets/models/Suzanne/Suzanne.obj");
 
     MeshRenderer* MeshPointer1=new MeshRenderer(PointerToquad1,program1);
 
