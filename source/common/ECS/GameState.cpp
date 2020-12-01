@@ -20,13 +20,14 @@ void GameState::onEnter(our::Application* app){
     WorldPointer=new World();
 
  // create a cam entity from world
-Entity* CamEntity;
+    int width, height;
+
+    glfwGetFramebufferSize(app->getWindow(), &width, &height);
+    Entity* CamEntity;
 CamEntity=WorldPointer->createEntity();
-Transform* TransformCamera=new Transform();
+Transform* TransformCamera=new Transform({0,0,0},{0, 0, 0},{width, height, 1});
 Camera* CameraPointer=new Camera();
 
-    int width, height;
-    glfwGetFramebufferSize(app->getWindow(), &width, &height);
 
     CameraPointer->setupPerspective(glm::pi<float>()/2, static_cast<float>(width)/height, 0.1f, 100.0f);
 
