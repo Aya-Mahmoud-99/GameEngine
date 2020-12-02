@@ -25,7 +25,7 @@ void GameState::onEnter(our::Application* app){
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
     Entity* CamEntity;
 CamEntity=WorldPointer->createEntity();
-Transform* TransformCamera=new Transform({0,0,1},{0, 0, 0},{1, 1, 1});
+Transform* TransformCamera=new Transform({0,0,1},{0, 0, 0},{width, height, 1});
 Camera* CameraPointer=new Camera();
 
 

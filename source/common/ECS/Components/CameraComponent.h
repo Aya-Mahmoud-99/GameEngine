@@ -27,7 +27,6 @@ private:
     float speedup_factor = 5.0f; // A speed multiplier if "Left Shift" is held.
     Transform *T;
     bool mouse_locked = false;
-    glm::mat4 V{};
 
 public:
     CameraController(our::Application* application, Camera* camera,Transform* T);
@@ -60,14 +59,7 @@ public:
     glm::vec3 getUp();
     glm::vec3 getDirection();
     glm::mat4 getViewMatrix();
-    glm::vec3 Right();
-    glm::vec3 Left();
-    glm::vec3 Up();
-    glm::vec3 Down();
-    glm::vec3 Forward();
-    glm::vec3 Backward();
     ~CameraController(){}
-
 };
 
 
