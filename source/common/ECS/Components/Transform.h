@@ -12,7 +12,7 @@ class Transform: public Component{
     Entity* parent;
     glm::mat4 V;
 public:
-    Transform(glm::vec3 translation={0,0,0} ,glm::vec3 rotation={0,0,0},glm::vec3 scale={0.2,0.2,0.2},Entity*parent= nullptr);
+    Transform(glm::vec3 translation={0,0,0} ,glm::vec3 rotation={0,0,0},glm::vec3 scale={0.2,0.2,0},Entity*parent= nullptr);
     glm::mat4 to_mat4();
     Entity* getParent();
     glm::mat4 CameraTransform(int num,float deltatime,float currentsenstivity);
