@@ -11,9 +11,9 @@ Transform::Transform(glm::vec3 t, glm::vec3 r, glm::vec3 s,Entity*p) {
     V=to_mat4();
 }
 glm::mat4 Transform::to_mat4() {
-    return glm::translate(glm::mat4(1.0f), translation); //*
-           //glm::yawPitchRoll(rotation.y, rotation.x, rotation.z) *
-           //glm::scale(glm::mat4(1.0f), scale);
+    return glm::translate(glm::mat4(1.0f), translation) *
+           glm::yawPitchRoll(rotation.y, rotation.x, rotation.z) *
+           glm::scale(glm::mat4(1.0f), scale);
 }
 glm::mat4 Transform::getMatrix() {
     return V;
