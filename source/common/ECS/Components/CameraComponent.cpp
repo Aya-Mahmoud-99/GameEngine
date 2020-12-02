@@ -64,14 +64,19 @@ void CameraController::update(double delta_time){
     if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= speedup_factor;
     // and Aya
     glm::mat4 mat=T->getMatrix();
+    glm::vec3 front = Forward(), up = Up(), right = Right();
+    glm::vec3 tempEye=this->eye;
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(app->getKeyboard().isPressed(GLFW_KEY_W)) mat=T->CameraTransform(0,(float)delta_time,current_sensitivity.z);
-    if(app->getKeyboard().isPressed(GLFW_KEY_S)) mat=T->CameraTransform(1,(float)delta_time,current_sensitivity.z);
-    if(app->getKeyboard().isPressed(GLFW_KEY_Q)) mat=T->CameraTransform(2,(float)delta_time,current_sensitivity.y);
-    if(app->getKeyboard().isPressed(GLFW_KEY_E)) mat=T->CameraTransform(3,(float)delta_time,current_sensitivity.y);
-    if(app->getKeyboard().isPressed(GLFW_KEY_D)) mat=T->CameraTransform(4,(float)delta_time,current_sensitivity.x);
-    if(app->getKeyboard().isPressed(GLFW_KEY_A)) mat=T->CameraTransform(5,(float)delta_time,current_sensitivity.x);
-    this->setEyeUpDirection(mat);
+    if(app->getKeyboard().isPressed(GLFW_KEY_W)) tempEye += front * ((float)delta_time * current_sensitivity.z);
+    if(app->getKeyboard().isPressed(GLFW_KEY_S)) tempEye -= front * ((float)delta_time * current_sensitivity.z);
+    if(app->getKeyboard().isPressed(GLFW_KEY_Q)) tempEye += up * ((float)delta_time * current_sensitivity.y);
+    if(app->getKeyboard().isPressed(GLFW_KEY_E)) tempEye -= up * ((float)delta_time * current_sensitivity.y);
+    if(app->getKeyboard().isPressed(GLFW_KEY_D)) tempEye += right * ((float)delta_time * current_sensitivity.x);
+    if(app->getKeyboard().isPressed(GLFW_KEY_A)) tempEye -= right * ((float)delta_time * current_sensitivity.x);
+    mat[0][3]=tempEye[0];
+    mat[1][3]=tempEye[1];
+    mat[2][3]=tempEye[2];
+    this->eye=tempEye;
     /// and Aya
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
@@ -114,16 +119,16 @@ void CameraController::setEyeUpDirection(glm::mat4 mat){
    this->eye={0,0, 1};
     this->up={0.707,0.707,0};
     this->direction={0,0,-1};*/
-    glm::vec4 pos={0,0,0,1};
+    /*glm::vec4 pos={0,0,0,1};
     pos=mat*pos;
     glm::vec4 dir={0,0,-1,0};
     dir=mat*dir;
     glm::vec4 up={0,1,0,0};
-    up=mat*up;
-    this->eye={pos[0],pos[1], pos[2]};
+    up=mat*up;*/
+    this->eye={mat[0][3],mat[1][3],mat[2][3]};
     std::cout<<" "<<eye[0]<<" "<<eye[1]<<" "<<eye[2]<<std::endl;
-    this->up={up[0],up[1],up[2]};
-    this->direction={dir[0],dir[1],dir[2]};
+    this->up={mat[0][1],mat[1][1],mat[2][1]};
+    this->direction={-mat[0][2],-mat[1][2],-mat[2][2]};
 }
 glm::vec3 CameraController::getEye(){
     return eye;
@@ -145,4 +150,28 @@ glm::mat4 CameraController::getViewMatrix(){
 }
 void CameraController::setTransform(Transform* Tr){
     this->T=Tr;
+}
+glm::vec3 CameraController::Right(){
+    getViewMatrix();
+    return {V[0][0],V[1][0],V[2][0]};
+}
+glm::vec3 CameraController::Left(){
+    getViewMatrix();
+    return {-V[0][0],-V[1][0],-V[2][0]};
+}
+glm::vec3 CameraController::Up(){
+    getViewMatrix();
+    return {V[0][1],V[1][1],V[2][1]};
+}
+glm::vec3 CameraController::Down(){
+    getViewMatrix();
+    return {-V[0][1],-V[1][1],-V[2][1]};
+}
+glm::vec3 CameraController::Forward(){
+    getViewMatrix();
+    return {-V[0][2],-V[1][2],-V[2][2]};
+}
+glm::vec3 CameraController::Backward(){
+    getViewMatrix();
+    return {V[0][2],V[1][2],V[2][2]};
 }
