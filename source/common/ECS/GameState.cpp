@@ -134,9 +134,9 @@ void GameState::onExit(our::Application* app) {
             if ((t = dynamic_cast<MeshRenderer*>(componentsToDelete[j])) != nullptr){
 
                 our::Mesh* m=t->getPointerToMesh();
-                delete m;
+                m->destroy();
                 our::ShaderProgram* p=t->getPointerToProgram();
-                delete p;
+                p->destroy();
             };
             delete componentsToDelete[j];
         }
