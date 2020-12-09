@@ -25,7 +25,10 @@ public:
 
     return NULL;
 };
-~Entity();
+    vector<Component*>& getComponents();
+~Entity(){
+
+};
 };
 
 

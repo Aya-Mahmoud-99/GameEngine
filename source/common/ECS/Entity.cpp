@@ -14,6 +14,9 @@ void Entity::removeComponent(Component *c) {
         if(components[i]==c)components.erase(components.begin()+i);
     }
 }
+vector<Component*>& Entity::getComponents() {
+return components;
+}
 /*
 template<typename T>
 T* Entity::getComponent(){
@@ -25,8 +28,8 @@ if ((t = dynamic_cast<T*>(i)) != nullptr) return t;
 return NULL;
 }
  */
-Entity::~Entity() {
+/*Entity::~Entity() {
     for(int i=0;i<components.size();i++){
         delete components[i];
     }
-}
+}*/

@@ -14,9 +14,9 @@ class World {
 vector<Entity*> Entities;
 public:
 
-    Entity* createEntity();
+    Entity* createEntity(Entity* e);
     //void assignComponentToEntity(Entity* e,Component* c);
-    vector<Entity*> getEntities();
+    vector<Entity*>& getEntities();
     void Rendering();
     glm::mat4 getCameraEntityTransform();
     Entity* getCameraEntity();

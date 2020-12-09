@@ -14,7 +14,7 @@
 
 
 void GameState::onEnter(our::Application* app){
-    our::Application* App;
+    //our::Application* App;
     //App=app;
 //create our world
     WorldPointer=new World();
@@ -23,10 +23,10 @@ void GameState::onEnter(our::Application* app){
     int width, height;
 
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
-    Entity* CamEntity;
-CamEntity=WorldPointer->createEntity();
-Transform* TransformCamera=new Transform({0,0,4},{0, 0, 0},{width, height, 0});
-Camera* CameraPointer=new Camera();
+    Entity* CamEntity=new Entity();
+    WorldPointer->createEntity(CamEntity);
+    Transform* TransformCamera=new Transform({0,0,4},{0, 0, 0},{width, height, 0});
+    Camera* CameraPointer=new Camera();
 
 
     CameraPointer->setupPerspective(glm::pi<float>()/2, static_cast<float>(width)/height, 0.1f, 100.0f);
@@ -42,8 +42,8 @@ Camera* CameraPointer=new Camera();
 
 /////////////////////////////////*/
 
-    Entity* Object1;
-    Object1=WorldPointer->createEntity();
+    Entity* Object1=new Entity();
+    WorldPointer->createEntity(Object1);
     Transform* TransformObject1=new Transform({0,0,0},{0,0,0},{1,1,0});
 
     our::ShaderProgram* program=new our::ShaderProgram ();
@@ -75,8 +75,8 @@ Camera* CameraPointer=new Camera();
     Object1->addComponent(MeshPointer);
 
     ////////////////////////////////////////////////////////
-    Entity* Object2;
-    Object2=WorldPointer->createEntity();
+    Entity* Object2=new Entity();
+    WorldPointer->createEntity(Object2);
 
     Transform* TransformObject2=new Transform({-3,0,0},{0,0,0},{1,1,1});
 
@@ -122,8 +122,26 @@ WorldPointer->Rendering();
 }
 
 void GameState::onExit(our::Application* app) {
-    our::Application* App;
-    App=app;
+    //our::Application* App;
+    //App=app;
+
+
+    vector<Entity*> EntitiesToDelete=WorldPointer->getEntities();
+    for(int i=0;i<EntitiesToDelete.size();i++){
+        vector<Component*> componentsToDelete=EntitiesToDelete[i]->getComponents();
+        for(int j=0;j<componentsToDelete.size();j++){
+            MeshRenderer* t = nullptr;
+            if ((t = dynamic_cast<MeshRenderer*>(componentsToDelete[j])) != nullptr){
+
+                our::Mesh* m=t->getPointerToMesh();
+                delete m;
+                our::ShaderProgram* p=t->getPointerToProgram();
+                delete p;
+            };
+            delete componentsToDelete[j];
+        }
+        delete EntitiesToDelete[i];
+    }
     delete WorldPointer;
 
 

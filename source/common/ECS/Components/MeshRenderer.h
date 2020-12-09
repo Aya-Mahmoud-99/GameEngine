@@ -16,7 +16,9 @@ public:
     MeshRenderer(our::Mesh* mesh= nullptr,our::ShaderProgram* program= nullptr);
     our::Mesh* getPointerToMesh();
     our::ShaderProgram* getPointerToProgram();
-    ~MeshRenderer();
+    ~MeshRenderer(){
+
+    };
 };
 
 

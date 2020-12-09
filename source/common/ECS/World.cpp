@@ -10,12 +10,12 @@
 
 #include "Entity.h"
 //#include "Components\Camera.h"
-Entity* World::createEntity() {
-    Entity* e=new Entity();
+Entity* World::createEntity(Entity* e) {
+    //=new Entity();
     Entities.push_back(e);
     return e;
 }
-vector<Entity *> World::getEntities() {
+vector<Entity *>& World::getEntities() {
     return Entities;
 }
 // this function should be called in main game state 
