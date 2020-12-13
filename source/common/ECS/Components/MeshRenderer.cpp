@@ -3,16 +3,20 @@
 //
 
 #include "MeshRenderer.h"
-MeshRenderer::MeshRenderer(our::Mesh* m,our::ShaderProgram* p){
+MeshRenderer::MeshRenderer(our::Mesh* m,Material* mat){
     mesh=m;
-    program=p;
+    material=mat;
+    //program=p;
 }
 our::Mesh* MeshRenderer::getPointerToMesh() {
     return mesh;
 }
-our::ShaderProgram* MeshRenderer::getPointerToProgram() {
-    return program;
+Material * MeshRenderer::getMaterial() {
+    return material;
 }
+/*our::ShaderProgram* MeshRenderer::getPointerToProgram() {
+    return program;
+}*/
 /*MeshRenderer::~MeshRenderer() {
     delete mesh;
     delete program;///\\get modified

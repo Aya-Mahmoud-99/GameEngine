@@ -7,6 +7,7 @@
 #include "Components/Transform.h"
 #include "Components/Camera.h"
 #include "Components/CameraComponent.h"
+#include "Components/Material.h"
 
 #include "Entity.h"
 //#include "Components\Camera.h"
@@ -35,7 +36,7 @@ void World::Rendering(){
             glm::mat4 matrix1=vp*t->parents_mat(); //*view
             MeshRenderer* mesh=Entities[i]->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();
-            our::ShaderProgram* p=mesh->getPointerToProgram();
+            our::ShaderProgram* p=mesh->getMaterial()->getPointerToProgram();
             //if(!p)return;
             //if(!m) return;
             //if()

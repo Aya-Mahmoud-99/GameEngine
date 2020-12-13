@@ -1,23 +1,50 @@
 
 // Created by m.yasser on 11/26/2020.
 //#include <./application.hpp>
+#include <fstream>
+
 #include "GameState.h"
 #include "Components/CameraComponent.h"
 #include "./shader.hpp"
-#include <mesh/mesh.hpp>
 #include <mesh/mesh-utils.hpp>
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
-#include <ECS/Components/MeshRenderer.h>
 #include"Components/Camera.h"
 #include"Entity.h"
-
-
+namespace glm {
+    template<length_t L, typename T, qualifier Q>
+    void from_json(const nlohmann::json& j, vec<L, T, Q>& v){
+        for(length_t index = 0; index < L; ++index)
+            v[index] = j[index].get<T>();
+    }
+}
+void from_json(const nlohmann::json& j, Material& m){
+    /*m.diffuse = j.value<glm::vec3>("diffuse", {0.0f, 0.0f, 0.0f});
+    m.specular = j.value<glm::vec3>("specular", {0.0f, 0.0f, 0.0f});
+    m.ambient = j.value<glm::vec3>("ambient", {0.0f, 0.0f, 0.0f});
+    m.shininess = j.value<float>("shininess", 1.0f);*/
+}
+namespace our {
+    void from_json(const nlohmann::json &j, our::Mesh &m) {
+        /*m.diffuse = j.value<glm::vec3>("diffuse", {0.0f, 0.0f, 0.0f});
+        m.specular = j.value<glm::vec3>("specular", {0.0f, 0.0f, 0.0f});
+        m.ambient = j.value<glm::vec3>("ambient", {0.0f, 0.0f, 0.0f});
+        m.shininess = j.value<float>("shininess", 1.0f);*/
+    }
+}
 void GameState::onEnter(our::Application* app){
     //our::Application* App;
     //App=app;
 //create our world
-    WorldPointer=new World();
+///when reserialization is completed
+     WorldPointer=new World();
+    /*std::ifstream file_in("assets/data/scene.json");
+    nlohmann::json json;
+    file_in >> json;
+    file_in.close();
+    attachPrograms(json);
+    loadResources(json);
+    loadNode(json,WorldPointer,NULL);*/
 
  // create a cam entity from world
     int width, height;
@@ -40,7 +67,7 @@ void GameState::onEnter(our::Application* app){
     CamEntity->addComponent(CamControllerPointer);
 
 
-/////////////////////////////////*/
+/////////////////////////////////
 
     Entity* Object1=new Entity();
     WorldPointer->createEntity(Object1);
@@ -68,8 +95,8 @@ void GameState::onEnter(our::Application* app){
                                          0, 1, 2,
                                          2, 3, 0
                                  },GL_STATIC_DRAW);
-
-    MeshRenderer* MeshPointer=new MeshRenderer(quad,program);
+    Material* m1=new Material(program);
+    MeshRenderer* MeshPointer=new MeshRenderer(quad,m1);
 
     Object1->addComponent(TransformObject1);
     Object1->addComponent(MeshPointer);
@@ -89,23 +116,20 @@ void GameState::onEnter(our::Application* app){
     program1->attach("assets/shaders/ex06_multiple_attributes/multiple_attributes.vert", GL_VERTEX_SHADER);
     program1->attach("assets/shaders/ex04_varyings/varying_color.frag", GL_FRAGMENT_SHADER);
     program1->link();
-
+    Material* m2=new Material(program1);
     our::mesh_utils::loadOBJ(*PointerToquad1, "assets/models/Suzanne/Suzanne.obj");
 
-    MeshRenderer* MeshPointer1=new MeshRenderer(PointerToquad1,program1);
+    MeshRenderer* MeshPointer1=new MeshRenderer(PointerToquad1,m2);
 
     Object2->addComponent(TransformObject2);
     Object2->addComponent(MeshPointer1);
-
 ////////////////////////////////////////////////////////////////
-
 
 // from the entitiy , get the camera controller component (generic fn)
 //PointerToCamController = camera controller component
 
 
 }
-
 void GameState::onImmediateGui(ImGuiIO& io){
 
 
@@ -133,16 +157,73 @@ void GameState::onExit(our::Application* app) {
             MeshRenderer* t = nullptr;
             if ((t = dynamic_cast<MeshRenderer*>(componentsToDelete[j])) != nullptr){
 
+                our::ShaderProgram* p=t->getMaterial()->getPointerToProgram();
+                p->destroy();
                 our::Mesh* m=t->getPointerToMesh();
                 m->destroy();
-                our::ShaderProgram* p=t->getPointerToProgram();
-                p->destroy();
             };
             delete componentsToDelete[j];
         }
         delete EntitiesToDelete[i];
     }
     delete WorldPointer;
+
+
+}
+void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent){
+   // auto node = std::make_shared<Transform>(
+            Entity* e=new Entity();
+            worldPointer->createEntity(e);
+            //ha7tag copy constructor
+            glm::vec3 translation= json.value<glm::vec3>("translation", {0, 0, 0});
+            glm::vec3 rotation= json.value<glm::vec3>("rotation", {0, 0, 0});
+            glm::vec3 scale=json.value<glm::vec3>("scale", {1, 1, 1});
+            Transform* t=new Transform(translation,rotation,scale,parent);
+            e->addComponent(t);
+    //);
+    if(json.contains("mesh")&&json.contains("program")){
+        if(auto mesh_it = meshes.find(json["mesh"].get<std::string>()); mesh_it != meshes.end()) {
+            if(auto prog_it = programs.find(json["program"].get<std::string>()); prog_it != programs.end()) {
+                Material *mat=new Material(prog_it->second);
+                MeshRenderer* meshRenderer=new MeshRenderer(mesh_it->second,mat);
+                e->addComponent(meshRenderer);
+            }
+        }
+    }
+
+    MeshRenderer* mRenderer=new MeshRenderer();
+    if(json.contains("children")){
+        for(auto& [name, child]: json["children"].items()){
+            loadNode(child,worldPointer,e);
+        }
+    }
+    //return node;
+}
+void GameState::loadResources(const nlohmann::json& json){
+    if(json.contains("resources")){
+
+        for (auto& [key, val] : json["resources"]["meshes"].items())
+        {
+            meshes[key] = new our::Mesh();
+            our::mesh_utils::loadOBJ(*(meshes[key]),json["resources"]["meshes"].value<std::string>(key, "").c_str());        }
+    }
+
+
+}
+void GameState::attachPrograms(const nlohmann::json& json){
+    if(json.contains("resources")){
+
+        for(auto& [name, it]: json["resources"]["programs"].items()){
+            programs[name] = new our::ShaderProgram();
+            if(json.contains("vert")){
+                programs[name]->create();
+                programs[name]->attach(json["vert"].get<std::string>(), GL_VERTEX_SHADER);
+                programs[name]->attach(json["frag"].get<std::string>(), GL_FRAGMENT_SHADER);
+                programs[name]->link();
+            }
+        }
+
+    }
 
 
 }
