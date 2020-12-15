@@ -1,0 +1,27 @@
+{
+  "resources": {
+    "meshes": {
+      "suzanne": "assets/models/Suzanne/Suzanne.obj",
+      "house": "assets/models/House/House.obj"
+    },
+    "programs": {
+      "default": {
+        "vert": "assets/shaders/ex06_multiple_attributes/multiple_attributes.vert",
+        "frag": "assets/shaders/ex04_varyings/varying_color.frag"
+      },
+      "house": {
+        "vert": "assets/shaders/ex22_texture_sampling/transform.vert",
+        "frag": "assets/shaders/ex22_texture_sampling/texture.frag"
+      }
+    }
+  },
+
+  "children": {
+    "suzanne": {
+      "mesh": "suzanne",
+      "translation": [ -3, 0, 0 ],
+      "scale": [0.2,0.2,0],
+      "program": "default"
+    }
+  }
+}

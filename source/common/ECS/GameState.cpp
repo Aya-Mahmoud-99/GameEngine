@@ -18,35 +18,36 @@ namespace glm {
             v[index] = j[index].get<T>();
     }
 }
-void from_json(const nlohmann::json& j, Material& m){
-    /*m.diffuse = j.value<glm::vec3>("diffuse", {0.0f, 0.0f, 0.0f});
+/*void from_json(const nlohmann::json& j, Material& m){
+    m.diffuse = j.value<glm::vec3>("diffuse", {0.0f, 0.0f, 0.0f});
     m.specular = j.value<glm::vec3>("specular", {0.0f, 0.0f, 0.0f});
     m.ambient = j.value<glm::vec3>("ambient", {0.0f, 0.0f, 0.0f});
-    m.shininess = j.value<float>("shininess", 1.0f);*/
+    m.shininess = j.value<float>("shininess", 1.0f);
 }
 namespace our {
     void from_json(const nlohmann::json &j, our::Mesh &m) {
-        /*m.diffuse = j.value<glm::vec3>("diffuse", {0.0f, 0.0f, 0.0f});
+        m.diffuse = j.value<glm::vec3>("diffuse", {0.0f, 0.0f, 0.0f});
         m.specular = j.value<glm::vec3>("specular", {0.0f, 0.0f, 0.0f});
         m.ambient = j.value<glm::vec3>("ambient", {0.0f, 0.0f, 0.0f});
-        m.shininess = j.value<float>("shininess", 1.0f);*/
+        m.shininess = j.value<float>("shininess", 1.0f);
     }
-}
+}*/
 void GameState::onEnter(our::Application* app){
     //our::Application* App;
     //App=app;
 //create our world
 ///when reserialization is completed
-     WorldPointer=new World();
+    WorldPointer=new World();
+
+ // create a cam entity from world
     /*std::ifstream file_in("assets/data/scene.json");
     nlohmann::json json;
     file_in >> json;
     file_in.close();
     attachPrograms(json);
     loadResources(json);
-    loadNode(json,WorldPointer,NULL);*/
+    loadNode(json,WorldPointer,nullptr);*/
 
- // create a cam entity from world
     int width, height;
 
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
@@ -65,6 +66,7 @@ void GameState::onEnter(our::Application* app){
     CamEntity->addComponent(TransformCamera);
     CamEntity->addComponent(CameraPointer);
     CamEntity->addComponent(CamControllerPointer);
+
 
 
 /////////////////////////////////
@@ -178,6 +180,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
             glm::vec3 translation= json.value<glm::vec3>("translation", {0, 0, 0});
             glm::vec3 rotation= json.value<glm::vec3>("rotation", {0, 0, 0});
             glm::vec3 scale=json.value<glm::vec3>("scale", {1, 1, 1});
+            std::cout<<translation.x<<","<<translation.y<<","<<translation.z<<std::endl;
             Transform* t=new Transform(translation,rotation,scale,parent);
             e->addComponent(t);
     //);
@@ -191,10 +194,9 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
         }
     }
 
-    MeshRenderer* mRenderer=new MeshRenderer();
     if(json.contains("children")){
         for(auto& [name, child]: json["children"].items()){
-            loadNode(child,worldPointer,e);
+            loadNode(child,worldPointer,nullptr);
         }
     }
     //return node;
@@ -205,7 +207,8 @@ void GameState::loadResources(const nlohmann::json& json){
         for (auto& [key, val] : json["resources"]["meshes"].items())
         {
             meshes[key] = new our::Mesh();
-            our::mesh_utils::loadOBJ(*(meshes[key]),json["resources"]["meshes"].value<std::string>(key, "").c_str());        }
+            our::mesh_utils::loadOBJ(*(meshes[key]),json["resources"]["meshes"].value<std::string>(key, "").c_str());
+        }
     }
 
 
@@ -214,6 +217,7 @@ void GameState::attachPrograms(const nlohmann::json& json){
     if(json.contains("resources")){
 
         for(auto& [name, it]: json["resources"]["programs"].items()){
+            std::cout<<name<<std::endl;
             programs[name] = new our::ShaderProgram();
             if(json.contains("vert")){
                 programs[name]->create();

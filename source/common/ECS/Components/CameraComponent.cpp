@@ -101,7 +101,7 @@ void CameraController::update(double delta_time){
 
     distance += (float)app->getMouse().getScrollOffset().y * distance_sensitivity;
     if(distance < 0) distance = 0;
-    std::cout<<yaw<<","<<pitch<<std::endl;
+    //std::cout<<yaw<<","<<pitch<<std::endl;
 
     //this->setEyePosition(origin + distance * (glm::vec3(glm::cos(yaw), 0, -glm::sin(yaw)) * glm::cos(pitch) + glm::vec3(0, glm::sin(pitch), 0)));
     //this->setTarget(origin);

@@ -41,11 +41,12 @@ void World::Rendering(){
             //if(!m) return;
             //if()
            // if(*p) return;
+            std::cout<<matrix1[0][0]<<" "<<matrix1[0][1]<<" "<<matrix1[0][2]<<" "<<matrix1[0][3]<<std::endl;
 
-            glUseProgram(*p);
-            p->set("transform", matrix1);
-            p->set("tint", glm::vec4(0.5,1,1,1));
-            m->draw();
+           glUseProgram(*p);
+           p->set("transform", matrix1);
+           p->set("tint", glm::vec4(0.5,1,1,1));
+           m->draw();
 
         }
     }
