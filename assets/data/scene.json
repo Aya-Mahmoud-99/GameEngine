@@ -20,7 +20,7 @@
     "suzanne": {
       "mesh": "suzanne",
       "translation": [ -3, 0, 0 ],
-      "scale": [0.2,0.2,0],
+      "scale": [1,1,1],
       "program": "default"
     }
   }

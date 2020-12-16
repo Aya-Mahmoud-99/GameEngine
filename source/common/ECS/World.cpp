@@ -41,7 +41,7 @@ void World::Rendering(){
             //if(!m) return;
             //if()
            // if(*p) return;
-            std::cout<<matrix1[0][0]<<" "<<matrix1[0][1]<<" "<<matrix1[0][2]<<" "<<matrix1[0][3]<<std::endl;
+           // std::cout<<matrix1[0][0]<<" "<<matrix1[0][1]<<" "<<matrix1[0][2]<<" "<<matrix1[0][3]<<std::endl;
 
            glUseProgram(*p);
            p->set("transform", matrix1);

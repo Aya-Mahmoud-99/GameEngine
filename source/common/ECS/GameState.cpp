@@ -40,13 +40,13 @@ void GameState::onEnter(our::Application* app){
     WorldPointer=new World();
 
  // create a cam entity from world
-    /*std::ifstream file_in("assets/data/scene.json");
+    std::ifstream file_in("assets/data/scene.json");
     nlohmann::json json;
     file_in >> json;
     file_in.close();
     attachPrograms(json);
     loadResources(json);
-    loadNode(json,WorldPointer,nullptr);*/
+    loadNode(json,WorldPointer,nullptr);
 
     int width, height;
 
@@ -71,7 +71,7 @@ void GameState::onEnter(our::Application* app){
 
 /////////////////////////////////
 
-    Entity* Object1=new Entity();
+   /* Entity* Object1=new Entity();
     WorldPointer->createEntity(Object1);
     Transform* TransformObject1=new Transform({0,0,0},{0,0,0},{1,1,0});
 
@@ -124,7 +124,7 @@ void GameState::onEnter(our::Application* app){
     MeshRenderer* MeshPointer1=new MeshRenderer(PointerToquad1,m2);
 
     Object2->addComponent(TransformObject2);
-    Object2->addComponent(MeshPointer1);
+    Object2->addComponent(MeshPointer1);*/
 ////////////////////////////////////////////////////////////////
 
 // from the entitiy , get the camera controller component (generic fn)
@@ -196,7 +196,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
 
     if(json.contains("children")){
         for(auto& [name, child]: json["children"].items()){
-            loadNode(child,worldPointer,nullptr);
+            loadNode(child,worldPointer,e);
         }
     }
     //return node;
@@ -206,7 +206,8 @@ void GameState::loadResources(const nlohmann::json& json){
 
         for (auto& [key, val] : json["resources"]["meshes"].items())
         {
-            meshes[key] = new our::Mesh();
+            our::Mesh* mp=new our::Mesh();
+            meshes[key] =mp;
             our::mesh_utils::loadOBJ(*(meshes[key]),json["resources"]["meshes"].value<std::string>(key, "").c_str());
         }
     }
@@ -217,14 +218,19 @@ void GameState::attachPrograms(const nlohmann::json& json){
     if(json.contains("resources")){
 
         for(auto& [name, it]: json["resources"]["programs"].items()){
+            our::ShaderProgram* pp= new our::ShaderProgram();
+            std::cout<<"xxxxxxxxxxxxxxxxx"<<std::endl;
             std::cout<<name<<std::endl;
-            programs[name] = new our::ShaderProgram();
-            if(json.contains("vert")){
-                programs[name]->create();
-                programs[name]->attach(json["vert"].get<std::string>(), GL_VERTEX_SHADER);
-                programs[name]->attach(json["frag"].get<std::string>(), GL_FRAGMENT_SHADER);
-                programs[name]->link();
+            if(it.contains("vert")){
+                std::cout<<it.value<std::string>("vert", "")<<std::endl;
+                pp->create();
+                pp->attach(it.value<std::string>("vert", ""), GL_VERTEX_SHADER);
+
+                pp->attach(it.value<std::string>("frag", ""), GL_FRAGMENT_SHADER);
+                pp->link();
             }
+            programs[name]=pp;
+
         }
 
     }
