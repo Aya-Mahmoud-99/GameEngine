@@ -44,7 +44,7 @@ public:
     void loadResources(const nlohmann::json& json);
     void attachPrograms(const nlohmann::json& json);
     void onDraw(our::Application* app,double deltaTime);
-    void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent);
+    void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app);
    // void resume();
     //void update();
 

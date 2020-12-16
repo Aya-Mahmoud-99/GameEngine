@@ -46,15 +46,17 @@ void GameState::onEnter(our::Application* app){
     file_in.close();
     attachPrograms(json);
     loadResources(json);
-    loadNode(json,WorldPointer,nullptr);
+    loadNode(json,WorldPointer,nullptr,app);
 
-    int width, height;
+   /* int width, height;
 
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
     Entity* CamEntity=new Entity();
     WorldPointer->createEntity(CamEntity);
-    Transform* TransformCamera=new Transform({0,0,4},{0, 0, 0},{width, height, 0});
+    Transform* TransformCamera=new Transform({0,0,4},{0, 0, 0},{1, 1, 0});
     Camera* CameraPointer=new Camera();
+    std::cout<<glm::pi<float>()/2<<std::endl;
+    std::cout<<static_cast<float>(width)/height<<std::endl;
 
 
     CameraPointer->setupPerspective(glm::pi<float>()/2, static_cast<float>(width)/height, 0.1f, 100.0f);
@@ -67,7 +69,7 @@ void GameState::onEnter(our::Application* app){
     CamEntity->addComponent(CameraPointer);
     CamEntity->addComponent(CamControllerPointer);
 
-
+*/
 
 /////////////////////////////////
 
@@ -172,7 +174,7 @@ void GameState::onExit(our::Application* app) {
 
 
 }
-void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent){
+void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app){
    // auto node = std::make_shared<Transform>(
             Entity* e=new Entity();
             worldPointer->createEntity(e);
@@ -184,6 +186,17 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
             Transform* t=new Transform(translation,rotation,scale,parent);
             e->addComponent(t);
     //);
+    if(json.contains("camera")){
+        int width, height;
+        glfwGetFramebufferSize(app->getWindow(), &width, &height);
+        Camera* CameraPointer=new Camera();
+        if(json["camera"].value<std::string>("type","prespective")=="prespective")CameraPointer->setupPerspective(json["camera"].value<float>("field_of_view",glm::pi<float>()/2 ), json["camera"].value<float>("aspect_ratio",static_cast<float>(width)/height ), json["camera"].value<float>("near",0.1f ), json["camera"].value<float>("far",100.0f));
+        if(json["camera"].value<std::string>("type","prespective")=="orthographic")CameraPointer->setupOrthographic(json["camera"].value<float>("orthographic_height",glm::pi<float>()/2 ), json["camera"].value<float>("aspect_ratio",static_cast<float>(width)/height ), json["camera"].value<float>("near",0.1f ), json["camera"].value<float>("far",100.0f));
+        if(json["camera"].value<std::string>("camera_controller","true")=="true") {
+            CameraController *CamControllerPointer = new CameraController(app, CameraPointer, t);
+            e->addComponent(CamControllerPointer);
+        }e->addComponent(CameraPointer);
+    }
     if(json.contains("mesh")&&json.contains("program")){
         if(auto mesh_it = meshes.find(json["mesh"].get<std::string>()); mesh_it != meshes.end()) {
             if(auto prog_it = programs.find(json["program"].get<std::string>()); prog_it != programs.end()) {
@@ -196,7 +209,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
 
     if(json.contains("children")){
         for(auto& [name, child]: json["children"].items()){
-            loadNode(child,worldPointer,e);
+            loadNode(child,worldPointer,e,app);
         }
     }
     //return node;

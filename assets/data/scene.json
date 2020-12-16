@@ -20,8 +20,20 @@
     "suzanne": {
       "mesh": "suzanne",
       "translation": [ -3, 0, 0 ],
-      "scale": [1,1,1],
+      "scale": [ 1, 1, 1 ],
       "program": "default"
+    },
+    "camera": {
+      "translation": [ 0, 0, 4 ],
+      "scale": [ 1, 1, 0 ],
+      "camera": {
+        "near": 0.1,
+        "far": 100,
+        "field_of_view": 1.5708,
+        "aspect_ratio": 1.77778,
+        "cam_controller": "true",
+        "type": "prespective"
+      }
     }
   }
 }
