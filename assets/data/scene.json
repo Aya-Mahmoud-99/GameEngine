@@ -19,7 +19,7 @@
   "children": {
     "suzanne": {
       "mesh": "suzanne",
-      "translation": [ -3, 0, 0 ],
+      "translation": [ -5, 0, 0 ],
       "scale": [ 1, 1, 1 ],
       "program": "default"
     },
@@ -34,6 +34,11 @@
         "cam_controller": "true",
         "type": "prespective"
       }
+    },
+    "house": {
+      "mesh": "house",
+      "translation": [ 0, 0, -5 ],
+      "program": "default"
+    }
     }
   }
-}
