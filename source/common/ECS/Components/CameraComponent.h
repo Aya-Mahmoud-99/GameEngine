@@ -27,7 +27,7 @@ private:
     float speedup_factor = 5.0f; // A speed multiplier if "Left Shift" is held.
     Transform *T;
     bool mouse_locked = false;
-    glm::mat4 V{};
+
     glm::vec3 origin;
 
 public:
@@ -46,7 +46,7 @@ public:
     [[nodiscard]] float getFieldOfViewSensitivity() const;
     [[nodiscard]] glm::vec3 getPositionSensitivity()const;
     [[nodiscard]] float getSpeedUpFactor() const;
-
+    glm::mat4 getCameraViewMatrix();
     void setYaw(float _yaw);
     void setPitch(float _pitch);
     void setPosition(glm::vec3 _pos);
@@ -62,7 +62,7 @@ public:
     glm::vec3 getEye();
     glm::vec3 getUp();
     glm::vec3 getDirection();
-    glm::mat4 getViewMatrix();
+
     glm::vec3 Right();
     glm::vec3 Left();
     glm::vec3 Up();

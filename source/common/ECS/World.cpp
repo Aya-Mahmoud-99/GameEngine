@@ -32,7 +32,7 @@ void World::Rendering(){
             CameraController* cc=getCameraEntity()->getComponent<CameraController>();
             //if(!c)return;
             //if(!cc)return;
-            glm::mat4 vp=c->getProjectionMatrix()*cc->getViewMatrix();
+            glm::mat4 vp=c->getProjectionMatrix()*cc->getCameraViewMatrix();
             glm::mat4 matrix1=vp*t->parents_mat(); //*view
             MeshRenderer* mesh=Entities[i]->getComponent<MeshRenderer>();
             our::Mesh* m=mesh->getPointerToMesh();

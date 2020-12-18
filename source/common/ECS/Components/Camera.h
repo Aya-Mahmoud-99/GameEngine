@@ -32,8 +32,10 @@
     public:
         static const uint8_t V_DIRTY = 1, P_DIRTY = 2, VP_DIRTY = 4;
         uint8_t dirtyFlags = 0;
-        Camera();
 
+        Camera();
+        glm::mat4 getViewMatrix();
+        void setViewMatrix(glm::vec3 eye,glm::vec3 direction,glm::vec3 up);
         // Setup the camera as a perspective camera
         void setupPerspective(float field_of_view_y, float aspect_ratio, float near, float far);
 

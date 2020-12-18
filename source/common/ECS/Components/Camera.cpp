@@ -64,8 +64,22 @@ void Camera::setFarPlane(float far){
         this->far = far;
     }
 }
+glm::mat4 Camera::getViewMatrix(){
+    /*   if(camera->dirtyFlags & camera->V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
+           V = glm::lookAt(eye, eye + direction, up);
+           camera->dirtyFlags &= ~camera->V_DIRTY; // V is no longer dirty
+       }*/
 
-
+    return V;
+}
+void Camera::setViewMatrix(glm::vec3 eye,glm::vec3 direction,glm::vec3 up){
+    this->V=glm::mat4(1.0);
+    /*   if(camera->dirtyFlags & camera->V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
+           V = glm::lookAt(eye, eye + direction, up);
+           camera->dirtyFlags &= ~camera->V_DIRTY; // V is no longer dirty
+       }*/
+    this->V = glm::lookAt(eye, eye + direction, up);
+}
 
 glm::mat4 Camera::getProjectionMatrix(){
     if(dirtyFlags & P_DIRTY){ // Only regenerate the projection matrix if its flag is dirty
@@ -81,13 +95,7 @@ glm::mat4 Camera::getProjectionMatrix(){
     return P;
 }
 /*
-glm::mat4 getViewMatrix(){
-    if(dirtyFlags & V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
-        V = glm::lookAt(eye, eye + direction, up);
-        dirtyFlags &= ~V_DIRTY; // V is no longer dirty
-    }
-    return V;
-}
+
 
 glm::mat4 getVPMatrix(){
     if(dirtyFlags & VP_DIRTY){

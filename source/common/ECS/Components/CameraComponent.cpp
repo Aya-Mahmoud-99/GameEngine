@@ -121,7 +121,9 @@ void CameraController::update(double delta_time){
 [[nodiscard]] float CameraController::getFieldOfViewSensitivity() const {return fov_sensitivity;}
 [[nodiscard]] glm::vec3 CameraController::getPositionSensitivity() const {return position_sensitivity;}
 [[nodiscard]] float CameraController::getSpeedUpFactor() const {return speedup_factor;}
-
+glm::mat4 CameraController::getCameraViewMatrix(){
+    return camera->getViewMatrix();
+}
 void CameraController::setYaw(float _yaw){
     this->yaw = glm::wrapAngle(_yaw);
 }
@@ -170,41 +172,39 @@ glm::vec3 CameraController::getUp(){
 glm::vec3 CameraController::getDirection(){
     return direction;
 }
-glm::mat4 CameraController::getViewMatrix(){
-    this->V=glm::mat4(1.0);
- /*   if(camera->dirtyFlags & camera->V_DIRTY){ // Only regenerate the view matrix if its flag is dirty
-        V = glm::lookAt(eye, eye + direction, up);
-        camera->dirtyFlags &= ~camera->V_DIRTY; // V is no longer dirty
-    }*/
-    this->V = glm::lookAt(eye, eye + direction, up);
-    return V;
-}
+
 void CameraController::setTransform(Transform* Tr){
     this->T=Tr;
 }
 glm::vec3 CameraController::Right(){
-    getViewMatrix();
-    return {this->V[0][0],this->V[1][0],this->V[2][0]};
+    camera->setViewMatrix(eye,direction,up);
+    glm::mat4 V=camera->getViewMatrix();
+    return {V[0][0],V[1][0],V[2][0]};
 }
 glm::vec3 CameraController::Left(){
-    getViewMatrix();
-    return {-this->V[0][0],-this->V[1][0],-this->V[2][0]};
+    camera->setViewMatrix(eye,direction,up);
+    glm::mat4 V=camera->getViewMatrix();
+    return {-V[0][0],-V[1][0],-V[2][0]};
 }
 glm::vec3 CameraController::Up(){
-    getViewMatrix();
-    return {this->V[0][1],this->V[1][1],this->V[2][1]};
+    camera->setViewMatrix(eye,direction,up);
+    glm::mat4 V=camera->getViewMatrix();
+    return {V[0][1],V[1][1],V[2][1]};
 }
 glm::vec3 CameraController::Down(){
-    getViewMatrix();
-    return {-this->V[0][1],-this->V[1][1],-this->V[2][1]};
+    camera->setViewMatrix(eye,direction,up);
+    glm::mat4 V=camera->getViewMatrix();
+    return {-V[0][1],-V[1][1],-V[2][1]};
 }
 glm::vec3 CameraController::Forward(){
-    getViewMatrix();
-    return {-this->V[0][2],-this->V[1][2],-this->V[2][2]};
+    camera->setViewMatrix(eye,direction,up);
+    glm::mat4 V=camera->getViewMatrix();
+    return {-V[0][2],-V[1][2],-V[2][2]};
 }
 glm::vec3 CameraController::Backward(){
-    getViewMatrix();
-    return {this->V[0][2],this->V[1][2],this->V[2][2]};
+    camera->setViewMatrix(eye,direction,up);
+    glm::mat4 V=camera->getViewMatrix();
+    return {V[0][2],V[1][2],V[2][2]};
 }
 void CameraController::setEyePosition(glm::vec3 eye){
         this->eye = eye;
