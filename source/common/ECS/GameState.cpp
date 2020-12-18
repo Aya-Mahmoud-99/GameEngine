@@ -48,7 +48,9 @@ void GameState::onEnter(our::Application* app){
     loadResources(json);
     loadNode(json,WorldPointer,nullptr,app);
 ///////////////////////////////////////////////////////to be added light component to the scene/////////////////////////////////
-   /* int width, height;
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/* int width, height;
 
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
     Entity* CamEntity=new Entity();
@@ -146,7 +148,7 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 /////////////////////////////////////////to be added lightcomp update/////////////////////////////////////////////////
 //int light_index = 0;
 //const int MAX_LIGHT_COUNT = 16;
-//WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightUpdate(light_index,MAX_LIGHT_COUNT,program);
+//WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightSelect(light_index,MAX_LIGHT_COUNT,program);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
 WorldPointer->Rendering();
@@ -210,6 +212,10 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
             }
         }
     }
+    /*
+    if(json.contains("texture")){/////////////////////////////////////////////////////////////////////////////
+        e->texture = json["texture"].get<std::string>();
+    }*/
 
     if(json.contains("children")){
         for(auto& [name, child]: json["children"].items()){

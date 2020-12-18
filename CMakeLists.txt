@@ -50,7 +50,7 @@ include_directories(
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
-add_executable(EMPTY_WINDOW source/examples/main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES} source/common/ECS/Components/Light.cpp source/common/ECS/Components/Light.h source/common/ECS/Texture.cpp source/common/ECS/Texture.h)
+add_executable(EMPTY_WINDOW source/examples/main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES} source/common/ECS/Components/Light.cpp source/common/ECS/Components/Light.h source/common/ECS/Texture.cpp source/common/ECS/Texture.h source/common/ECS/Sampler.cpp source/common/ECS/Sampler.h)
 target_link_libraries(EMPTY_WINDOW glfw)
 
 add_executable(phase2 source/examples/phase2_main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES})

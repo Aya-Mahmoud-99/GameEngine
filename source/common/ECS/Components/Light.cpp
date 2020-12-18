@@ -3,9 +3,10 @@
 //
 
 #include "Light.h"
-LightComponent::LightComponent(Transform *Trans,Camera*cam,CameraController*camCon){
-    Light light = {};
-    light.type = LightType::DIRECTIONAL;
+LightComponent::LightComponent(Transform *Trans,Camera*cam,CameraController*camCon,std::vector<Light> LightArray){
+    lights=LightArray;
+    //to be transfered to the OnEnter//////////////////////////////////////////////////// send these data as vector LightArray
+    /*light.type = LightType::DIRECTIONAL;
     light.enabled = true;
     light.diffuse = {1,1,1};
     light.specular = {1,1,1};
@@ -20,13 +21,13 @@ LightComponent::LightComponent(Transform *Trans,Camera*cam,CameraController*camC
     light.type = LightType::SPOT;
     light.direction = {0, 0, 1};
     light.position = {0, 1, -2};
-    lights.push_back(light);
+    lights.push_back(light);*//////////////////////////////////////////////////////////////////////////////////////////
 
     this->T=Trans;
     this->camera=cam;
     this->camera_controller=camCon;
 }
-void LightComponent::lightUpdate(int light_index,int MAX_LIGHT_COUNT,our::ShaderProgram program){
+void LightComponent::lightSelect(int light_index,int MAX_LIGHT_COUNT,our::ShaderProgram program){
     /////////////////////////////////the position and direction will be retrieved from the transform component.
     setPosition();
     setDirection();

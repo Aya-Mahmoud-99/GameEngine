@@ -8,23 +8,23 @@
 #include <unordered_map>
 #include "./shader.hpp"
 #include <../common/application.hpp>
-//#include <imgui-utils/utils.hpp>
+
+#include "../texture/texture-utils.h"
 class Texture {
     GLuint texture;
-    our::ShaderProgram program;
-    GLuint vertex_array = 0;
+    //our::ShaderProgram program;
+    //GLuint vertex_array = 0;
 
-    // Since we will have multiple textures in our scene, we will store them in a dictionary
-    // and select one to display by its key.
-    // Note that textures are OpenGL objects so we identify them via a GLuint.
-    std::unordered_map<std::string, GLuint> textures;
-    std::string current_texture_name;
+    //std::unordered_map<std::string, GLuint> textures;
+    //std::string current_texture_name;
     // This integer defines the mip level that we will display.
-    int level_of_detail = 0;
+    //int level_of_detail = 0;
     // This will be used to zoom into the texture since they can become very small at high mip levels.
-    float zoom = 1;
-    Texture();
-    void TextureUpdate();
+    //float zoom = 1;
+    Texture(const char * ImagePath);
+    void TextureBind();
+    ~Texture();
+
     our::WindowConfiguration getWindowConfiguration();
 };
 
