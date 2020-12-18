@@ -46,10 +46,9 @@ void GameState::onEnter(our::Application* app){
     file_in.close();
     attachPrograms(json);
     loadResources(json);
-    loadNode(json,WorldPointer,nullptr,app);
-///////////////////////////////////////////////////////to be added light component to the scene/////////////////////////////////
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    loadNode(json,WorldPointer,nullptr,app); ///to be edited to load textures of each Entity///to be edited to load Light component
+    /////in LoadNode call Texture() for each Entity
+    ////call Sampler() once (one Sampler for all Entities)
 /* int width, height;
 
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
@@ -151,7 +150,7 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 //WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightSelect(light_index,MAX_LIGHT_COUNT,program);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
-WorldPointer->Rendering();
+WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
 
 }
 

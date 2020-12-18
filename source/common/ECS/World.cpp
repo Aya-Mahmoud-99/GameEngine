@@ -46,6 +46,8 @@ void World::Rendering(){
            glUseProgram(*p);
            p->set("transform", matrix1);
            p->set("tint", glm::vec4(0.5,1,1,1));
+           /////call Entities[i]->getComponent<Texture>()->TextureBind() ////treat texture as comp??????
+           ////call SamplerBind()
            m->draw();
 
         }
