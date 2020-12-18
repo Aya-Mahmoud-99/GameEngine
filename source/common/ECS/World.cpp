@@ -5,10 +5,10 @@
 #include "World.h"
 #include "Components/MeshRenderer.h"
 #include "Components/Transform.h"
-#include "Components/Camera.h"
+
 #include "Components/CameraComponent.h"
 #include "Components/Material.h"
-
+#include "Components/Light.h"
 #include "Entity.h"
 //#include "Components\Camera.h"
 Entity* World::createEntity(Entity* e) {
@@ -72,6 +72,18 @@ glm::mat4 World::getCameraEntityTransform(){
     for(int i=0;i<Size;i++)
     {
         if(Entities.at(i)->getComponent<Camera>()!=NULL)
+        {
+            return Entities.at(i);
+        }
+    }
+    return NULL;
+}
+Entity* World::getLightEntity(){
+
+    int Size=Entities.size();
+    for(int i=0;i<Size;i++)
+    {
+        if(Entities.at(i)->getComponent<LightComponent>()!=NULL)
         {
             return Entities.at(i);
         }

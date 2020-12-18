@@ -20,6 +20,7 @@ public:
     void Rendering();
     glm::mat4 getCameraEntityTransform();
     Entity* getCameraEntity();
+    Entity* getLightEntity();
     ~World();
 };
 

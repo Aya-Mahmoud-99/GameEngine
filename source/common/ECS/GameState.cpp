@@ -9,8 +9,8 @@
 #include <mesh/mesh-utils.hpp>
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
-#include"Components/Camera.h"
 #include"Entity.h"
+#include "Components/Light.h"
 namespace glm {
     template<length_t L, typename T, qualifier Q>
     void from_json(const nlohmann::json& j, vec<L, T, Q>& v){
@@ -47,7 +47,7 @@ void GameState::onEnter(our::Application* app){
     attachPrograms(json);
     loadResources(json);
     loadNode(json,WorldPointer,nullptr,app);
-
+///////////////////////////////////////////////////////to be added light component to the scene/////////////////////////////////
    /* int width, height;
 
     glfwGetFramebufferSize(app->getWindow(), &width, &height);
@@ -143,7 +143,11 @@ void GameState::onImmediateGui(ImGuiIO& io){
 void GameState::onDraw(our::Application* app,double deltaTime){
     our::Application* App;
     App=app;
-
+/////////////////////////////////////////to be added lightcomp update/////////////////////////////////////////////////
+//int light_index = 0;
+//const int MAX_LIGHT_COUNT = 16;
+//WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightUpdate(light_index,MAX_LIGHT_COUNT,program);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
 WorldPointer->Rendering();
 
