@@ -23,7 +23,9 @@ enum class LightType {
     SPOT
 };
 struct Light {
-// Here we define our light. First member specifies its type.
+// Here we define our
+   glm::vec3 color;
+//     light. First member specifies its type.
     LightType type;
     bool enabled;
 // We also define the color & intensity of the light for each component of the Phong model (Ambient, Diffuse, Specular).

@@ -8,11 +8,11 @@
 #include <unordered_map>
 #include "./shader.hpp"
 #include <../common/application.hpp>
-#include <mesh/mesh-utils.hpp>////////////////////
-#include <mesh/common-vertex-types.hpp>//////////////////////////////////
-#include <mesh/common-vertex-attributes.hpp>////////////////////////////////////////////////////
-#include"Components/Camera.h"
-#include "Components/CameraComponent.h"
+//#include <mesh/mesh-utils.hpp>////////////////////
+//#include <mesh/common-vertex-types.hpp>//////////////////////////////////
+//#include <mesh/common-vertex-attributes.hpp>////////////////////////////////////////////////////
+//#include"Components/Camera.h"
+//#include "Components/CameraComponent.h"
 #include "Components/Transform.h"
 class Sampler {
     //our::ShaderProgram program;
@@ -33,11 +33,12 @@ class Sampler {
     GLenum polygon_mode = GL_FILL;
 
     Transform *T;
-
-    Sampler(Transform *Trans=NULL);
+    public:
     void SamplerBind(our::ShaderProgram *p);
     our::WindowConfiguration getWindowConfiguration();
     ~Sampler();
+
+    Sampler(Transform *Trans=NULL);
 };
 
 

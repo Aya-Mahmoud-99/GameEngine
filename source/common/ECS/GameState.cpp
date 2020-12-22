@@ -2,7 +2,6 @@
 // Created by m.yasser on 11/26/2020.
 //#include <./application.hpp>
 #include <fstream>
-
 #include "GameState.h"
 #include "Components/CameraComponent.h"
 #include "./shader.hpp"
@@ -10,7 +9,6 @@
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
 #include"Entity.h"
-#include "Components/Light.h"
 namespace glm {
     template<length_t L, typename T, qualifier Q>
     void from_json(const nlohmann::json& j, vec<L, T, Q>& v){
@@ -32,6 +30,32 @@ namespace our {
         m.shininess = j.value<float>("shininess", 1.0f);
     }
 }*/
+void from_json(const nlohmann::json& j, Light& l){
+    std::string type_name = j.value("type", "point");
+    std::transform(type_name.begin(), type_name.end(), type_name.begin(), [](char c){ return std::tolower(c); });
+    if(type_name == "directional") l.type = LightType::DIRECTIONAL;
+    else if(type_name == "spot") l.type = LightType::SPOT;
+    else l.type = LightType::POINT;
+    l.color = j.value<glm::vec3>("color", {1,1,1});
+    l.direction = j.value<glm::vec3>("direction", {0, -1, 0});
+    l.position = j.value<glm::vec3>("position", {0,0,0});
+    l.enabled = j.value("enabled", true);
+    if(auto it = j.find("attenuation"); it != j.end()){
+        auto& a = it.value();
+        l.attenuation.constant = a.value("constant", 0.0f);
+        l.attenuation.linear = a.value("linear", 0.0f);
+        l.attenuation.quadratic = a.value("quadratic", 1.0f);
+    } else {
+        l.attenuation = {0.0f, 0.0f, 1.0f};
+    }
+    if(auto it = j.find("spot_angle"); it != j.end()){
+        auto& a = it.value();
+        l.spot_angle.inner = a.value("inner", glm::quarter_pi<float>());
+        l.spot_angle.outer = a.value("outer", glm::half_pi<float>());
+    } else {
+        l.spot_angle = {glm::quarter_pi<float>(), glm::half_pi<float>()};
+    }
+}
 void GameState::onEnter(our::Application* app){
     //our::Application* App;
     //App=app;
@@ -46,7 +70,8 @@ void GameState::onEnter(our::Application* app){
     file_in.close();
     attachPrograms(json);
     loadResources(json);
-    loadNode(json,WorldPointer,nullptr,app); ///to be edited to load textures of each Entity///to be edited to load Light component
+    Sampler* s=new Sampler();
+    loadNode(json,WorldPointer,nullptr,app,s); ///to be edited to load textures of each Entity///to be edited to load Light component
     /////in LoadNode call Texture() for each Entity
     ////call Sampler() once (one Sampler for all Entities)
 /* int width, height;
@@ -179,7 +204,7 @@ void GameState::onExit(our::Application* app) {
 
 
 }
-void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app){
+void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app,Sampler* s){
    // auto node = std::make_shared<Transform>(
             Entity* e=new Entity();
             worldPointer->createEntity(e);
@@ -202,23 +227,39 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
             e->addComponent(CamControllerPointer);
         }e->addComponent(CameraPointer);
     }
+    if(json.contains("light")){
+
+    }
     if(json.contains("mesh")&&json.contains("program")){
         if(auto mesh_it = meshes.find(json["mesh"].get<std::string>()); mesh_it != meshes.end()) {
             if(auto prog_it = programs.find(json["program"].get<std::string>()); prog_it != programs.end()) {
                 Material *mat=new Material(prog_it->second);
+                if(json.contains("texture")){/////////////////////////////////////////////////////////////////////////////
+                    if(auto tex_it = textures.find(json["texture"].get<std::string>()); tex_it != textures.end()) {
+                        mat->setPointerToTexture(tex_it->second);
+                        mat->setPointerToSampler(s);
+                    }
+                }
+                if(json.contains("uniforms")){
+                    cout<<"dsdsdsd"<<endl;
+                    for (auto& [key, val] : json["uniforms"].items())
+                    {
+                      mat->addUniform(key,val);
+                      cout<<val<<endl;
+                    }
+                }
                 MeshRenderer* meshRenderer=new MeshRenderer(mesh_it->second,mat);
                 e->addComponent(meshRenderer);
             }
         }
     }
-    /*
-    if(json.contains("texture")){/////////////////////////////////////////////////////////////////////////////
+ /*   if(json.contains("texture")){/////////////////////////////////////////////////////////////////////////////
         e->texture = json["texture"].get<std::string>();
     }*/
 
     if(json.contains("children")){
         for(auto& [name, child]: json["children"].items()){
-            loadNode(child,worldPointer,e,app);
+            loadNode(child,worldPointer,e,app,s);
         }
     }
     //return node;
@@ -231,6 +272,13 @@ void GameState::loadResources(const nlohmann::json& json){
             our::Mesh* mp=new our::Mesh();
             meshes[key] =mp;
             our::mesh_utils::loadOBJ(*(meshes[key]),json["resources"]["meshes"].value<std::string>(key, "").c_str());
+        }
+        if(json["resources"].contains("textures")) {
+            for (auto&[key, val] : json["resources"]["textures"].items()) {
+                Texture *tex = new Texture(json["resources"]["textures"].value<std::string>(key, "").c_str());
+                cout<<"texture"<<" "<<json["resources"]["textures"].value<std::string>(key, "").c_str()<<endl;
+                textures[key] = tex;
+            }
         }
     }
 
@@ -247,9 +295,14 @@ void GameState::attachPrograms(const nlohmann::json& json){
                 std::cout<<it.value<std::string>("vert", "")<<std::endl;
                 pp->create();
                 pp->attach(it.value<std::string>("vert", ""), GL_VERTEX_SHADER);
+                std::cout<<"yyyyyyyyyyyyyyyy"<<std::endl;
 
                 pp->attach(it.value<std::string>("frag", ""), GL_FRAGMENT_SHADER);
+                std::cout<<"yyyyyyyyyyyyyyyy"<<std::endl;
+
                 pp->link();
+                std::cout<<"yyyyyyyyyyyyyyyy"<<std::endl;
+
             }
             programs[name]=pp;
 

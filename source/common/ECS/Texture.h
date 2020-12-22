@@ -12,6 +12,7 @@
 #include "../texture/texture-utils.h"
 class Texture {
     GLuint texture;
+    public:
     //our::ShaderProgram program;
     //GLuint vertex_array = 0;
 

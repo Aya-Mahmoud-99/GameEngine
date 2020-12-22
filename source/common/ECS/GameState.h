@@ -24,16 +24,22 @@
 
 //#include "input/keyboard.hpp"
 //#include "input/mouse.hpp"
+#include "Components/Light.h"
 
 //class CameraController;
 //using namespace our;
+
 class GameState{
 
 private:
     // CameraController* PointerToCamController;
-     World* WorldPointer;
+    std::vector<Light> lights;
+    World* WorldPointer;
     std::unordered_map<std::string,our::Mesh*> meshes;
     std::unordered_map<std::string, our::ShaderProgram*> programs;
+    std::unordered_map<std::string, Texture*> textures;
+
+
 
 
 public:
@@ -44,7 +50,7 @@ public:
     void loadResources(const nlohmann::json& json);
     void attachPrograms(const nlohmann::json& json);
     void onDraw(our::Application* app,double deltaTime);
-    void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app);
+    void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app,Sampler* s);
    // void resume();
     //void update();
 

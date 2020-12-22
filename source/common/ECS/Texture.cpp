@@ -1,7 +1,7 @@
 //
 // Created by Aya on 12/18/2020.
 //
-
+#include <iostream>
 #include "Texture.h"
 Texture::Texture(const char * ImagePath){
     glGenTextures(1, &texture);

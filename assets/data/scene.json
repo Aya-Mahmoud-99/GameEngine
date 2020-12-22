@@ -1,5 +1,8 @@
 {
   "resources": {
+    "textures": {
+      "house": "assets/models/House/House.jpeg"
+    },
     "meshes": {
       "suzanne": "assets/models/Suzanne/Suzanne.obj",
       "house": "assets/models/House/House.obj"
@@ -21,7 +24,11 @@
       "mesh": "suzanne",
       "translation": [ -5, 0, 0 ],
       "scale": [ 1, 1, 1 ],
-      "program": "default"
+      "program": "default",
+      "uniforms": {
+        "m": "sal;salsa",
+        "wa": "q;wlq;w"
+      }
     },
     "camera": {
       "translation": [ 0, 0, 4 ],
