@@ -1,7 +1,7 @@
 {
   "resources": {
     "textures": {
-      "house": "assets/models/House/House.jpeg"
+      "house": "assets/images/common/moon.jpg"
     },
     "meshes": {
       "suzanne": "assets/models/Suzanne/Suzanne.obj",
@@ -28,7 +28,8 @@
       "uniforms": {
         "m": "sal;salsa",
         "wa": "q;wlq;w"
-      }
+      },
+      "texture": "house"
     },
     "camera": {
       "translation": [ 0, 0, 4 ],
@@ -44,8 +45,9 @@
     },
     "house": {
       "mesh": "house",
+      "texture": "house",
       "translation": [ 0, 0, -5 ],
-      "program": "default"
+      "program": "house"
     }
     }
   }

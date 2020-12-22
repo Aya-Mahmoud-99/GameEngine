@@ -237,6 +237,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                 if(json.contains("texture")){/////////////////////////////////////////////////////////////////////////////
                     if(auto tex_it = textures.find(json["texture"].get<std::string>()); tex_it != textures.end()) {
                         mat->setPointerToTexture(tex_it->second);
+                        cout<<"aya "<<tex_it->first<<endl;
                         mat->setPointerToSampler(s);
                     }
                 }
