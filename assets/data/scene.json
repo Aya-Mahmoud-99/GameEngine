@@ -1,7 +1,8 @@
 {
   "resources": {
     "textures": {
-      "house": "assets/images/common/moon.jpg"
+      "moon": "assets/images/common/moon.jpg",
+      "house": "assets/models/House/House.jpeg"
     },
     "meshes": {
       "suzanne": "assets/models/Suzanne/Suzanne.obj",
@@ -24,12 +25,12 @@
       "mesh": "suzanne",
       "translation": [ -5, 0, 0 ],
       "scale": [ 1, 1, 1 ],
-      "program": "default",
+      "program": "house",
       "uniforms": {
         "m": "sal;salsa",
         "wa": "q;wlq;w"
       },
-      "texture": "house"
+      "texture": "moon"
     },
     "camera": {
       "translation": [ 0, 0, 4 ],

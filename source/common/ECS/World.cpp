@@ -39,8 +39,8 @@ void World::Rendering(){
             our::ShaderProgram* p=mesh->getMaterial()->getPointerToProgram();
             Texture* tex=mesh->getMaterial()->getPointerToTexture();
             Sampler* sam=mesh->getMaterial()->getPointerToSampler();
-            //if(tex)tex->TextureBind();
-            //if(sam)sam->SamplerBind(p);
+            if(tex)tex->TextureBind();
+            if(sam)sam->SamplerBind(p);
             //if(!p)return;
             //if(!m) return;
             //if()
