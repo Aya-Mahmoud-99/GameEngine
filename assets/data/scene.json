@@ -27,8 +27,10 @@
       "scale": [ 1, 1, 1 ],
       "program": "house",
       "uniforms": {
-        "m": "sal;salsa",
-        "wa": "q;wlq;w"
+        "tint": {
+          "type": "vec4",
+          "value": [1,0,1,1]
+        }
       },
       "texture": "moon"
     },
@@ -48,7 +50,13 @@
       "mesh": "house",
       "texture": "house",
       "translation": [ 0, 0, -5 ],
-      "program": "house"
+      "program": "house",
+      "uniforms": {
+        "tint": {
+"value":[0,1,0,1],
+          "type": "vec4"
+}
+      }
     }
     }
   }

@@ -41,15 +41,19 @@ void World::Rendering(){
             Sampler* sam=mesh->getMaterial()->getPointerToSampler();
             if(tex)tex->TextureBind();
             if(sam)sam->SamplerBind(p);
+            std::any tint=mesh->getMaterial()->getUniform("tint");
+
+            glm::vec4* Tint = std::any_cast<glm::vec4>(&tint);
             //if(!p)return;
             //if(!m) return;
             //if()
            // if(*p) return;
            // std::cout<<matrix1[0][0]<<" "<<matrix1[0][1]<<" "<<matrix1[0][2]<<" "<<matrix1[0][3]<<std::endl;
-
+           // std::cout<<matrix1[0][0]<<" "<<matrix1[0][1]<<" "<<matrix1[0][2]<<" "<<matrix1[0][3]<<std::endl;
+           if(Tint)cout <<(*Tint)[0]<<endl;
            glUseProgram(*p);
            p->set("transform", matrix1);
-           p->set("tint", glm::vec4(0.5,1,1,1));
+           p->set("tint", *Tint);
            /////call Entities[i]->getComponent<Texture>()->TextureBind() ////treat texture as comp??????
            ////call SamplerBind()
            m->draw();

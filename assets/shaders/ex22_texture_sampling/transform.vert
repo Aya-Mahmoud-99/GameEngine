@@ -7,6 +7,7 @@ layout(location = 1) in vec4 color;
 layout(location = 2) in vec2 tex_coord;
 
 uniform mat4 transform;
+uniform vec4 tint;
 
 // Since we are now sending multiple Varyings, it would be nice to pack them together in what is called an "Interface Block".
 // "Varyings" is just a name for the block (we can choose any name as long as it is the same in the fragment shader).

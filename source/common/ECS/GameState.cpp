@@ -245,8 +245,9 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                     cout<<"dsdsdsd"<<endl;
                     for (auto& [key, val] : json["uniforms"].items())
                     {
-                      mat->addUniform(key,val);
-                      cout<<val<<endl;
+                        std::string type=json["uniforms"][key].value<std::string>("type","");
+                      if(type=="vec4")mat->addUniform(key,json["uniforms"][key].value<glm::vec4>("value", {1,0,0,1}));
+                      cout<<key<<" "<<val<<endl;
                     }
                 }
                 MeshRenderer* meshRenderer=new MeshRenderer(mesh_it->second,mat);
