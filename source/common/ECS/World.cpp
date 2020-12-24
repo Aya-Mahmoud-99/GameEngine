@@ -22,7 +22,7 @@ vector<Entity *>& World::getEntities() {
 // this function should be called in main game state 
 void World::Rendering(){
     int Size=Entities.size();
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for(int i=0;i<Size;i++)
     {
         if(Entities[i]->getComponent<MeshRenderer>()!=NULL)

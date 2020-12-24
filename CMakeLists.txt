@@ -35,7 +35,7 @@ set(COMMON_SOURCES
         source/common/shader.cpp
         source/common/mesh/mesh-utils.cpp
         source/common/texture/texture-utils.cpp
-        source/common/texture/screenshot.cpp source/common/ECS/Component.cpp source/common/ECS/Component.h source/common/ECS/Entity.cpp source/common/ECS/Entity.h source/common/ECS/World.cpp source/common/ECS/World.h source/common/ECS/System.cpp source/common/ECS/System.h source/common/ECS/Components/Transform.cpp source/common/ECS/Components/Transform.h source/common/ECS/Components/MeshRenderer.cpp source/common/ECS/Components/MeshRenderer.h source/common/ECS/Components/Camera.cpp source/common/ECS/Components/Camera.h source/common/ECS/GameState.cpp source/common/ECS/GameState.h source/common/ECS/Components/CameraComponent.cpp source/common/ECS/Components/CameraComponent.h source/common/ECS/GameStateManager.h source/common/ECS/GameStateManager.cpp source/common/ECS/Components/Material.cpp source/common/ECS/Components/Material.h source/common/ECS/Components/Light.cpp source/common/ECS/Components/Light.h source/common/ECS/Texture.cpp source/common/ECS/Texture.h source/common/ECS/Sampler.cpp source/common/ECS/Sampler.h)
+        source/common/texture/screenshot.cpp source/common/ECS/Component.cpp source/common/ECS/Component.h source/common/ECS/Entity.cpp source/common/ECS/Entity.h source/common/ECS/World.cpp source/common/ECS/World.h source/common/ECS/System.cpp source/common/ECS/System.h source/common/ECS/Components/Transform.cpp source/common/ECS/Components/Transform.h source/common/ECS/Components/MeshRenderer.cpp source/common/ECS/Components/MeshRenderer.h source/common/ECS/Components/Camera.cpp source/common/ECS/Components/Camera.h source/common/ECS/GameState.cpp source/common/ECS/GameState.h source/common/ECS/Components/CameraComponent.cpp source/common/ECS/Components/CameraComponent.h source/common/ECS/GameStateManager.h source/common/ECS/GameStateManager.cpp source/common/ECS/Components/Material.cpp source/common/ECS/Components/Material.h source/common/ECS/Components/Light.cpp source/common/ECS/Components/Light.h source/common/ECS/Texture.cpp source/common/ECS/Texture.h source/common/ECS/Sampler.cpp source/common/ECS/Sampler.h source/common/ECS/RenderState.cpp)
 
 # Define the directories in which to search for the included headers
 include_directories(
@@ -50,8 +50,7 @@ include_directories(
 # For each example, we add an executable target
 # Each target compiles one example source file and the common & vendor source files
 # Then we link GLFW with each target
-add_executable(EMPTY_WINDOW source/examples/main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES} )
-target_link_libraries(EMPTY_WINDOW glfw)
+
 
 add_executable(phase2 source/examples/phase2_main.cpp ${COMMON_SOURCES} ${VENDOR_SOURCES})
 target_link_libraries(phase2 glfw)

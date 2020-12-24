@@ -24,9 +24,16 @@ Sampler* Material::getPointerToSampler() {
 Texture * Material::getPointerToTexture() {
     return pointerToTexture;
 }
+RenderState* Material::getPointerToRenderState(){
+    return pointerToRenderState;
+}
 void Material::setPointerToSampler(Sampler *s) {
     pointerToSampler=s;
 }
 void Material::setPointerToTexture(Texture *t) {
     pointerToTexture=t;
+}
+
+void Material::setPointerToRenderState(RenderState* rs){
+    pointerToRenderState=rs;
 }
