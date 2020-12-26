@@ -93,7 +93,7 @@ void World::RenderingSystem(){
         tmp.push_back(i);
     // sort with descending order.
     sort(tmp.begin(), tmp.end(),
-         [&](pair<std::shared_ptr<MeshRenderer>,long long>& a, pair<std::shared_ptr<MeshRenderer>,long long>& b) { return a.second < b.second; });
+         [&](pair<std::shared_ptr<MeshRenderer>,long long>& a, pair<std::shared_ptr<MeshRenderer>,long long>& b) { return a.second > b.second; });
 
     //    Loop on all M:
 //    Setup the Material:
