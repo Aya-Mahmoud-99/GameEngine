@@ -3,7 +3,7 @@
 //
 
 #include "RenderState.h"
-RenderState::RenderState(bool depthEnable,GLenum dpFun,bool cullEnable,GLenum cullface,GLenum frontwinding,bool blendEnable,GLenum blendFun,GLenum source,GLenum dest){
+RenderState::RenderState(bool depthEnable,GLenum dpFun,bool cullEnable,GLenum cullface,GLenum frontwinding,bool blendEnable,GLenum blendFun,GLenum source,GLenum dest,bool transparent1){
      enable_depth_test = depthEnable;
      depth_function = dpFun;
      enable_face_culling = cullEnable;
@@ -13,6 +13,7 @@ RenderState::RenderState(bool depthEnable,GLenum dpFun,bool cullEnable,GLenum cu
      blend_equation =blendFun;
      blend_source_factor=source;
      blend_destination_factor=dest;
+     transparent=transparent1;
 }
 
 void RenderState::DepthTesting(){
@@ -43,3 +44,10 @@ our::WindowConfiguration RenderState::getWindowConfiguration() {
     return { "RenderState:DepthTesting,Culling,Blending", {1280, 720}, false };
 }
 
+void RenderState::setTransparency(bool transparent1){
+    transparent=transparent1;
+}
+
+bool RenderState::getTransparency(){
+    return transparent;
+}

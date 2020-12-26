@@ -5,6 +5,7 @@
 #ifndef GFX_LAB_WORLD_H
 #define GFX_LAB_WORLD_H
 #include <glm/glm.hpp>
+#include <ECS/Components/Transform.h>
 #include "vector"
 
 class Entity;
@@ -18,6 +19,7 @@ public:
     //void assignComponentToEntity(Entity* e,Component* c);
     vector<Entity*>& getEntities();
     void Rendering();
+    void RenderingSystem();
     glm::mat4 getCameraEntityTransform();
     Entity* getCameraEntity();
     Entity* getLightEntity();

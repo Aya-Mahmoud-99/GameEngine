@@ -25,13 +25,16 @@ class RenderState{
     GLenum blend_source_factor;
     GLenum blend_destination_factor ;
     glm::vec4 blend_constant_color = {1.0f,1.0f,1.0f,1.0f};
-
+    //Transparency
+    bool transparent;
     public:
-    RenderState(bool depthEnable=false,GLenum dpFun=GL_LEQUAL,bool cullEnable=false,GLenum cullface=GL_BACK,GLenum frontwinding=GL_CCW,bool blendEnable=false,GLenum blendFun=GL_FUNC_ADD,GLenum source=GL_SRC_ALPHA,GLenum dest=GL_ONE_MINUS_SRC_ALPHA);
+    RenderState(bool depthEnable=false,GLenum dpFun=GL_LEQUAL,bool cullEnable=false,GLenum cullface=GL_BACK,GLenum frontwinding=GL_CCW,bool blendEnable=false,GLenum blendFun=GL_FUNC_ADD,GLenum source=GL_SRC_ALPHA,GLenum dest=GL_ONE_MINUS_SRC_ALPHA,bool transparent1=false);
     void DepthTesting();
     void Culling();
     void Blending();
     our::WindowConfiguration getWindowConfiguration();
+    void setTransparency(bool transparent1);
+    bool getTransparency();
     ~RenderState(){}
 };
 
