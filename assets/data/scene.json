@@ -32,7 +32,19 @@
           "value": [1,0,1,1]
         }
       },
-      "texture": "moon"
+      "texture": "moon",
+      "render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":1,
+        "cullface":"GL_BACK",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
     },
     "camera": {
       "translation": [ 0, 0, 4 ],
