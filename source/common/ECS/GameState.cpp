@@ -254,16 +254,17 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                 if(json.contains("render_state")){
                  RenderState* r=new RenderState(
                         json["render_state"]["depth_enable"]==1?true:false,
-                        enum_options::dpFunc[json["render_state"].value<std::string>("dpfunc","")],
+                        enum_options::dpFunc[json["render_state"].value<std::string>("dpfunc","GL_LEQUAL")],
                         json["render_state"]["cull_enable"]==1?true:false,
-                        enum_options::cullface[json["render_state"].value<std::string>("cullface","")],
-                        enum_options::frontwinding[json["render_state"].value<std::string>("frontwinding","")],
+                        enum_options::cullface[json["render_state"].value<std::string>("cullface","GL_BACK")],
+                        enum_options::frontwinding[json["render_state"].value<std::string>("frontwinding","GL_CCW")],
                         json["render_state"]["blend_enable"]==1?true:false,
-                        enum_options::blendFun[json["render_state"].value<std::string>("blendFun","")],
-                        enum_options::source[json["render_state"].value<std::string>("source","")],
-                        enum_options::source[json["render_state"].value<std::string>("dest","")],
+                        enum_options::blendFun[json["render_state"].value<std::string>("blendFun","GL_FUNC_ADD")],
+                        enum_options::source[json["render_state"].value<std::string>("source","GL_SRC_ALPHA")],
+                        enum_options::source[json["render_state"].value<std::string>("dest","GL_ONE_MINUS_SRC_ALPHA")],
                         json["render_state"]["transperent"]==1?true:false
                                 );
+                 cout<<json["render_state"].value<std::string>("dpfunc","mama")<<endl;
                  mat->setPointerToRenderState(r);
                 }
                 MeshRenderer* meshRenderer=new MeshRenderer(mesh_it->second,mat);
