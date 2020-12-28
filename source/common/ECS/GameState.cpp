@@ -1,6 +1,7 @@
 
 // Created by m.yasser on 11/26/2020.
 //#include <./application.hpp>
+#include "utils.hpp"
 #include <fstream>
 #include "GameState.h"
 #include "Components/CameraComponent.h"
@@ -249,6 +250,21 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                       if(type=="vec4")mat->addUniform(key,json["uniforms"][key].value<glm::vec4>("value", {1,0,0,1}));
                       cout<<key<<" "<<val<<endl;
                     }
+                }
+                if(json.contains("render_state")){
+                 RenderState* r=new RenderState(
+                        json["render_state"]["depth_enable"]==1?true:false,
+                        enum_options::dpFunc[json["render_state"].value<std::string>("dpfunc","")],
+                        json["render_state"]["cull_enable"]==1?true:false,
+                        enum_options::cullface[json["render_state"].value<std::string>("cullface","")],
+                        enum_options::frontwinding[json["render_state"].value<std::string>("frontwinding","")],
+                        json["render_state"]["blend_enable"]==1?true:false,
+                        enum_options::blendFun[json["render_state"].value<std::string>("blendFun","")],
+                        enum_options::source[json["render_state"].value<std::string>("source","")],
+                        enum_options::source[json["render_state"].value<std::string>("dest","")],
+                        json["render_state"]["transperent"]==1?true:false
+                                );
+                 mat->setPointerToRenderState(r);
                 }
                 MeshRenderer* meshRenderer=new MeshRenderer(mesh_it->second,mat);
                 e->addComponent(meshRenderer);
