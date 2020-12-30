@@ -264,7 +264,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                         json["render_state"]["blend_enable"]==1?true:false,
                         enum_options::blendFun[json["render_state"].value<std::string>("blendFun","GL_FUNC_ADD")],
                         enum_options::source[json["render_state"].value<std::string>("source","GL_SRC_ALPHA")],
-                        enum_options::source[json["render_state"].value<std::string>("dest","GL_ONE_MINUS_SRC_ALPHA")],
+                        enum_options::dest[json["render_state"].value<std::string>("dest","GL_ONE_MINUS_SRC_ALPHA")],
                         json["render_state"]["transperent"]==1?true:false
                                 );
                  cout<<json["render_state"].value<std::string>("dpfunc","mama")<<endl;

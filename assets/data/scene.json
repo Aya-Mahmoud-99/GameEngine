@@ -29,17 +29,17 @@
       "uniforms": {
         "tint": {
           "type": "vec4",
-          "value": [1,0,1,0]
+          "value": [1,0,1,1]
         }
       },
       "texture": "moon",
       "render_state": {
-        "depth_enable":1,
+        "depth_enable":0,
         "dpfunc":"GL_LEQUAL",
-        "cull_enable":1,
+        "cull_enable":0,
         "cullface":"GL_BACK",
         "frontwinding":"GL_CCW",
-        "blend_enable":0,
+        "blend_enable":1,
         "blendFun":"GL_FUNC_ADD",
         "source":"GL_SRC_ALPHA",
         "dest":"GL_ONE_MINUS_SRC_ALPHA",
@@ -54,12 +54,12 @@
       "uniforms": {
         "tint": {
           "type": "vec4",
-          "value": [1,0,1,0.5]
+          "value": [1,1,1,0.5]
         }
       },
       "texture": "moon",
       "render_state": {
-        "depth_enable":1,
+        "depth_enable":0,
         "dpfunc":"GL_LEQUAL",
         "cull_enable":1,
         "cullface":"GL_BACK",
@@ -90,20 +90,20 @@
       "program": "house",
       "uniforms": {
         "tint": {
-"value":[0,1,0,0.5],
+"value":[1,1,0,1],
           "type": "vec4"
 }
       },"render_state": {
         "depth_enable":0,
         "dpfunc":"GL_LEQUAL",
-        "cull_enable":1,
+        "cull_enable":0,
         "cullface":"GL_FRONT",
         "frontwinding":"GL_CCW",
         "blend_enable":1,
         "blendFun":"GL_FUNC_ADD",
         "source":"GL_SRC_ALPHA",
         "dest":"GL_ONE_MINUS_SRC_ALPHA",
-        "transperent":1
+        "transperent":0
       }
     }
     }

@@ -3,6 +3,8 @@
 //
 
 #include "RenderState.h"
+#include <iostream>
+using namespace std;
 RenderState::RenderState(bool depthEnable,GLenum dpFun,bool cullEnable,GLenum cullface,GLenum frontwinding,bool blendEnable,GLenum blendFun,GLenum source,GLenum dest,bool transparent1){
      enable_depth_test = depthEnable;
      depth_function = dpFun;
@@ -13,6 +15,7 @@ RenderState::RenderState(bool depthEnable,GLenum dpFun,bool cullEnable,GLenum cu
      blend_equation =blendFun;
      blend_source_factor=source;
      blend_destination_factor=dest;
+     cout<<"dest"<<dest<<endl;
      transparent=transparent1;
 }
 
@@ -36,8 +39,15 @@ void RenderState::Culling(){
 void RenderState::Blending(){
 
     glBlendEquation(blend_equation);
+    cout<<blend_equation<<endl;
     glBlendFunc(blend_source_factor, blend_destination_factor);
+   // cout<<"sssssssssss"<<blend_source_factor<<endl;
+ //   cout<<blend_destination_factor<<endl;
+
     glBlendColor(blend_constant_color.r, blend_constant_color.g, blend_constant_color.b, blend_constant_color.a);
+    //glBlendEquation(GL_FUNC_ADD);
+   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glBlendColor(1.0f,1.0f,1.0f,1.0f);
     if(transparent && enable_blending) glEnable(GL_BLEND);
     else glDisable(GL_BLEND);
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

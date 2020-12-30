@@ -61,9 +61,14 @@ void World::Rendering(){
         }
     }
 }
+GLenum blend_equation = GL_FUNC_ADD;
+GLenum blend_source_function = GL_SRC_ALPHA, blend_destination_function = GL_ONE_MINUS_SRC_ALPHA;
+glm::vec4 blend_constant_color = {1.0f,1.0f,1.0f,1.0f};
 void World::RenderingSystem(){
    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // Clearing the depth buffer is important now as we are drawing to it each frame.
-
+    /*glBlendEquation(blend_equation);
+    glBlendFunc(blend_source_function, blend_destination_function);
+    glBlendColor(blend_constant_color.r, blend_constant_color.g, blend_constant_color.b, blend_constant_color.a);*/
 //    Some code to get the rendering camera entity.
     Entity* temp=getCameraEntity();
     Camera* c=temp->getComponent<Camera>();
