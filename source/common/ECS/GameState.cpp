@@ -175,7 +175,10 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 //const int MAX_LIGHT_COUNT = 16;
 //WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightSelect(light_index,MAX_LIGHT_COUNT,program);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//cout<<"xxxxxxxx"<<endl;
 WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
+  //  cout<<"xxxxxxxx"<<endl;
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();
 }

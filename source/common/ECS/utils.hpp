@@ -21,9 +21,14 @@
 
         inline EnumMap dpFunc = {
                 {"GL_LEQUAL", GL_LEQUAL},
+                {"GL_GEQUAL",GL_GEQUAL}
         };
         inline EnumMap cullface = {
                 {"GL_BACK", GL_BACK},
+                {"GL_RIGHT",GL_RIGHT},
+                {"GL_FRONT",GL_FRONT},
+                {"GL_LEFT",GL_LEFT},
+                {"GL_FRONT_AND_BACK",GL_FRONT_AND_BACK}
         };
         inline EnumMap frontwinding = {
                 {"GL_CCW", GL_CCW},

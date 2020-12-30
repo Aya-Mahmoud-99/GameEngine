@@ -20,7 +20,7 @@ void RenderState::DepthTesting(){
     if(enable_depth_test) glEnable(GL_DEPTH_TEST); else glDisable(GL_DEPTH_TEST);       // This line enables depth testing.
     glDepthFunc(depth_function);
 
-    glClearDepth(clear_depth);                              // Specifies the depth value used when the depth buffer is cleared. The initial value is 1.
+   glClearDepth(clear_depth);                              // Specifies the depth value used when the depth buffer is cleared. The initial value is 1.
 
     glDepthMask(depth_mask);
     glColorMask(color_mask.r, color_mask.g, color_mask.b, color_mask.a);
@@ -38,6 +38,8 @@ void RenderState::Blending(){
     glBlendEquation(blend_equation);
     glBlendFunc(blend_source_factor, blend_destination_factor);
     glBlendColor(blend_constant_color.r, blend_constant_color.g, blend_constant_color.b, blend_constant_color.a);
+    if(transparent && enable_blending) glEnable(GL_BLEND);
+    else glDisable(GL_BLEND);
     //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 our::WindowConfiguration RenderState::getWindowConfiguration() {

@@ -62,6 +62,7 @@ void World::Rendering(){
     }
 }
 void World::RenderingSystem(){
+   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);     // Clearing the depth buffer is important now as we are drawing to it each frame.
 
 //    Some code to get the rendering camera entity.
     Entity* temp=getCameraEntity();
@@ -74,23 +75,29 @@ void World::RenderingSystem(){
 //    Let M be an empty container containing mesh renderers and their distance from the camera.
     std::unordered_multimap<std::shared_ptr<MeshRendererTransform>,long long> MTransparent;
     std::unordered_multimap<std::shared_ptr<MeshRendererTransform>,long long> MOpaque;
+   // cout<<"start1"<<endl;
 
     for(auto & Entitie : Entities) {
 
         if (Entitie->getComponent<MeshRenderer>() != nullptr ) {
             Transform* t=Entitie->getComponent<Transform>();
             glm::mat4 matrix1=vp*t->parents_mat();
-            MeshRendererTransform* tempPair;
+            MeshRendererTransform* tempPair=new MeshRendererTransform();
+            //cout<<"start3"<<endl;
             auto* tempPtr=Entitie->getComponent<MeshRenderer>();
+            //cout<<"start4"<<endl;
             tempPair->MR=tempPtr;
             tempPair->matrix=matrix1;
-                if(tempPtr->getMaterial()->getPointerToRenderState()->getTransparency())
+            //cout<<"start5"<<endl;
+            if(tempPtr->getMaterial()->getPointerToRenderState()->getTransparency())
                     MTransparent.insert(pair<std::shared_ptr<MeshRendererTransform>,long long>(tempPair,distance(cameraTransform,Entitie->getComponent<Transform>())));
                 else
                     MOpaque.insert(pair<std::shared_ptr<MeshRendererTransform>,long long>(tempPair,distance(cameraTransform,Entitie->getComponent<Transform>())));
 
         }
     }
+    //cout<<"start2"<<endl;
+
     vector<pair<std::shared_ptr<MeshRendererTransform>,long long>> tmp;
     for (auto& i : MTransparent)
         tmp.push_back(i);
@@ -128,6 +135,7 @@ void World::RenderingSystem(){
         rs->Culling();
         rs->DepthTesting();
         m->draw();
+        cout<<"dsds,d;sld;sld;"<<endl;
     }
     for (auto& i : tmp){
 
@@ -151,6 +159,8 @@ void World::RenderingSystem(){
         rs->DepthTesting();
         m->draw();
     }
+    cout<<"end"<<endl;
+
 
 }
 
