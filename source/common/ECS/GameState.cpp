@@ -176,8 +176,8 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 //WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightSelect(light_index,MAX_LIGHT_COUNT,program);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
-WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
-
+//WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
+    WorldPointer->RenderingSystem();
 }
 
 void GameState::onExit(our::Application* app) {

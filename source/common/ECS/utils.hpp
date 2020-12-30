@@ -9,6 +9,7 @@
 //#include <type_traits>
 
 #include <glad/gl.h>
+#include <string>
 #include "string.h"
 //#include <imgui.h>
 //#include <glm/common.hpp>

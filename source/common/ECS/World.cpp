@@ -96,23 +96,19 @@ void World::RenderingSystem(){
         tmp.push_back(i);
     // sort with descending order.
     sort(tmp.begin(), tmp.end(),
-         [&](pair<std::shared_ptr<MeshRenderer>,long long>& a, pair<std::shared_ptr<MeshRenderer>,long long>& b) { return a.second > b.second; });
+         [&](pair<std::shared_ptr<MeshRendererTransform>,long long>& a, pair<std::shared_ptr<MeshRendererTransform>,long long>& b) { return a.second > b.second; });
 
     //    Loop on all M:
 //    Setup the Material:
-//    Use the shader program
-//    Send transform and camera variables to shader uniforms
-//    Send material variables to shader uniforms
+//    Use the shader program done
+//    Send transform and camera variables to shader uniforms done
+//    Send material variables to shader uniforms done
 //    Send lights to shader uniforms
-//    Use the render state to set openGL state
+
 
     for (auto& i : MOpaque)
     {
-        //    Use the render state to set openGL state
-        auto rs=i.first->MR->getMaterial()->getPointerToRenderState();
-        rs->Blending();
-        rs->Culling();
-        rs->DepthTesting();
+
         //    Draw the entity using its attached mesh renderer component
         our::Mesh* m=i.first->MR->getPointerToMesh();
         our::ShaderProgram* p=i.first->MR->getMaterial()->getPointerToProgram();
@@ -126,14 +122,15 @@ void World::RenderingSystem(){
         glUseProgram(*p);
         p->set("transform", i.first->matrix);
         p->set("tint", *Tint);
+        //    Use the render state to set openGL state
+        auto rs=i.first->MR->getMaterial()->getPointerToRenderState();
+        rs->Blending();
+        rs->Culling();
+        rs->DepthTesting();
         m->draw();
     }
     for (auto& i : tmp){
-        //    Use the render state to set openGL state
-        auto rs=i.first->MR->getMaterial()->getPointerToRenderState();
-        rs->Blending();
-        rs->Culling();
-        rs->DepthTesting();
+
         //    Draw the entity using its attached mesh renderer component
         our::Mesh* m=i.first->MR->getPointerToMesh();
         our::ShaderProgram* p=i.first->MR->getMaterial()->getPointerToProgram();
@@ -147,6 +144,11 @@ void World::RenderingSystem(){
         glUseProgram(*p);
         p->set("transform", i.first->matrix);
         p->set("tint", *Tint);
+        //    Use the render state to set openGL state
+        auto rs=i.first->MR->getMaterial()->getPointerToRenderState();
+        rs->Blending();
+        rs->Culling();
+        rs->DepthTesting();
         m->draw();
     }
 
