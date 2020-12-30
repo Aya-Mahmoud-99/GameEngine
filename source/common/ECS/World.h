@@ -7,10 +7,14 @@
 #include <glm/glm.hpp>
 #include <ECS/Components/Transform.h>
 #include "vector"
-
+#include <ECS/Components/MeshRenderer.h>
 class Entity;
 using namespace std;
-
+struct MeshRendererTransform
+{
+    MeshRenderer* MR;
+    glm::mat4 matrix;
+};
 class World {
 vector<Entity*> Entities;
 public:

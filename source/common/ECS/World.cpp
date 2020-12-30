@@ -72,23 +72,26 @@ void World::RenderingSystem(){
 //            Collect all the lights
 
 //    Let M be an empty container containing mesh renderers and their distance from the camera.
-    std::unordered_multimap<std::shared_ptr<MeshRenderer>,long long> MTransparent;
-    std::unordered_multimap<std::shared_ptr<MeshRenderer>,long long> MOpaque;
+    std::unordered_multimap<std::shared_ptr<MeshRendererTransform>,long long> MTransparent;
+    std::unordered_multimap<std::shared_ptr<MeshRendererTransform>,long long> MOpaque;
 
     for(auto & Entitie : Entities) {
 
         if (Entitie->getComponent<MeshRenderer>() != nullptr ) {
             Transform* t=Entitie->getComponent<Transform>();
             glm::mat4 matrix1=vp*t->parents_mat();
+            MeshRendererTransform* tempPair;
             auto* tempPtr=Entitie->getComponent<MeshRenderer>();
+            tempPair->MR=tempPtr;
+            tempPair->matrix=matrix1;
                 if(tempPtr->getMaterial()->getPointerToRenderState()->getTransparency())
-                    MTransparent.insert(pair<std::shared_ptr<MeshRenderer>,long long>(tempPtr,distance(cameraTransform,Entitie->getComponent<Transform>())));
+                    MTransparent.insert(pair<std::shared_ptr<MeshRendererTransform>,long long>(tempPair,distance(cameraTransform,Entitie->getComponent<Transform>())));
                 else
-                    MOpaque.insert(pair<std::shared_ptr<MeshRenderer>,long long>(tempPtr,distance(cameraTransform,Entitie->getComponent<Transform>())));
+                    MOpaque.insert(pair<std::shared_ptr<MeshRendererTransform>,long long>(tempPair,distance(cameraTransform,Entitie->getComponent<Transform>())));
 
         }
     }
-    vector<pair<std::shared_ptr<MeshRenderer>,long long>> tmp;
+    vector<pair<std::shared_ptr<MeshRendererTransform>,long long>> tmp;
     for (auto& i : MTransparent)
         tmp.push_back(i);
     // sort with descending order.
@@ -103,35 +106,46 @@ void World::RenderingSystem(){
 //    Send lights to shader uniforms
 //    Use the render state to set openGL state
 
-    for (auto& i : MOpaque){
+    for (auto& i : MOpaque)
+    {
+        //    Use the render state to set openGL state
+        auto rs=i.first->MR->getMaterial()->getPointerToRenderState();
+        rs->Blending();
+        rs->Culling();
+        rs->DepthTesting();
         //    Draw the entity using its attached mesh renderer component
-        our::Mesh* m=i.first->getPointerToMesh();
-        our::ShaderProgram* p=i.first->getMaterial()->getPointerToProgram();
-        Texture* tex=i.first->getMaterial()->getPointerToTexture();
-        Sampler* sam=i.first->getMaterial()->getPointerToSampler();
+        our::Mesh* m=i.first->MR->getPointerToMesh();
+        our::ShaderProgram* p=i.first->MR->getMaterial()->getPointerToProgram();
+        Texture* tex=i.first->MR->getMaterial()->getPointerToTexture();
+        Sampler* sam=i.first->MR->getMaterial()->getPointerToSampler();
         if(tex)tex->TextureBind();
         if(sam)sam->SamplerBind(p);
-        std::any tint=i.first->getMaterial()->getUniform("tint");
+        std::any tint=i.first->MR->getMaterial()->getUniform("tint");
         glm::vec4* Tint = std::any_cast<glm::vec4>(&tint);
         if(Tint)cout <<(*Tint)[0]<<endl;
         glUseProgram(*p);
-        //p->set("transform", matrix1);
+        p->set("transform", i.first->matrix);
         p->set("tint", *Tint);
         m->draw();
     }
     for (auto& i : tmp){
+        //    Use the render state to set openGL state
+        auto rs=i.first->MR->getMaterial()->getPointerToRenderState();
+        rs->Blending();
+        rs->Culling();
+        rs->DepthTesting();
         //    Draw the entity using its attached mesh renderer component
-        our::Mesh* m=i.first->getPointerToMesh();
-        our::ShaderProgram* p=i.first->getMaterial()->getPointerToProgram();
-        Texture* tex=i.first->getMaterial()->getPointerToTexture();
-        Sampler* sam=i.first->getMaterial()->getPointerToSampler();
+        our::Mesh* m=i.first->MR->getPointerToMesh();
+        our::ShaderProgram* p=i.first->MR->getMaterial()->getPointerToProgram();
+        Texture* tex=i.first->MR->getMaterial()->getPointerToTexture();
+        Sampler* sam=i.first->MR->getMaterial()->getPointerToSampler();
         if(tex)tex->TextureBind();
         if(sam)sam->SamplerBind(p);
-        std::any tint=i.first->getMaterial()->getUniform("tint");
+        std::any tint=i.first->MR->getMaterial()->getUniform("tint");
         glm::vec4* Tint = std::any_cast<glm::vec4>(&tint);
         if(Tint)cout <<(*Tint)[0]<<endl;
         glUseProgram(*p);
-        //p->set("transform", matrix1);
+        p->set("transform", i.first->matrix);
         p->set("tint", *Tint);
         m->draw();
     }
