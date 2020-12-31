@@ -78,7 +78,7 @@ void World::RenderingSystem(){
     Camera* c=temp->getComponent<Camera>();
     Transform* cameraTransform=temp->getComponent<Transform>();
     CameraController* cc=getCameraEntity()->getComponent<CameraController>();
-    glm::mat4 vp=c->getProjectionMatrix()*cc->getCameraViewMatrix();
+    glm::mat4 vp=c->getProjectionMatrix()*c->getViewMatrix();
 //            Collect all the lights
 
 //    Let M be an empty container containing mesh renderers and their distance from the camera.

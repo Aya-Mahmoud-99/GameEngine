@@ -54,47 +54,6 @@
       "uniforms": {
         "alpha": {
           "type": "float",
-          "value": 1
-        },
-        "albedo_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },
-        "specular_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },"emissive_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },"roughness_range":{
-          "type": "vec2",
-          "value": [0,1]
-        }
-      },"render_state": {
-        "depth_enable":0,
-        "dpfunc":"GL_LEQUAL",
-        "cull_enable":0,
-        "cullface":"GL_FRONT",
-        "frontwinding":"GL_CCW",
-        "blend_enable":1,
-        "blendFun":"GL_FUNC_ADD",
-        "source":"GL_SRC_ALPHA",
-        "dest":"GL_ONE_MINUS_SRC_ALPHA",
-        "transperent":0
-      }
-    },
-    "house": {
-      "mesh": "house",
-      "albedo_map": "house",
-      "specular_map": "house",
-      "roughness_map": "house",
-      "ambient_occlusion_map": "house",
-      "emissive_map": "house",
-      "translation": [ 0, 0, 0 ],
-      "program": "light",
-      "uniforms": {
-        "alpha": {
-          "type": "float",
           "value": 0.5
         },
         "albedo_tint": {
@@ -122,6 +81,47 @@
         "source":"GL_SRC_ALPHA",
         "dest":"GL_ONE_MINUS_SRC_ALPHA",
         "transperent":1
+      }
+    },
+    "house": {
+      "mesh": "house",
+      "albedo_map": "house",
+      "specular_map": "house",
+      "roughness_map": "house",
+      "ambient_occlusion_map": "house",
+      "emissive_map": "house",
+      "translation": [ 0, 0, 0 ],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":0,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
       }
     },
 "lamp":{
