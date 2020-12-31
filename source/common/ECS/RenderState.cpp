@@ -39,7 +39,7 @@ void RenderState::Culling(){
 void RenderState::Blending(){
 
     glBlendEquation(blend_equation);
-    cout<<blend_equation<<endl;
+    //cout<<blend_equation<<endl;
     glBlendFunc(blend_source_factor, blend_destination_factor);
    // cout<<"sssssssssss"<<blend_source_factor<<endl;
  //   cout<<blend_destination_factor<<endl;

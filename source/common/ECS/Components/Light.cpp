@@ -3,8 +3,10 @@
 //
 
 #include "Light.h"
+#include<iostream>
+using namespace std;
 LightComponent::LightComponent(Light Newlight,Transform *Trans,Camera*cam,CameraController*camCon){
-
+    cout<<"light"<<Newlight.spot_angle.inner<<endl;
     //to be transfered to the OnEnter//////////////////////////////////////////////////// send these data in onEnter
     /*light.type = LightType::DIRECTIONAL;
     light.enabled = true;
@@ -28,12 +30,12 @@ LightComponent::LightComponent(Light Newlight,Transform *Trans,Camera*cam,Camera
     this->camera=cam;
     this->camera_controller=camCon;
 }
-void LightComponent::lightSelect(our::ShaderProgram program){
+void LightComponent::lightSelect(our::ShaderProgram* program,std::string prefix){
     /////////////////////////////////the position and direction will be retrieved from the transform component.
     setPosition();
     setDirection();
     //for(const auto& light : lights) {
-    program.set("light.diffuse", light.diffuse);
+  /*  program.set("light.diffuse", light.diffuse);
     program.set("light.specular", light.specular);
     program.set("light.ambient", light.ambient);
     // Some properties are only available in some light types
@@ -55,6 +57,35 @@ void LightComponent::lightSelect(our::ShaderProgram program){
             program.set("light.attenuation_quadratic", light.attenuation.quadratic);
             program.set("light.inner_angle", light.spot_angle.inner);
             program.set("light.outer_angle", light.spot_angle.outer);
+            break;
+    }*/
+    program->set(prefix + "type", static_cast<int>(light.type));
+    //cout<<static_cast<int>(light.type)<<endl;
+    program->set(prefix + "color", light.color);
+    //cout<<light.color[0]<<endl;
+    cout<<light.position[2]<<endl;
+    cout<<light.direction[2]<<endl;
+    switch (light.type) {
+        case LightType::DIRECTIONAL:
+            cout<<"directional"<<endl;
+            program->set(prefix + "direction", glm::normalize(light.direction));
+            break;
+        case LightType::POINT:
+            cout<<"point"<<endl;
+            program->set(prefix + "position", light.position);
+            program->set(prefix + "attenuation_constant", light.attenuation.constant);
+            program->set(prefix + "attenuation_linear", light.attenuation.linear);
+            program->set(prefix + "attenuation_quadratic", light.attenuation.quadratic);
+            break;
+        case LightType::SPOT:
+            cout<<"spot"<<endl;
+            program->set(prefix + "position", light.position);
+            program->set(prefix + "direction", glm::normalize(light.direction));
+            program->set(prefix + "attenuation_constant", light.attenuation.constant);
+            program->set(prefix + "attenuation_linear", light.attenuation.linear);
+            program->set(prefix + "attenuation_quadratic", light.attenuation.quadratic);
+            program->set(prefix + "inner_angle", light.spot_angle.inner);
+            program->set(prefix + "outer_angle", light.spot_angle.outer);
             break;
     }
         //light_index++;

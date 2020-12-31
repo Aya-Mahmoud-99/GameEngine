@@ -38,8 +38,8 @@ void from_json(const nlohmann::json& j, Light& l){
     else if(type_name == "spot") l.type = LightType::SPOT;
     else l.type = LightType::POINT;
     l.color = j.value<glm::vec3>("color", {1,1,1});
-    l.direction = j.value<glm::vec3>("direction", {0, -1, 0});
-    l.position = j.value<glm::vec3>("position", {0,0,0});
+ //   l.direction = j.value<glm::vec3>("direction", {0, -1, 0});
+//    l.position = j.value<glm::vec3>("position", {0,0,0});
     l.enabled = j.value("enabled", true);
     if(auto it = j.find("attenuation"); it != j.end()){
         auto& a = it.value();
@@ -232,17 +232,53 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
         }e->addComponent(CameraPointer);
     }
     if(json.contains("light")){
-
+        Light l;
+        l=json.value("light",l );
+        LightComponent* L=new LightComponent(l,t);
+        e->addComponent(L);
     }
     if(json.contains("mesh")&&json.contains("program")){
         if(auto mesh_it = meshes.find(json["mesh"].get<std::string>()); mesh_it != meshes.end()) {
             if(auto prog_it = programs.find(json["program"].get<std::string>()); prog_it != programs.end()) {
                 Material *mat=new Material(prog_it->second);
-                if(json.contains("texture")){/////////////////////////////////////////////////////////////////////////////
-                    if(auto tex_it = textures.find(json["texture"].get<std::string>()); tex_it != textures.end()) {
-                        mat->setPointerToTexture(tex_it->second);
+               /* Texture* albedo_map;
+                Texture* specular_map;
+                Texture* ambient_occlusion_map;
+                Texture* roughness_map;
+                Texture* emissive_map;*/
+                mat->setPointerToSampler(s);
+                if(json.contains("albedo_map")){/////////////////////////////////////////////////////////////////////////////
+                    if(auto tex_it = textures.find(json["albedo_map"].get<std::string>()); tex_it != textures.end()) {
+                        mat->setPointerToAlbedoMap(tex_it->second);
                         cout<<"aya "<<tex_it->first<<endl;
-                        mat->setPointerToSampler(s);
+                    }
+                }
+                if(json.contains("specular_map")){/////////////////////////////////////////////////////////////////////////////
+                    if(auto tex_it = textures.find(json["specular_map"].get<std::string>()); tex_it != textures.end()) {
+                        mat->setPointerToSpecularMap(tex_it->second);
+                        cout<<"aya "<<tex_it->first<<endl;
+                       // mat->setPointerToSampler(s);
+                    }
+                }
+                if(json.contains("ambient_occlusion_map")){/////////////////////////////////////////////////////////////////////////////
+                    if(auto tex_it = textures.find(json["ambient_occlusion_map"].get<std::string>()); tex_it != textures.end()) {
+                        mat->setPointerToAmbientOcuulsionMap(tex_it->second);
+                        cout<<"aya "<<tex_it->first<<endl;
+                       // mat->setPointerToSampler(s);
+                    }
+                }
+                if(json.contains("roughness_map")){/////////////////////////////////////////////////////////////////////////////
+                    if(auto tex_it = textures.find(json["roughness_map"].get<std::string>()); tex_it != textures.end()) {
+                        mat->setPointerToRoughnessMap(tex_it->second);
+                        cout<<"aya "<<tex_it->first<<endl;
+                        //mat->setPointerToSampler(s);
+                    }
+                }
+                if(json.contains("emissive_map")){/////////////////////////////////////////////////////////////////////////////
+                    if(auto tex_it = textures.find(json["emissive_map"].get<std::string>()); tex_it != textures.end()) {
+                        mat->setPointerToEmissiveMap(tex_it->second);
+                        cout<<"aya "<<tex_it->first<<endl;
+                       // mat->setPointerToSampler(s);
                     }
                 }
                 if(json.contains("uniforms")){
@@ -251,9 +287,15 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                     {
                         std::string type=json["uniforms"][key].value<std::string>("type","");
                       if(type=="vec4")mat->addUniform(key,json["uniforms"][key].value<glm::vec4>("value", {1,0,0,1}));
-                      cout<<key<<" "<<val<<endl;
+                        if(type=="vec2")mat->addUniform(key,json["uniforms"][key].value<glm::vec2>("value", {1,0}));
+                        if(type=="vec3")mat->addUniform(key,json["uniforms"][key].value<glm::vec3>("value", {1,1,1}));
+                        if(type=="float")mat->addUniform(key,json["uniforms"][key].value<float>("value",1.0f));
+
+
+                        cout<<key<<" "<<val<<endl;
                     }
                 }
+
                 if(json.contains("render_state")){
                  RenderState* r=new RenderState(
                         json["render_state"]["depth_enable"]==1?true:false,

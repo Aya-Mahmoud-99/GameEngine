@@ -22,7 +22,7 @@ class Sampler {
     //std::unordered_map<std::string, GLuint> textures;
 
     // Samplers are OpenGL objects so we identify them using a GLuint.
-    GLuint sampler = 0;
+    GLuint sampler;
 
     // These sampling parameters will be stored in the Sampler object.
     GLenum magnification_filter = GL_LINEAR, minification_filter = GL_LINEAR_MIPMAP_LINEAR;

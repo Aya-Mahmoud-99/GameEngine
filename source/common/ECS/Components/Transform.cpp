@@ -10,6 +10,9 @@ Transform::Transform(glm::vec3 t, glm::vec3 r, glm::vec3 s,Entity*p) {
     parent=p;
     V=to_mat4();
 }
+glm::vec3 Transform::getPosition() {
+    return translation;
+}
 glm::mat4 Transform::to_mat4() {
     return glm::translate(glm::mat4(1.0f), translation) *
            glm::yawPitchRoll(rotation.y, rotation.x, rotation.z) *

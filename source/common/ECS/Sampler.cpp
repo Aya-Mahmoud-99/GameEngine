@@ -10,8 +10,8 @@ Sampler::Sampler(Transform*tran){
     glGenSamplers(1, &sampler);
 }
 void Sampler::SamplerBind(our::ShaderProgram *p){
-    glBindSampler(0, sampler);
-    p->set("sampler", 0);
+   // glBindSampler(0, sampler);
+   // p->set("sampler", 0);
     // Now, instead of setting the parameters for each texture, we just set it to the sampler and each unit that uses that sampler will automatically use these parameters.
     glSamplerParameteri(sampler, GL_TEXTURE_MAG_FILTER, magnification_filter);
     glSamplerParameteri(sampler, GL_TEXTURE_MIN_FILTER, minification_filter);
@@ -19,6 +19,8 @@ void Sampler::SamplerBind(our::ShaderProgram *p){
     glSamplerParameteri(sampler, GL_TEXTURE_WRAP_T, wrap_t);
     glSamplerParameterfv(sampler, GL_TEXTURE_BORDER_COLOR, glm::value_ptr(border_color));
     glSamplerParameterf(sampler, GL_TEXTURE_MAX_ANISOTROPY_EXT, max_anisotropy);
+    for(GLuint unit = 0; unit < 5; ++unit) glBindSampler(unit, sampler);
+
 
 }
 Sampler::~Sampler(){

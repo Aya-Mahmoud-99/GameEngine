@@ -60,7 +60,7 @@ public:
     //    std::vector<Light> lights;
     our::WindowConfiguration getWindowConfiguration() ;/////i removed overide world since it is not a virtyal function anymore
     LightComponent(Light Newlight,Transform *Trans=NULL,Camera*cam=NULL,CameraController*camCon=NULL);
-    void lightSelect(our::ShaderProgram program);
+    void lightSelect(our::ShaderProgram* program,std::string prefix);
     void setPosition();
     void setDirection();
     glm::vec3 getPosition();
