@@ -136,7 +136,7 @@ void World::RenderingSystem(){
         //if(tex)tex->TextureBind();
         if(sam){
             cout<<"dkfjdksf"<<endl;
-            sam->SamplerBind(p);
+            for(GLuint unit = 0; unit < 5; ++unit)  sam->SamplerBind(p,unit);
         }
         std::any tint=i.first->MR->getMaterial()->getUniform("tint");
         glm::vec4* Tint = std::any_cast<glm::vec4>(&tint);
@@ -230,7 +230,7 @@ void World::RenderingSystem(){
         //if(tex)tex->TextureBind();
         if(sam){
             cout<<"dkfjdksf"<<endl;
-            sam->SamplerBind(p);
+            for(GLuint unit = 0; unit < 5; ++unit) sam->SamplerBind(p,unit);
         }
         std::any tint=i.first->MR->getMaterial()->getUniform("tint");
         glm::vec4* Tint = std::any_cast<glm::vec4>(&tint);

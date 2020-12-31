@@ -34,7 +34,7 @@ class Sampler {
 
     Transform *T;
     public:
-    void SamplerBind(our::ShaderProgram *p);
+    void SamplerBind(our::ShaderProgram *p,int unit);
     our::WindowConfiguration getWindowConfiguration();
     ~Sampler();
 
