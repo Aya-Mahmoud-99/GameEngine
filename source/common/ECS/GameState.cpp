@@ -65,8 +65,8 @@ void GameState::onEnter(our::Application* app){
     WorldPointer=new World();
 
  // create a cam entity from world
-    std::ifstream file_in("C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/data/scene2.json");
-    //std::ifstream file_in("assets/data/scene.json");
+    //std::ifstream file_in("C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/data/scene2.json");
+    std::ifstream file_in("assets/data/scene.json");
     nlohmann::json json;
     file_in >> json;
     file_in.close();
