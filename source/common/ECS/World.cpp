@@ -82,8 +82,8 @@ void World::RenderingSystem(){
 //            Collect all the lights
 
 //    Let M be an empty container containing mesh renderers and their distance from the camera.
-    std::unordered_multimap<std::shared_ptr<MeshRendererTransform>,long long> MTransparent;
-    std::unordered_multimap<std::shared_ptr<MeshRendererTransform>,long long> MOpaque;
+    std::vector<pair<std::shared_ptr<MeshRendererTransform>,double>> MTransparent;
+    std::vector<pair<std::shared_ptr<MeshRendererTransform>,double>> MOpaque;
    // cout<<"start1"<<endl;
 
     for(auto & Entitie : Entities) {
@@ -98,22 +98,20 @@ void World::RenderingSystem(){
             tempPair->MR=tempPtr;
             tempPair->matrix=matrix1;
             //cout<<"start5"<<endl;
+            glm::vec3 distanceVector=(cameraTransform->getPosition())-(Entitie->getComponent<Transform>()->getPosition());
+            double dist=sqrt(pow(distanceVector.x,2)+pow(distanceVector.y,2)+pow(distanceVector.z,2));
             if(tempPtr->getMaterial()->getPointerToRenderState()->getTransparency())
-                    MTransparent.insert(pair<std::shared_ptr<MeshRendererTransform>,long long>(tempPair,distance(cameraTransform,Entitie->getComponent<Transform>())));
+                    MTransparent.push_back(pair<std::shared_ptr<MeshRendererTransform>,double>(tempPair,dist));
                 else
-                    MOpaque.insert(pair<std::shared_ptr<MeshRendererTransform>,long long>(tempPair,distance(cameraTransform,Entitie->getComponent<Transform>())));
+                    MOpaque.push_back(pair<std::shared_ptr<MeshRendererTransform>,double>(tempPair,dist));
 
         }
     }
-    cout<<"start2"<<endl;
-
-    vector<pair<std::shared_ptr<MeshRendererTransform>,long long>> tmp;
-    for (auto& i : MTransparent)
-        tmp.push_back(i);
+   // cout<<"start2"<<endl;
     // sort with descending order.
-    sort(tmp.begin(), tmp.end(),
-         [&](pair<std::shared_ptr<MeshRendererTransform>,long long>& a, pair<std::shared_ptr<MeshRendererTransform>,long long>& b) { return a.second > b.second; });
-    cout<<"start3"<<endl;
+    sort(MTransparent.begin(), MTransparent.end(),
+         [&](pair<std::shared_ptr<MeshRendererTransform>,double>& a, pair<std::shared_ptr<MeshRendererTransform>, double>& b) { return a.second > b.second; });
+    //cout<<"start3"<<endl;
     //    Loop on all M:
 //    Setup the Material:
 //    Use the shader program done
@@ -220,7 +218,7 @@ void World::RenderingSystem(){
         m->draw();
        // cout<<"dsds,d;sld;sld;"<<endl;
     }
-    for (auto& i : tmp){
+    for (auto& i : MTransparent){
 
         //    Draw the entity using its attached mesh renderer component
         our::Mesh* m=i.first->MR->getPointerToMesh();

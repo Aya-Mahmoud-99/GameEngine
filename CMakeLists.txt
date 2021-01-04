@@ -45,6 +45,11 @@ include_directories(
         vendor/glm
         vendor/imgui
         vendor/utils
+        assets/data
+        assets/images
+        assets/models
+        assets/shaders
+        assets/Textures
 )
 
 # For each example, we add an executable target
