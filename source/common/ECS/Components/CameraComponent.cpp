@@ -73,12 +73,12 @@ void CameraController::update(double delta_time){
     glm::vec3 front = Forward(), up = Up(), right = Right();
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(app->getKeyboard().isPressed(GLFW_KEY_W)) this->eye += front * ((float)delta_time * current_sensitivity.z);
-    if(app->getKeyboard().isPressed(GLFW_KEY_S)) this->eye -= front * ((float)delta_time * current_sensitivity.z);
-    if(app->getKeyboard().isPressed(GLFW_KEY_Q)) this->eye += up * ((float)delta_time * current_sensitivity.y);
-    if(app->getKeyboard().isPressed(GLFW_KEY_E)) this->eye -= up * ((float)delta_time * current_sensitivity.y);
-    if(app->getKeyboard().isPressed(GLFW_KEY_D)) this->eye += right * ((float)delta_time * current_sensitivity.x);
-    if(app->getKeyboard().isPressed(GLFW_KEY_A)) this->eye -= right * ((float)delta_time * current_sensitivity.x);
+    //if(app->getKeyboard().isPressed(GLFW_KEY_Q)) this->eye += front * ((float)delta_time * current_sensitivity.z);
+    //if(app->getKeyboard().isPressed(GLFW_KEY_E)) this->eye -= front * ((float)delta_time * current_sensitivity.z);
+    if(app->getKeyboard().isPressed(GLFW_KEY_S)) this->eye += up * ((float)delta_time * current_sensitivity.y);
+    if(app->getKeyboard().isPressed(GLFW_KEY_W)) this->eye -= up * ((float)delta_time * current_sensitivity.y);
+    if(app->getKeyboard().isPressed(GLFW_KEY_A)) this->eye += right * ((float)delta_time * current_sensitivity.x);
+    if(app->getKeyboard().isPressed(GLFW_KEY_D)) this->eye -= right * ((float)delta_time * current_sensitivity.x);
     /*if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !mouse_locked){
         app->getMouse().lockMouse(app->getWindow());
         mouse_locked = true;
