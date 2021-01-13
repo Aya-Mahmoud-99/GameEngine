@@ -59,7 +59,7 @@ our::WindowConfiguration RenderState::getWindowConfiguration() {
 void RenderState::setTransparency(bool transparent1){
     transparent=transparent1;
 }
-
+///////////////////////
 bool RenderState::getTransparency(){
     return transparent;
 }

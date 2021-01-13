@@ -14,7 +14,9 @@ void GameStateManager::GoToState(GameState *PointerToGS) {
 }
 
     void GameStateManager::run(our::Application* app){
-//GoToState(defaultstate);
+
+
+
         glfwInit();
         app->configureOpenGL();                                      // This function sets OpenGL window hints.
 
@@ -33,7 +35,8 @@ void GameStateManager::GoToState(GameState *PointerToGS) {
 
 
 GameState* gamestatePointer=new GameState();
-CurrentGameState=gamestatePointer;
+GameState* MenuStatePointer=new MenuState();
+        GoToState(MenuStatePointer);
 
         app->setupCallbacks();
         app->keyboard.enable(app->window);
@@ -43,13 +46,14 @@ CurrentGameState=gamestatePointer;
         ImGuiIO& io = ImGui::GetIO();
         ImGui::StyleColorsDark();
 
+
+
         // Initialize ImGui for GLFW and OpenGL
         ImGui_ImplGlfw_InitForOpenGL(app->window, true);
         ImGui_ImplOpenGL3_Init("#version 330 core");
 
-CurrentGameState->onEnter(app);
         double last_frame_time = glfwGetTime();
-        while(!glfwWindowShouldClose(app->getWindow())){
+        while(!glfwWindowShouldClose(app->getWindow())) {
             glfwPollEvents(); // Read all the user events and call relevant callbacks.
 
             // Start a new ImGui frame
@@ -60,55 +64,60 @@ CurrentGameState->onEnter(app);
             app->onImmediateGui(io); // Call to run any required Immediate GUI.
             app->keyboard.setEnabled(!io.WantCaptureKeyboard, app->window);
             app->mouse.setEnabled(!io.WantCaptureMouse, app->window);
-            // If ImGui is using the mouse or keyboard, then we don't want the captured events to affect our keyboard and mouse objects.
-            // For example, if you're focusing on an input and writing "W", the keyboard object shouldn't record this event.
-//            keyboard.setEnabled(!io.WantCaptureKeyboard, window);
-//            mouse.setEnabled(!io.WantCaptureMouse, window);
-
-            // Render the ImGui commands we called (this doesn't actually draw to the screen yet.
             ImGui::Render();
 
+            if (app->getKeyboard().isPressed(GLFW_KEY_H)) {
+                cout << "XXXXXXXXXXXX   DDDDD IS PRESSED" << endl;
+                GoToState(MenuStatePointer);
+            } else if (app->getKeyboard().isPressed(GLFW_KEY_G) && CurrentGameState != nullptr) {
+                cout << "XXXXXXXXXXXX   GGGGG IS PRESSED" << endl;
+                GoToState(gamestatePointer);
+            } else{
 
-            auto frame_buffer_size = app->getFrameBufferSize();
+
+                auto frame_buffer_size = app->getFrameBufferSize();
             glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
 
             double current_frame_time = glfwGetTime();
-            CurrentGameState->onDraw(app,current_frame_time - last_frame_time);
-            last_frame_time=current_frame_time;
-            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); // Render the ImGui to the framebuffer
-            // If F12 is pressed, take a screenshot
-            if(app->keyboard.justPressed(GLFW_KEY_F12)){
-                glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
-                //std::stringstream stream;
-                auto time = std::time(nullptr);
-                auto localtime = std::localtime(&time);
-                //stream << "screenshots/screenshot-" << std::put_time(localtime, "%Y-%m-%d-%H-%M-%S") << ".png";
-                /*if(our::screenshot_png(stream.str())){
-                    std::cout << "Screenshot saved to: " << stream.str() << std::endl;
-                } else {
-                    std::cerr << "Failed to save a Screenshot" << std::endl;
-                }*/
+            //CurrentGameState->onDraw(app,current_frame_time - last_frame_time);
+            cout << "AAAAAAAAAAAAAAA  1" << endl;
+            if (NextGameState != nullptr) {
+                cout << "AAAAAAAAAAAAAAA  2" << endl;
+                if (CurrentGameState != nullptr) {
+                    cout << "AAAAAAAAAAAAAAA  3" << endl;
+                    CurrentGameState->onExit(app);
+                }
+                cout << "AAAAAAAAAAAAAAA  4" << endl;
+                CurrentGameState = NextGameState;
+                NextGameState = nullptr;
+                CurrentGameState->onEnter(app);
+            }
+            if (CurrentGameState != nullptr) {
+                cout << "AAAAAAAAAAAAAAA  5" << endl;
+                CurrentGameState->onDraw(app, current_frame_time - last_frame_time);
+
             }
             glfwSwapBuffers(app->window);
 
             app->keyboard.update();
             app->mouse.update();
-        }
-        CurrentGameState->onExit(app);
-            /*if(NextGameState!= nullptr){
-                if(CurrentGameState!= nullptr){
-                    CurrentGameState->onExit(app);
-                }
-                CurrentGameState=NextGameState;
-                NextGameState= nullptr;
-                CurrentGameState->onEnter(app);
-            }
-            if(CurrentGameState!= nullptr){
-                CurrentGameState->onDraw(app,deltaTime);
 
+//
+            last_frame_time = current_frame_time;
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData()); // Render the ImGui to the framebuffer
+            // If F12 is pressed, take a screenshot
+            if (app->keyboard.justPressed(GLFW_KEY_F12)) {
+                glViewport(0, 0, frame_buffer_size.x, frame_buffer_size.y);
+                //std::stringstream stream;
+                auto time = std::time(nullptr);
+                auto localtime = std::localtime(&time);
             }
         }
-        if(CurrentGameState!= nullptr){CurrentGameState->onExit(app);}*/
+        }
+        if(CurrentGameState!= nullptr){
+            cout << "AAAAAAAAAAAAAAA  6" <<endl;
+            CurrentGameState->onExit(app);}
+
 
     }
 

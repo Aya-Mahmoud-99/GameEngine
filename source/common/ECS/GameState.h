@@ -44,14 +44,15 @@ private:
 
 public:
 
-    void onEnter(our::Application* app);
-    void onExit(our::Application* app);
-    void onImmediateGui(ImGuiIO& io);
-    void loadResources(const nlohmann::json& json);
-    void attachPrograms(const nlohmann::json& json);
-    void onDraw(our::Application* app,double deltaTime);
-    void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app,Sampler* s);
-   // void resume();
+    virtual void onEnter(our::Application* app);
+    virtual void onExit(our::Application* app);
+    virtual void onImmediateGui(ImGuiIO& io);
+    virtual void loadResources(const nlohmann::json& json);
+    virtual void attachPrograms(const nlohmann::json& json);
+    virtual void onDraw(our::Application* app,double deltaTime);
+    virtual void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app,Sampler* s);
+
+    // void resume();
     //void update();
 
 

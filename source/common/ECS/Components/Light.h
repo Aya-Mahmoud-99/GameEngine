@@ -24,7 +24,7 @@ enum class LightType {
 };
 struct Light {
 // Here we define our
-   glm::vec3 color;
+    glm::vec3 color;
 //     light. First member specifies its type.
     LightType type;
     bool enabled;
