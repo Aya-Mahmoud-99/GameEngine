@@ -25,6 +25,8 @@ public:
 
     return NULL;
 };
+    string getEntityName();
+    void setEntityName(string n);
     vector<Component*>& getComponents();
 ~Entity(){
 

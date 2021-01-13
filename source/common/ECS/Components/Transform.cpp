@@ -21,6 +21,9 @@ glm::mat4 Transform::to_mat4() {
 glm::mat4 Transform::getMatrix() {
     return V;
 }
+void Transform::setMatrix(glm::mat4 Mat) {
+    V=Mat;
+}
 Entity* Transform::getParent(){
     return parent;
 };

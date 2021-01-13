@@ -752,6 +752,7 @@
       "scale": [0.05,0.05,0.05],
       "rotation": [0,0,1.552],
       "translation": [ -1, -5, 0 ],
+      "SpaceShipController": "true",
       "program": "light",
       "uniforms": {
         "alpha": {

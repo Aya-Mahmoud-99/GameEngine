@@ -51,11 +51,11 @@ void CameraController::update(double delta_time){
         mouse_locked = false;
     }
 
-    if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
+    /*if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
         glm::vec2 delta = app->getMouse().getMouseDelta();
         pitch -= delta.y * pitch_sensitivity;
         yaw -= delta.x * yaw_sensitivity;
-    }
+    }*/
 
     if(pitch < -glm::half_pi<float>() * 0.99f) pitch = -glm::half_pi<float>() * 0.99f;
     if(pitch >  glm::half_pi<float>() * 0.99f) pitch  = glm::half_pi<float>() * 0.99f;
@@ -67,18 +67,18 @@ void CameraController::update(double delta_time){
 
 
     glm::vec3 current_sensitivity = this->position_sensitivity;
-    if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= speedup_factor;
+    //if(app->getKeyboard().isPressed(GLFW_KEY_LEFT_SHIFT)) current_sensitivity *= speedup_factor;
     // and Aya
     glm::mat4 mat=T->getMatrix();
     glm::vec3 front = Forward(), up = Up(), right = Right();
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //if(app->getKeyboard().isPressed(GLFW_KEY_Q)) this->eye += front * ((float)delta_time * current_sensitivity.z);
-    //if(app->getKeyboard().isPressed(GLFW_KEY_E)) this->eye -= front * ((float)delta_time * current_sensitivity.z);
-    if(app->getKeyboard().isPressed(GLFW_KEY_S)) this->eye += up * ((float)delta_time * current_sensitivity.y);
-    if(app->getKeyboard().isPressed(GLFW_KEY_W)) this->eye -= up * ((float)delta_time * current_sensitivity.y);
-    if(app->getKeyboard().isPressed(GLFW_KEY_A)) this->eye += right * ((float)delta_time * current_sensitivity.x);
-    if(app->getKeyboard().isPressed(GLFW_KEY_D)) this->eye -= right * ((float)delta_time * current_sensitivity.x);
+    /*if(app->getKeyboard().isPressed(GLFW_KEY_W)) this->eye += front * ((float)delta_time * current_sensitivity.z);
+    if(app->getKeyboard().isPressed(GLFW_KEY_S)) this->eye -= front * ((float)delta_time * current_sensitivity.z);
+    if(app->getKeyboard().isPressed(GLFW_KEY_Q)) this->eye += up * ((float)delta_time * current_sensitivity.y);
+    if(app->getKeyboard().isPressed(GLFW_KEY_E)) this->eye -= up * ((float)delta_time * current_sensitivity.y);
+    if(app->getKeyboard().isPressed(GLFW_KEY_D)) this->eye += right * ((float)delta_time * current_sensitivity.x);
+    if(app->getKeyboard().isPressed(GLFW_KEY_A)) this->eye -= right * ((float)delta_time * current_sensitivity.x);*/
     /*if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1) && !mouse_locked){
         app->getMouse().lockMouse(app->getWindow());
         mouse_locked = true;
@@ -87,11 +87,11 @@ void CameraController::update(double delta_time){
         mouse_locked = false;
     }*/
 
-    if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
+    /*if(app->getMouse().isPressed(GLFW_MOUSE_BUTTON_1)){
         glm::vec2 delta = app->getMouse().getMouseDelta();
         pitch += delta.y * pitch_sensitivity;
         yaw += delta.x * yaw_sensitivity;
-    }
+    }*/
 
     if(pitch < -glm::half_pi<float>() * 0.99f) pitch = -glm::half_pi<float>() * 0.99f;
     if(pitch >  glm::half_pi<float>() * 0.99f) pitch  = glm::half_pi<float>() * 0.99f;
@@ -99,7 +99,7 @@ void CameraController::update(double delta_time){
     // pitch rotation around x-axis
     // setter transform matrix in camera
 
-    distance += (float)app->getMouse().getScrollOffset().y * distance_sensitivity;
+    //distance += (float)app->getMouse().getScrollOffset().y * distance_sensitivity;
     if(distance < 0) distance = 0;
     //std::cout<<yaw<<","<<pitch<<std::endl;
 

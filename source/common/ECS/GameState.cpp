@@ -162,6 +162,7 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 
 //cout<<"xxxxxxxx"<<endl;
     WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime);
     //  cout<<"xxxxxxxx"<<endl;
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();
@@ -213,7 +214,12 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
         if(json["camera"].value<std::string>("cam_controller","true")=="true") {
             CameraController *CamControllerPointer = new CameraController(app, CameraPointer, t);
             e->addComponent(CamControllerPointer);
-        }e->addComponent(CameraPointer);
+        }
+       e->addComponent(CameraPointer);
+    }
+    if(json.contains("SpaceShipController")){
+        SpaceShipController *SpaceShipPtr = new SpaceShipController(app,t);
+        e->addComponent(SpaceShipPtr);
     }
     if(json.contains("light")){
         Light l;

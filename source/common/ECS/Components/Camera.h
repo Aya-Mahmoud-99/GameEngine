@@ -27,7 +27,7 @@
         float field_of_view_y = glm::radians(
                 90.0f), orthographic_height = 2.0f, aspect_ratio = 1.0f, near = 0.01f, far = 100.0f;
 
-        glm::mat4 V{}, P{}, VP{};
+        glm::mat4 V=glm::mat4( 1.0 ), P{}, VP{};
 
     public:
         static const uint8_t V_DIRTY = 1, P_DIRTY = 2, VP_DIRTY = 4;

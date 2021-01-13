@@ -18,6 +18,7 @@ public:
     glm::mat4 parents_mat() ;// this function return transform matrix of all parents * transform of an object
     glm::mat4 getMatrix();
     glm::vec3 getPosition();
+    void setMatrix(glm::mat4 Mat);
 };
 
 

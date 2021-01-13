@@ -4,6 +4,7 @@
 
 #include "Entity.h"
 //#include "Component.h"
+
 void Entity::addComponent(Component *c) {
     //c=new Component();
     components.push_back(c);
@@ -16,6 +17,12 @@ void Entity::removeComponent(Component *c) {
 }
 vector<Component*>& Entity::getComponents() {
 return components;
+}
+string Entity::getEntityName(){
+    return Name;
+}
+void Entity::setEntityName(string n){
+    Name=n;
 }
 /*
 template<typename T>

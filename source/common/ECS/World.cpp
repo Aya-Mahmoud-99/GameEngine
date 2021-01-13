@@ -335,7 +335,18 @@ glm::mat4 World::getCameraEntityTransform(){
     }
     return NULL;
 }
+Entity* World::getSpaceShipEntity(){
 
+    int Size=Entities.size();
+    for(int i=0;i<Size;i++)
+    {
+        if(Entities.at(i)->getComponent<SpaceShipController>()!=NULL)
+        {
+            return Entities.at(i);
+        }
+    }
+    return NULL;
+}
 Entity* World::getLightEntity(){
 
     int Size=Entities.size();

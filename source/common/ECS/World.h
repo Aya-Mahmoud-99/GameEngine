@@ -6,6 +6,7 @@
 #define GFX_LAB_WORLD_H
 #include <glm/glm.hpp>
 #include <ECS/Components/Transform.h>
+#include <ECS/Components/SpaceShipController.h>
 #include "vector"
 #include <ECS/Components/MeshRenderer.h>
 class Entity;
@@ -27,6 +28,7 @@ public:
     glm::mat4 getCameraEntityTransform();
     Entity* getCameraEntity();
     Entity* getLightEntity();
+    Entity* getSpaceShipEntity();
     ~World();
 };
 
