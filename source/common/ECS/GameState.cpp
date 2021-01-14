@@ -9,6 +9,8 @@
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
 #include"Entity.h"
+#include <cstdlib>
+#include <ctime>
 namespace glm {
     template<length_t L, typename T, qualifier Q>
     void from_json(const nlohmann::json& j, vec<L, T, Q>& v){
@@ -61,6 +63,7 @@ void GameState::onEnter(our::Application* app){
     //App=app;
 //create our world
 ///when reserialization is completed
+    std::srand(time(0));
     WorldPointer=new World();
 
     // create a cam entity from world
@@ -161,11 +164,13 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //cout<<"xxxxxxxx"<<endl;
+    WorldPointer->moveEggs();
     WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime);
     //  cout<<"xxxxxxxx"<<endl;
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();
+    WorldPointer->generateEggs();
 }
 
 void GameState::onExit(our::Application* app) {
@@ -204,6 +209,9 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
     std::cout<<translation.x<<","<<translation.y<<","<<translation.z<<std::endl;
     Transform* t=new Transform(translation,rotation,scale,parent);
     e->addComponent(t);
+    if(json.contains("name")){
+        e->setEntityName(json.value<std::string>("name",""));
+    }
     //);
     if(json.contains("camera")){
         int width, height;
@@ -285,7 +293,6 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
                         cout<<key<<" "<<val<<endl;
                     }
                 }
-
                 if(json.contains("render_state")){
                     RenderState* r=new RenderState(
                             json["render_state"]["depth_enable"]==1?true:false,

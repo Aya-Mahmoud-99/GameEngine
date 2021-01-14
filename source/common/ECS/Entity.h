@@ -13,6 +13,7 @@ using namespace std;
 class Entity {
 string Name;
 vector<Component*> components;
+int tag;
 public:
     void addComponent(Component* c);
     void removeComponent(Component* c);

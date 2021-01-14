@@ -97,49 +97,8 @@
         "transperent":0
       }
     },
-    "egg1": {
-      "mesh": "egg",
-      "texture": "egg",
-      "albedo_map": "egg",
-      "specular_map": "egg",
-      "roughness_map": "egg",
-      "ambient_occlusion_map": "egg",
-      "emissive_map": "egg",
-      "translation": [ -2, 0, 0 ],
-      "program": "light",
-      "uniforms": {
-        "alpha": {
-          "type": "float",
-          "value": 1
-        },
-        "albedo_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },
-        "specular_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },"emissive_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },"roughness_range":{
-          "type": "vec2",
-          "value": [0,1]
-        }
-      },"render_state": {
-        "depth_enable":1,
-        "dpfunc":"GL_LEQUAL",
-        "cull_enable":0,
-        "cullface":"GL_FRONT",
-        "frontwinding":"GL_CCW",
-        "blend_enable":0,
-        "blendFun":"GL_FUNC_ADD",
-        "source":"GL_SRC_ALPHA",
-        "dest":"GL_ONE_MINUS_SRC_ALPHA",
-        "transperent":0
-      }
-    },
     "chicken1": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -183,6 +142,7 @@
       }
     },
     "chicken2": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -226,6 +186,7 @@
       }
     },
     "chicken3": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -269,6 +230,7 @@
       }
     },
     "chicken4": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -312,6 +274,7 @@
       }
     },
     "chicken5": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -355,6 +318,7 @@
       }
     },
     "chicken6": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -398,6 +362,7 @@
       }
     },
     "chicken7": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -441,6 +406,7 @@
       }
     },
     "chicken8": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -484,6 +450,7 @@
       }
     },
     "chicken9": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -527,6 +494,7 @@
       }
     },
     "chicken10": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -570,6 +538,7 @@
       }
     },
     "chicken11": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -613,6 +582,7 @@
       }
     },
     "chicken12": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -656,6 +626,7 @@
       }
     },
     "chicken13": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",
@@ -699,6 +670,7 @@
       }
     },
     "chicken14": {
+      "name": "chicken",
       "mesh": "chicken",
       "texture": "chicken",
       "albedo_map": "chicken",

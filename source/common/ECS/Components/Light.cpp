@@ -63,22 +63,22 @@ void LightComponent::lightSelect(our::ShaderProgram* program,std::string prefix)
     //cout<<static_cast<int>(light.type)<<endl;
     program->set(prefix + "color", light.color);
     //cout<<light.color[0]<<endl;
-    cout<<light.position[2]<<endl;
-    cout<<light.direction[2]<<endl;
+   // cout<<light.position[2]<<endl;
+    //cout<<light.direction[2]<<endl;
     switch (light.type) {
         case LightType::DIRECTIONAL:
-            cout<<"directional"<<endl;
+          //  cout<<"directional"<<endl;
             program->set(prefix + "direction", glm::normalize(light.direction));
             break;
         case LightType::POINT:
-            cout<<"point"<<endl;
+        //    cout<<"point"<<endl;
             program->set(prefix + "position", light.position);
             program->set(prefix + "attenuation_constant", light.attenuation.constant);
             program->set(prefix + "attenuation_linear", light.attenuation.linear);
             program->set(prefix + "attenuation_quadratic", light.attenuation.quadratic);
             break;
         case LightType::SPOT:
-            cout<<"spot"<<endl;
+      //      cout<<"spot"<<endl;
             program->set(prefix + "position", light.position);
             program->set(prefix + "direction", glm::normalize(light.direction));
             program->set(prefix + "attenuation_constant", light.attenuation.constant);

@@ -16,8 +16,8 @@ void SpaceShipController::update(double delta_time){
 
     glm::mat4 mat=T->getMatrix();
     x= {mat[3][0],mat[3][1],mat[3][2]};
-    std::cout<<"SpaceShipController before changing \n";
-    std::cout<<x[0]<<" "<<x[1]<<" "<<x[2]<<" \n";
+ //   std::cout<<"SpaceShipController before changing \n";
+ //   std::cout<<x[0]<<" "<<x[1]<<" "<<x[2]<<" \n";
     //y={mat[1][0],mat[1][1],mat[1][2]};
     glm::vec3 up = Up(), right = Right();
 
@@ -29,8 +29,8 @@ void SpaceShipController::update(double delta_time){
     mat[3][0]=x[0];
     mat[3][1]=x[1];
     mat[3][2]=x[2];
-    std::cout<<"SpaceShipController after changing \n";
-    std::cout<<x[0]<<" "<<x[1]<<" "<<x[2]<<" \n";
+  //  std::cout<<"SpaceShipController after changing \n";
+  //  std::cout<<x[0]<<" "<<x[1]<<" "<<x[2]<<" \n";
     //mat[1][0]=y[0];
     //mat[1][1]=y[1];
     //mat[1][2]=y[2];

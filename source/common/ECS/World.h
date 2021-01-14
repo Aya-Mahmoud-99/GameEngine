@@ -28,7 +28,10 @@ public:
     glm::mat4 getCameraEntityTransform();
     Entity* getCameraEntity();
     Entity* getLightEntity();
+    void getTagEntities(vector<Entity*>& entities,string tag);
+    void generateEggs();
     Entity* getSpaceShipEntity();
+    void moveEggs();
     ~World();
 };
 

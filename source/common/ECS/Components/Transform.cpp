@@ -27,7 +27,10 @@ void Transform::setMatrix(glm::mat4 Mat) {
 Entity* Transform::getParent(){
     return parent;
 };
-
+void Transform::setPosition(glm::vec3 pos) {
+    translation=pos;
+    V=to_mat4();
+}
 glm::mat4 Transform::parents_mat() {
     glm::mat4 matrix=V;
     Entity* temp=this->getParent();

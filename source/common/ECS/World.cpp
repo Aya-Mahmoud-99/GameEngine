@@ -5,11 +5,12 @@
 #include "World.h"
 #include "Components/MeshRenderer.h"
 #include "Components/Transform.h"
+#include "Egg.h"
 
 #include "Components/CameraComponent.h"
 #include "Components/Material.h"
 #include "Components/Light.h"
-#include "Entity.h"
+//#include "Entity.h"
 const int MAX_LIGHT_COUNT = 16;
 
 //#include "Components\Camera.h"
@@ -124,16 +125,16 @@ void World::RenderingSystem(){
     {
 
         //    Draw the entity using its attached mesh renderer component
-        cout<<"start7"<<endl;
+       // cout<<"start7"<<endl;
         our::Mesh* m=i.first->MR->getPointerToMesh();
-        cout<<"start4"<<endl;
+       // cout<<"start4"<<endl;
         our::ShaderProgram* p=i.first->MR->getMaterial()->getPointerToProgram();
         //Texture* tex=i.first->MR->getMaterial()->getPointerToTexture();
         Sampler* sam=i.first->MR->getMaterial()->getPointerToSampler();
-        cout<<"start5"<<endl;
+       // cout<<"start5"<<endl;
         //if(tex)tex->TextureBind();
         if(sam){
-            cout<<"dkfjdksf"<<endl;
+            //cout<<"dkfjdksf"<<endl;
             for(GLuint unit = 0; unit < 5; ++unit)  sam->SamplerBind(p,unit);
         }
         std::any tint=i.first->MR->getMaterial()->getUniform("tint");
@@ -148,18 +149,22 @@ void World::RenderingSystem(){
         glm::vec3* eTint = std::any_cast<glm::vec3>(&emissive_tint);
         std::any alpha=i.first->MR->getMaterial()->getUniform("alpha");
         float* Alpha = std::any_cast<float>(&alpha);
-        cout<<"start9"<<endl;
+        //cout<<"start99"<<endl;
         if(Tint)cout <<(*Tint)[0]<<endl;
         int light_index=0;
 
         glUseProgram(*p);
+        //cout<<"start10"<<endl;
         p->set("alpha",*Alpha);
+        //cout<<"start11"<<endl;
         p->set("camera_position", cc->getEye());
+        //cout<<"start12"<<endl;
         p->set("view_projection", vp);
+        //cout<<"start13"<<endl;
         p->set("sky_light.top_color", glm::vec3(0.0f));
         p->set("sky_light.middle_color", glm::vec3(0.0f));
         p->set("sky_light.bottom_color", glm::vec3(0.0f));
-        cout<<"start11"<<endl;
+        //cout<<"start11"<<endl;
         for(const auto& light : lights) {
             if(!(light->light.enabled)) continue;
             std::string prefix = "lights[" + std::to_string(light_index) + "].";
@@ -167,19 +172,19 @@ void World::RenderingSystem(){
             light_index++;
             if(light_index >= MAX_LIGHT_COUNT) break;
         }
-        cout<<"start10"<<endl;
+       // cout<<"start10"<<endl;
         // cout<<light_index<<endl;
         p->set("light_count", light_index);
 
         p->set("object_to_world", i.first->matrix);
         p->set("object_to_world_inv_transpose", glm::inverse(i.first->matrix), true);
-        cout<<"start13"<<endl;
+       // cout<<"start13"<<endl;
         if(!aTint)cout<<"NOT"<<endl;
         p->set("material.albedo_tint", *aTint);
         p->set("material.specular_tint", *sTint);
         p->set("material.roughness_range", *rRange);
         p->set("material.emissive_tint", *eTint);
-        cout<<"start12"<<endl;
+       // cout<<"start12"<<endl;
         //cout<<(*eTint)[0]<<endl;
         Texture* albedoMap=i.first->MR->getMaterial()->getPointerToAlbedoMap();
         glActiveTexture(GL_TEXTURE0);
@@ -207,7 +212,7 @@ void World::RenderingSystem(){
         glActiveTexture(GL_TEXTURE4);
         emissiveMap->TextureBind();
         p->set("material.emissive_map", 4);
-        if(i.first->MR->getMaterial()->getPointerToEmissiveMap())cout<<"jkasjd"<<endl;
+       // if(i.first->MR->getMaterial()->getPointerToEmissiveMap())cout<<"jkasjd"<<endl;
 
 
         //    Use the render state to set openGL state
@@ -227,7 +232,7 @@ void World::RenderingSystem(){
         Sampler* sam=i.first->MR->getMaterial()->getPointerToSampler();
         //if(tex)tex->TextureBind();
         if(sam){
-            cout<<"dkfjdksf"<<endl;
+         //   cout<<"dkfjdksf"<<endl;
             for(GLuint unit = 0; unit < 5; ++unit) sam->SamplerBind(p,unit);
         }
         std::any tint=i.first->MR->getMaterial()->getUniform("tint");
@@ -358,6 +363,49 @@ Entity* World::getLightEntity(){
         }
     }
     return NULL;
+}
+void World::getTagEntities(vector<Entity*>& entities,string tag){
+    int Size=Entities.size();
+    for(int i=0;i<Size;i++)
+    {
+        if(Entities.at(i)->getEntityName()==tag)
+        {
+            cout<<"makan 2el far5a 2le 2et7at"<<(Entities.at(i)->getComponent<Transform>()->getPosition())[1]<<endl;
+            entities.push_back(Entities.at(i));
+        }
+    }
+}
+void World::generateEggs() {
+    vector<Entity*> chickens;
+    getTagEntities(chickens,"chicken");
+    int size=chickens.size();
+    std::cout<<"size"<<size<<endl;
+    int rand=std::rand()%(10);
+    if(rand<1) {
+       // std::srand(time(0));
+        int randEgg = std::rand() % (size);
+        Entity *genratorChicken = chickens.at(randEgg);
+        Transform *chickTranform = genratorChicken->getComponent<Transform>();
+        cout<<"heeeeeeeeeeeeeeeeeeeeeeeeeh"<<endl;
+        cout<<"RANDDDDDEGGG"<<randEgg<<endl;
+        cout<<"makan 2el far5a"<<(chickTranform->getPosition())[1]<<endl;
+        cout<<"makan 2el beida"<<(chickTranform->getPosition()+glm::vec3{0,-1,0})[1]<<endl;
+        Egg *e = new Egg(chickTranform->getPosition()+glm::vec3{0,-1,0});
+        Entities.push_back(e);
+    }
+}
+void World::moveEggs() {
+    vector<Entity*> eggs;
+    getTagEntities(eggs,"egg");
+    int size=eggs.size();
+    cout<<"eggs"<<size<<endl;
+    for(int i=0;i<size;i++)
+    {
+            Transform* eTransfrom=eggs.at(i)->getComponent<Transform>();
+            glm::vec3 positionNow=eTransfrom->getPosition();
+            eTransfrom->setPosition(positionNow+glm::vec3{0,-1,0});
+
+    }
 }
 World::~World() {
 
