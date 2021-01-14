@@ -721,7 +721,7 @@
       "roughness_map": "spaceshipRoughness",
       "ambient_occlusion_map": "spaceshipColor",
       "emissive_map": "spaceshipColor",
-      "scale": [0.05,0.05,0.05],
+      "scale": [0.02,0.02,0.02],
       "rotation": [0,0,1.552],
       "translation": [ -1, -5, 0 ],
       "SpaceShipController": "true",

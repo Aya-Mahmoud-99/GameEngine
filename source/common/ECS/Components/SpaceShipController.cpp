@@ -21,11 +21,11 @@ void SpaceShipController::update(double delta_time){
     //y={mat[1][0],mat[1][1],mat[1][2]};
     glm::vec3 up = Up(), right = Right();
 
-    if(app->getKeyboard().isPressed(GLFW_KEY_D) && x[0]<8) this->x += up * ((float)delta_time*40.0f);
-    if(app->getKeyboard().isPressed(GLFW_KEY_A) && x[0]>-10) this->x -= up * ((float)delta_time *40.0f);
-    if(app->getKeyboard().isPressed(GLFW_KEY_S) && x[1]>-7) this->x += right * ((float)delta_time*40.0f);
-    if(app->getKeyboard().isPressed(GLFW_KEY_W) && x[1]< 1) this->x -= right * ((float)delta_time*40.0f);
-    //if(app->getKeyboard().isPressed(GLFW_KEY_ENTER)) GenerateBullet();
+    if(app->getKeyboard().isPressed(GLFW_KEY_D) && x[0]<8) this->x += up * ((float)delta_time*100.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_A) && x[0]>-10) this->x -= up * ((float)delta_time *100.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_S) && x[1]>-7) this->x += right * ((float)delta_time*100.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_W) && x[1]< 1) this->x -= right * ((float)delta_time*100.0f);
+    //if(app->getKeyboard().isPressed(GLFW_KEY_ENTER)) GenerateBullet(x);
     mat[3][0]=x[0];
     mat[3][1]=x[1];
     mat[3][2]=x[2];
@@ -54,5 +54,7 @@ glm::vec3 SpaceShipController::Down(){
     return {-M[0][1],-M[1][1],-M[2][1]};
 }
 void SpaceShipController::GenerateBullet(glm::vec3 position){
+//create new instance from bullet class
+//given x in position[0], y in position[1] but increment y alittle bit to see the bullet above the spaceship
 
 }
