@@ -58,3 +58,15 @@ void SpaceShipController::GenerateBullet(glm::vec3 position){
 //given x in position[0], y in position[1] but increment y alittle bit to see the bullet above the spaceship
 
 }
+void SpaceShipController::setLives(int l){
+    lives=l;
+}
+void SpaceShipController::setScore(int s){
+    score=s;
+}
+int SpaceShipController::getLives(){
+    return lives;
+}
+int SpaceShipController::getScore(){
+    return score;
+}
