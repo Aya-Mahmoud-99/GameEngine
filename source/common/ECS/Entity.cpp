@@ -9,6 +9,12 @@ void Entity::addComponent(Component *c) {
     //c=new Component();
     components.push_back(c);
 }
+void Entity::setCounter(int count) {
+    counter=count;
+}
+int Entity::getCounter() {
+    return counter;
+}
 void Entity::removeComponent(Component *c) {
     for(int i=0;i<components.size();i++){
         //delete components[i];
