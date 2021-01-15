@@ -714,6 +714,7 @@
       }
     },
     "spaceship": {
+      "name": "player",
       "mesh": "spaceship",
       "texture": "spaceshipColor",
       "albedo_map": "spaceshipColor",

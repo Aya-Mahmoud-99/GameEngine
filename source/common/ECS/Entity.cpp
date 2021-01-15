@@ -15,6 +15,12 @@ void Entity::removeComponent(Component *c) {
         if(components[i]==c)components.erase(components.begin()+i);
     }
 }
+void Entity::setCollided(bool isCollided){
+    collided=isCollided;
+}
+bool Entity::getCollided(){
+    return collided;
+}
 vector<Component*>& Entity::getComponents() {
 return components;
 }

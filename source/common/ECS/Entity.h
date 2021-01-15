@@ -14,6 +14,7 @@ class Entity {
 string Name;
 vector<Component*> components;
 int tag;
+bool collided;
 public:
     void addComponent(Component* c);
     void removeComponent(Component* c);
@@ -28,8 +29,11 @@ public:
 };
     string getEntityName();
     void setEntityName(string n);
+    void setCollided(bool isCollided);
+    bool getCollided();
     vector<Component*>& getComponents();
 ~Entity(){
+    collided=false;
 
 };
 };

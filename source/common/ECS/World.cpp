@@ -370,7 +370,7 @@ void World::getTagEntities(vector<Entity*>& entities,string tag){
     {
         if(Entities.at(i)&&Entities.at(i)->getEntityName()==tag)
         {
-            cout<<"makan 2el far5a 2le 2et7at"<<(Entities.at(i)->getComponent<Transform>()->getPosition())[1]<<endl;
+            //cout<<"makan 2el far5a 2le 2et7at"<<(Entities.at(i)->getComponent<Transform>()->getPosition())[1]<<endl;
             entities.push_back(Entities.at(i));
         }
     }
@@ -387,10 +387,10 @@ void World::generateEggs() {
         int randEgg = std::rand() % (size);
         Entity *genratorChicken = chickens.at(randEgg);
         Transform *chickTranform = genratorChicken->getComponent<Transform>();
-        cout<<"heeeeeeeeeeeeeeeeeeeeeeeeeh"<<endl;
-        cout<<"RANDDDDDEGGG"<<randEgg<<endl;
-        cout<<"makan 2el far5a"<<(chickTranform->getPosition())[1]<<endl;
-        cout<<"makan 2el beida"<<(chickTranform->getPosition()+glm::vec3{0,-1,0})[1]<<endl;
+      //  cout<<"heeeeeeeeeeeeeeeeeeeeeeeeeh"<<endl;
+      //  cout<<"RANDDDDDEGGG"<<randEgg<<endl;
+      //  cout<<"makan 2el far5a"<<(chickTranform->getPosition())[1]<<endl;
+       // cout<<"makan 2el beida"<<(chickTranform->getPosition()+glm::vec3{0,-1,0})[1]<<endl;
       //  Egg *e = new Egg(chickTranform->getPosition()+glm::vec3{0,-1,0});
         Entity* e=new Entity();
         e->addComponent(EggRenderer);
@@ -449,6 +449,9 @@ void World::moveEggs() {
             Transform* eTransfrom=eggs.at(i)->getComponent<Transform>();
             glm::vec3 positionNow=eTransfrom->getPosition();
             eTransfrom->setPosition(positionNow+glm::vec3{0,-0.1,0});
+            bool collided=World::checkCollisionWithPlayer(eTransfrom->getPosition());
+            eggs.at(i)->setCollided(collided);
+            if(collided) cout<<"COLLISION DETECTED"<<endl;
 
     }
 }
@@ -456,7 +459,7 @@ void World::deleteEggsOnGround(){
    int Size=Entities.size();
     for(int i=0;i<Size;i++)
     {
-if(Entities.at(i)->getEntityName()=="egg"&&Entities.at(i)->getComponent<Transform>()->getPosition()[1]<-8 ){
+if(Entities.at(i)->getEntityName()=="egg"&&(Entities.at(i)->getComponent<Transform>()->getPosition()[1]<-8||Entities.at(i)->getCollided()) ){
     Entity* egg=Entities.at(i);
     Entities.erase(Entities.begin()+i);
     i--;
@@ -465,6 +468,21 @@ if(Entities.at(i)->getEntityName()=="egg"&&Entities.at(i)->getComponent<Transfor
 }
     }
 }
+bool World::checkCollisionWithPlayer(glm::vec3 eggPosition){
+    vector<Entity*> players;
+    getTagEntities(players,"player");
+    Entity* player=players[0];
+    Transform* playerTransfrom=player->getComponent<Transform>();
+    glm::vec3 playerPosition=playerTransfrom->getPosition();
+    if(eggPosition[1]<=playerPosition[1]+1&&eggPosition[1]>=playerPosition[1]-1){
+        if(eggPosition[0]<=playerPosition[0]+1&&eggPosition[0]>=playerPosition[0]-1){
+            //cout<<"COLLISSION DETECTED"<<endl;
+            return true;
+        }
+
+    }
+    return false;
+};
 World::~World() {
 
 }

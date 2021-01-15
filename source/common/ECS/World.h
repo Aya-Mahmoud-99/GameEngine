@@ -36,6 +36,7 @@ public:
     void LoadEgg();
     void deleteNullObjects();
     void deleteEggsOnGround();
+    bool checkCollisionWithPlayer(glm::vec3);
     ~World();
 };
 
