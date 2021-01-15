@@ -18,6 +18,7 @@ struct MeshRendererTransform
 };
 class World {
 vector<Entity*> Entities;
+MeshRenderer* EggRenderer;
 public:
 
     Entity* createEntity(Entity* e);
@@ -32,6 +33,9 @@ public:
     void generateEggs();
     Entity* getSpaceShipEntity();
     void moveEggs();
+    void LoadEgg();
+    void deleteNullObjects();
+    void deleteEggsOnGround();
     ~World();
 };
 
