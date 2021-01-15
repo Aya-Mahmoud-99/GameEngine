@@ -21,7 +21,7 @@
 #include "./World.h"
 #include <mesh/mesh.hpp>
 #include <ECS/Components/MeshRenderer.h>
-
+#include "Sound.h"
 //#include "input/keyboard.hpp"
 //#include "input/mouse.hpp"
 #include "Components/Light.h"
@@ -38,6 +38,7 @@ private:
     std::unordered_map<std::string,our::Mesh*> meshes;
     std::unordered_map<std::string, our::ShaderProgram*> programs;
     std::unordered_map<std::string, Texture*> textures;
+    Sound* backGround;
 
 
 

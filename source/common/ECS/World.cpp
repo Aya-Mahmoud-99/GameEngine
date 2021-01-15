@@ -438,6 +438,7 @@ void World::LoadEgg(){
     );
     mat->setPointerToRenderState(r);
     EggRenderer=new MeshRenderer(mp,mat);
+
 }
 void World::LoadBrokenEgg(){
     our::ShaderProgram *pp = new our::ShaderProgram();
