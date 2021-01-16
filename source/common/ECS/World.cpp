@@ -562,6 +562,7 @@ bool World::checkCollisionWithPlayer(glm::vec3 eggPosition){
     if(eggPosition[1]<=playerPosition[1]+1&&eggPosition[1]>=playerPosition[1]-1){
         if(eggPosition[0]<=playerPosition[0]+1&&eggPosition[0]>=playerPosition[0]-1){
             //cout<<"COLLISSION DETECTED"<<endl;
+            player->getComponent<SpaceShipController>()->setLives(player->getComponent<SpaceShipController>()->getLives()-1);
             return true;
         }
 

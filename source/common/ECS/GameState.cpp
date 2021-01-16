@@ -233,6 +233,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
     }
     if(json.contains("SpaceShipController")){
         SpaceShipController *SpaceShipPtr = new SpaceShipController(app,t);
+        SpaceShipPtr->setLives(0);
         e->addComponent(SpaceShipPtr);
     }
     if(json.contains("light")){
