@@ -78,7 +78,7 @@ void GameState::onEnter(our::Application* app){
     loadNode(json,WorldPointer,nullptr,app,s); ///to be edited to load textures of each Entity///to be edited to load Light component
     WorldPointer->LoadEgg();
     WorldPointer->LoadBrokenEgg();
-    backGround=new Sound("assets/tracks/ES_Slipping - AGST.mp3");
+    backGround=new Sound("assets/tracks/ES_Slipping - AGST.mp3",true);
     backGround->play();
     /////in LoadNode call Texture() for each Entity
     ////call Sampler() once (one Sampler for all Entities)

@@ -12,7 +12,7 @@ private:
     unsigned int channel;
     static bool audio_device;
 public:
-    Sound(const char* fileName);
+    Sound(const char* fileName,bool loop);
     ~Sound();
     void play();
     void stop();

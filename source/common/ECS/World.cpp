@@ -454,9 +454,9 @@ void World::LoadBrokenEgg(){
 
     our::Mesh* mp=new our::Mesh();
     cout<<"999999999999999999999999"<<endl;
-    our::mesh_utils::loadOBJ(*mp,"assets/models/egg/egg.obj");
+    our::mesh_utils::loadOBJ(*mp,"assets/models/crackedegg/easter-egg.obj");
     cout<<"7777777777777777777"<<endl;
-    Texture *tex = new Texture("assets/models/egg/BrokenEgg.jpg");
+    Texture *tex = new Texture("assets/models/egg/Plastic010_1K_Color.jpg");
     cout<<"888888888888888888888888"<<endl;
     Material *mat=new Material(pp);
     cout<<"3333333333333333333333333"<<endl;

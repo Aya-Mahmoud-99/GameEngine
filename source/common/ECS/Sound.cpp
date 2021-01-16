@@ -6,14 +6,15 @@
 #include <bass.h>
 #include <iostream>
 bool Sound::audio_device=false;
-Sound::Sound(const char *fileName) {
+Sound::Sound(const char *fileName,bool loop) {
     if(!audio_device){
        if(!BASS_Init(-1,44100,0,NULL,NULL)){
             std::cout<<"Error loading file"<<std::endl;
         }
         audio_device=true;
     }
-    channel=BASS_StreamCreateFile(false,fileName,0,0,BASS_SAMPLE_LOOP);
+    if(loop)channel=BASS_StreamCreateFile(false,fileName,0,0,BASS_SAMPLE_LOOP);
+    if(!loop)channel=BASS_StreamCreateFile(false,fileName,0,0,BASS_SAMPLE_FLOAT);
     if(!channel){
         std::cout<<"No Channel"<<std::endl;
     }
