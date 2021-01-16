@@ -22,9 +22,11 @@ vector<Entity*> Entities;
 MeshRenderer* EggRenderer;
     MeshRenderer* BrokenEggRenderer;
     Sound* smashedEgg;
+    int chickenFlag;
 public:
 
     Entity* createEntity(Entity* e);
+    void moveChickens();
     //void assignComponentToEntity(Entity* e,Component* c);
     vector<Entity*>& getEntities();
     void Rendering();

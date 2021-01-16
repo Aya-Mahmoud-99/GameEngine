@@ -176,6 +176,7 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();
     WorldPointer->generateEggs();
+    WorldPointer->moveChickens();
 }
 
 void GameState::onExit(our::Application* app) {

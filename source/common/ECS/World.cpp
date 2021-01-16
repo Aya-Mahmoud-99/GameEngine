@@ -16,6 +16,7 @@ const int MAX_LIGHT_COUNT = 16;
 //#include "Components\Camera.h"
 World::World(){
     smashedEgg=new Sound("assets/tracks/Mirror Shattering-SoundBible.com-1752328245.mp3",false);
+    chickenFlag=30;
 }
 Entity* World::createEntity(Entity* e) {
     //=new Entity();
@@ -567,6 +568,26 @@ bool World::checkCollisionWithPlayer(glm::vec3 eggPosition){
     }
     return false;
 };
+void World::moveChickens(){
+    vector<Entity*> chickens;
+    getTagEntities(chickens,"chicken");
+    int size=chickens.size();
+    for(int i=0;i<size;i++){
+        glm::vec3 chickenPosition=chickens.at(i)->getComponent<Transform>()->getPosition();
+        if(chickenFlag<=60){
+            chickenPosition=chickenPosition+glm::vec3 {0.01,0,0};
+        }
+        else {
+            chickenPosition = chickenPosition + glm::vec3{-0.01, 0, 0};
+        }
+        chickens.at(i)->getComponent<Transform>()->setPosition(chickenPosition);
+    }
+
+    chickenFlag++;
+    if(chickenFlag==120){
+        chickenFlag=0;
+    }
+}
 World::~World() {
 
 }
