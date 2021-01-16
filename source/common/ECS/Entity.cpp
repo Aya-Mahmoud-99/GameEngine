@@ -9,11 +9,23 @@ void Entity::addComponent(Component *c) {
     //c=new Component();
     components.push_back(c);
 }
+void Entity::setCounter(int count) {
+    counter=count;
+}
+int Entity::getCounter() {
+    return counter;
+}
 void Entity::removeComponent(Component *c) {
     for(int i=0;i<components.size();i++){
         //delete components[i];
         if(components[i]==c)components.erase(components.begin()+i);
     }
+}
+void Entity::setCollided(bool isCollided){
+    collided=isCollided;
+}
+bool Entity::getCollided(){
+    return collided;
 }
 vector<Component*>& Entity::getComponents() {
 return components;

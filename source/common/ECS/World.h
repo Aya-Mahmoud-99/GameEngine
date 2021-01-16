@@ -18,6 +18,8 @@ struct MeshRendererTransform
 };
 class World {
 vector<Entity*> Entities;
+MeshRenderer* EggRenderer;
+    MeshRenderer* BrokenEggRenderer;
 public:
 
     Entity* createEntity(Entity* e);
@@ -32,6 +34,11 @@ public:
     void generateEggs();
     Entity* getSpaceShipEntity();
     void moveEggs();
+    void LoadEgg();
+    void LoadBrokenEgg();
+    void deleteNullObjects();
+    void deleteEggsOnGround();
+    bool checkCollisionWithPlayer(glm::vec3);
     ~World();
 };
 
