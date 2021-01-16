@@ -14,6 +14,9 @@
 const int MAX_LIGHT_COUNT = 16;
 
 //#include "Components\Camera.h"
+World::World(){
+    smashedEgg=new Sound("assets/tracks/Mirror Shattering-SoundBible.com-1752328245.mp3",false);
+}
 Entity* World::createEntity(Entity* e) {
     //=new Entity();
     Entities.push_back(e);
@@ -506,7 +509,11 @@ void World::moveEggs() {
             eTransfrom->setPosition(positionNow+glm::vec3{0,-0.1,0});
             bool collided=World::checkCollisionWithPlayer(eTransfrom->getPosition());
             eggs.at(i)->setCollided(collided);
-            if(collided) cout<<"COLLISION DETECTED"<<endl;
+            if(collided) {
+                smashedEgg->stop();
+                smashedEgg->play();
+                cout<<"COLLISION DETECTED"<<endl;
+            }
 
     }
 }

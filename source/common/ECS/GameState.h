@@ -21,7 +21,6 @@
 #include "./World.h"
 #include <mesh/mesh.hpp>
 #include <ECS/Components/MeshRenderer.h>
-#include "Sound.h"
 //#include "input/keyboard.hpp"
 //#include "input/mouse.hpp"
 #include "Components/Light.h"

@@ -9,6 +9,7 @@
 #include <ECS/Components/SpaceShipController.h>
 #include "vector"
 #include <ECS/Components/MeshRenderer.h>
+#include "Sound.h"
 class Entity;
 using namespace std;
 struct MeshRendererTransform
@@ -20,6 +21,7 @@ class World {
 vector<Entity*> Entities;
 MeshRenderer* EggRenderer;
     MeshRenderer* BrokenEggRenderer;
+    Sound* smashedEgg;
 public:
 
     Entity* createEntity(Entity* e);
@@ -40,6 +42,7 @@ public:
     void deleteEggsOnGround();
     bool checkCollisionWithPlayer(glm::vec3);
     ~World();
+    World();
 };
 
 
