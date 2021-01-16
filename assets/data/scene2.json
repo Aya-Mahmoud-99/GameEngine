@@ -3,6 +3,15 @@
     "textures": {
       "moon": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/images/common/moon.jpg",
       "house": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/House/House.jpeg",
+      "bullet": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/Metal035_1K_Color.jpg",
+      "bulletNormal": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/Metal035_1K_Normal.jpg",
+      "bulletroughness": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/Metal035_1K_Roughness.jpg",
+      "bulletMetalness": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/Metal035_1K_Metalness.jpg",
+      "spaceshipColor": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/spaceship/Metal038_1K_Color.jpg",
+      "spaceshipRoughness": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/spaceship/Metal038_1K_Roughness.jpg",
+      "spaceshipMetalness": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/spaceship/Metal038_1K_Metalness.jpg",
+      "egg": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/egg/Plastic010_1K_Color.jpg",
+      "chicken": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/chicken/chicken.PNG",
       "asphalt_albedo":"C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/images/common/materials/asphalt/albedo.jpg",
       "asphalt_specular":"C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/images/common/materials/asphalt/specular.jpg",
       "asphalt_roughness":"C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/images/common/materials/asphalt/roughness.jpg",
@@ -10,8 +19,12 @@
       "asphalt_emissive":"C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/images/common/materials/asphalt/emissive.jpg"
     },
     "meshes": {
+      "chicken": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/chicken/chicken.obj",
+      "egg": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/egg/egg.obj",
       "suzanne": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/Suzanne/Suzanne.obj",
-      "house": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/House/House.obj"
+      "house": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/House/House.obj",
+      "spaceship": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/spaceship/16013_Fighter_Jet-USA_v1.obj",
+      "bullet": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/556-rifle-bullet.obj"
     },
     "programs": {
       "default": {
@@ -31,7 +44,7 @@
 
   "children": {
     "camera": {
-      "translation": [ 0, 0, 0 ],
+      "translation": [ 0, 0, 13 ],
       "scale": [ 1, 1, 0 ],
       "camera": {
         "near": 0.1,
@@ -42,14 +55,15 @@
         "type": "prespective"
       }
     },
-    "suzanne": {
-      "mesh": "suzanne",
-      "albedo_map": "moon",
-      "specular_map": "moon",
-      "roughness_map": "moon",
-      "ambient_occlusion_map": "moon",
-      "emissive_map": "moon",
-      "translation": [ -5, 0, -2 ],
+    "bullet": {
+      "mesh": "bullet",
+      "albedo_map": "bullet",
+      "specular_map": "bulletMetalness",
+      "roughness_map": "bulletroughness",
+      "ambient_occlusion_map": "bullet",
+      "emissive_map": "bullet",
+      "scale": [0.5,0.5,0.5],
+      "translation": [ 0, 5, 0 ],
       "program": "light",
       "uniforms": {
         "alpha": {
@@ -73,65 +87,27 @@
       },"render_state": {
         "depth_enable":1,
         "dpfunc":"GL_LEQUAL",
-        "cull_enable":1,
+        "cull_enable":0,
         "cullface":"GL_FRONT",
         "frontwinding":"GL_CCW",
-        "blend_enable":1,
+        "blend_enable":0,
         "blendFun":"GL_FUNC_ADD",
         "source":"GL_SRC_ALPHA",
         "dest":"GL_ONE_MINUS_SRC_ALPHA",
         "transperent":0
       }
     },
-    "suzanne2": {
-      "mesh": "suzanne",
-      "albedo_map": "moon",
-      "specular_map": "moon",
-      "roughness_map": "moon",
-      "ambient_occlusion_map": "moon",
-      "emissive_map": "moon",
-      "translation": [ 1, 0, -2],
-      "program": "light",
-      "uniforms": {
-        "alpha": {
-          "type": "float",
-          "value": 0.5
-        },
-        "albedo_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },
-        "specular_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },"emissive_tint": {
-          "type": "vec3",
-          "value": [1,1,1]
-        },"roughness_range":{
-          "type": "vec2",
-          "value": [0,1]
-        }
-      },"render_state": {
-        "depth_enable":0,
-        "dpfunc":"GL_LEQUAL",
-        "cull_enable":1,
-        "cullface":"GL_FRONT",
-        "frontwinding":"GL_CCW",
-        "blend_enable":1,
-        "blendFun":"GL_FUNC_ADD",
-        "source":"GL_SRC_ALPHA",
-        "dest":"GL_ONE_MINUS_SRC_ALPHA",
-        "transperent":0
-      }
-    },
-    "house": {
-      "mesh": "house",
-      "albedo_map": "house",
-      "specular_map": "house",
-      "roughness_map": "house",
-      "ambient_occlusion_map": "house",
-      "emissive_map": "house",
-      "translation": [ 4, 0, -8 ],
+    "chicken1": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -10, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
       "program": "light",
       "uniforms": {
         "alpha": {
@@ -155,10 +131,627 @@
       },"render_state": {
         "depth_enable":1,
         "dpfunc":"GL_LEQUAL",
-        "cull_enable":1,
+        "cull_enable":0,
         "cullface":"GL_FRONT",
         "frontwinding":"GL_CCW",
         "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken2": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -7, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken3": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -4, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken4": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -1, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken5": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ 2, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken6": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ 5, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken7": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ 8, 7, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken8": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -10, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken9": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -7, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken10": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -4, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken11": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ -1, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken12": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ 2, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken13": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ 5, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "chicken14": {
+      "name": "chicken",
+      "mesh": "chicken",
+      "texture": "chicken",
+      "albedo_map": "chicken",
+      "specular_map": "chicken",
+      "roughness_map": "chicken",
+      "ambient_occlusion_map": "chicken",
+      "emissive_map": "chicken",
+      "translation": [ 8, 12, 0 ],
+      "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "spaceship": {
+      "mesh": "spaceship",
+      "texture": "spaceshipColor",
+      "albedo_map": "spaceshipColor",
+      "specular_map": "spaceshipMetalness",
+      "roughness_map": "spaceshipRoughness",
+      "ambient_occlusion_map": "spaceshipColor",
+      "emissive_map": "spaceshipColor",
+      "scale": [0.02,0.02,0.02],
+      "rotation": [0,0,1.552],
+      "translation": [ -1, -5, 0 ],
+      "SpaceShipController": "true",
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":0,
         "blendFun":"GL_FUNC_ADD",
         "source":"GL_SRC_ALPHA",
         "dest":"GL_ONE_MINUS_SRC_ALPHA",

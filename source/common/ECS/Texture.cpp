@@ -20,4 +20,8 @@ Texture::~Texture(){
     glDeleteTextures(1, &texture);
 }
 
+Texture::Texture() {
+
+}
+
 

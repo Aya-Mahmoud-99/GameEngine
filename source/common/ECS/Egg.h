@@ -4,6 +4,7 @@
 
 #ifndef GFX_LAB_EGG_H
 #define GFX_LAB_EGG_H
+
 #include "Entity.h"
 
 class Egg : public Entity{

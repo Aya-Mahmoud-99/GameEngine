@@ -5,7 +5,7 @@
 #include "World.h"
 #include "Components/MeshRenderer.h"
 #include "Components/Transform.h"
-#include "Egg.h"
+//#include "Egg.h"
 
 #include "Components/CameraComponent.h"
 #include "Components/Material.h"
@@ -81,13 +81,17 @@ void World::RenderingSystem(){
     CameraController* cc=getCameraEntity()->getComponent<CameraController>();
     glm::mat4 vp=c->getProjectionMatrix()*c->getViewMatrix();
 //            Collect all the lights
-
+    //vector<Bullet*> bulletsVector;
 //    Let M be an empty container containing mesh renderers and their distance from the camera.
     std::vector<pair<std::shared_ptr<MeshRendererTransform>,double>> MTransparent;
     std::vector<pair<std::shared_ptr<MeshRendererTransform>,double>> MOpaque;
    // cout<<"start1"<<endl;
 
     for(auto & Entitie : Entities) {
+        /*if(Entitie->getComponent<SpaceShipController>() != nullptr)
+        {
+            bulletsVector=Entitie->getComponent<SpaceShipController>()->getPointerToBulletsVector();
+        }*/
         if(Entitie->getComponent<LightComponent>() != nullptr ) lights.push_back(Entitie->getComponent<LightComponent>());
         if (Entitie->getComponent<MeshRenderer>() != nullptr ) {
             Transform* t=Entitie->getComponent<Transform>();
@@ -108,17 +112,10 @@ void World::RenderingSystem(){
 
         }
     }
-   // cout<<"start2"<<endl;
+
     // sort with descending order.
     sort(MTransparent.begin(), MTransparent.end(),
          [&](pair<std::shared_ptr<MeshRendererTransform>,double>& a, pair<std::shared_ptr<MeshRendererTransform>, double>& b) { return a.second > b.second; });
-    //cout<<"start3"<<endl;
-    //    Loop on all M:
-//    Setup the Material:
-//    Use the shader program done
-//    Send transform and camera variables to shader uniforms done
-//    Send material variables to shader uniforms done
-//    Send lights to shader uniforms
 
 
     for (auto& i : MOpaque)
@@ -308,7 +305,8 @@ void World::RenderingSystem(){
         m->draw();
        // cout<<"dsds,d;sld;sld;"<<endl;
     }
-   // cout<<"end"<<endl;
+
+    
 
 
 }
@@ -382,7 +380,7 @@ void World::generateEggs() {
     std::cout<<"size"<<size<<endl;
     int rand1=std::rand()%(10);
     int rand2=std::rand()%(10);
-    if(rand1<1&&rand2<2) {
+    if(size!=0&&rand1<1&&rand2<2) {
        // std::srand(time(0));
         int randEgg = std::rand() % (size);
         Entity *genratorChicken = chickens.at(randEgg);
@@ -400,6 +398,7 @@ void World::generateEggs() {
         Entities.push_back(e);
     }
 }
+
 void World::LoadEgg(){
     our::ShaderProgram *pp = new our::ShaderProgram();
     pp->create();
@@ -411,6 +410,7 @@ void World::LoadEgg(){
     our::Mesh* mp=new our::Mesh();
     our::mesh_utils::loadOBJ(*mp,"assets/models/egg/egg.obj");
     Texture *tex = new Texture("assets/models/egg/Plastic010_1K_Color.jpg");
+    //
     Material *mat=new Material(pp);
     mat->setPointerToEmissiveMap(tex);
     mat->setPointerToRoughnessMap(tex);
@@ -465,6 +465,50 @@ if(Entities.at(i)->getEntityName()=="egg"&&Entities.at(i)->getComponent<Transfor
 }
     }
 }
+void World::setBulletRenderer(Texture*ts,our::Mesh*ms,our::ShaderProgram*p){
+
+    our::ShaderProgram *pp = new our::ShaderProgram();
+    pp->create();
+    pp->attach("assets/shaders/ex29_light/light_transform.vert", GL_VERTEX_SHADER);
+    pp->attach("assets/shaders/ex32_textured_material/light_array.frag", GL_FRAGMENT_SHADER);
+    pp->link();
+    our::Mesh* mp=new our::Mesh();
+    our::mesh_utils::loadOBJ(*mp,"assets/models/bullet/556-rifle-bullet.obj");
+    Texture *tex = new Texture("assets/models/bullet/Metal035_1K_Color.jpg");
+    Material *mat=new Material(pp);
+    mat->setPointerToEmissiveMap(tex);
+    mat->setPointerToRoughnessMap(tex);
+    mat->setPointerToAmbientOcuulsionMap(tex);
+    mat->setPointerToSpecularMap(tex);
+    mat->setPointerToAlbedoMap(tex);
+    Sampler* s=new Sampler();
+    mat->setPointerToSampler(s);
+    mat->addUniform("alpha",1.0f);
+    mat->addUniform("specular_tint",glm::vec3{1,1,1});
+    mat->addUniform("emissive_tint",glm::vec3{1,1,1});
+    mat->addUniform("albedo_tint",glm::vec3{1,1,1});
+    mat->addUniform("roughness_range",glm::vec2{0,1});
+    RenderState* r=new RenderState(
+            true,
+            GL_LEQUAL,
+            false,
+            GL_FRONT,
+            GL_CCW,
+            false,
+            GL_FUNC_ADD,
+            GL_SRC_ALPHA,
+            GL_ONE_MINUS_SRC_ALPHA,
+            false
+    );
+    mat->setPointerToRenderState(r);
+    bulletRenderer=new MeshRenderer(mp,mat);
+    
+
+}
+MeshRenderer* World::getBulletRenderer(){
+    return bulletRenderer;
+}
+
 World::~World() {
 
 }

@@ -27,6 +27,8 @@ class Texture {
     ~Texture();
 
     our::WindowConfiguration getWindowConfiguration();
+
+    Texture();
 };
 
 

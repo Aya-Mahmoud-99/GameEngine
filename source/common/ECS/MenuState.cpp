@@ -12,7 +12,7 @@
 #include <mesh/mesh-utils.hpp>
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
-#include"Entity.h"
+//#include"Entity.h"
 
 void MenuState::onEnter(our::Application *app) {
 

@@ -8,7 +8,7 @@
 #include <mesh/mesh-utils.hpp>
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
-#include"Entity.h"
+//#include"Entity.h"
 #include <cstdlib>
 #include <ctime>
 namespace glm {
@@ -77,6 +77,8 @@ void GameState::onEnter(our::Application* app){
     Sampler* s=new Sampler();
     loadNode(json,WorldPointer,nullptr,app,s); ///to be edited to load textures of each Entity///to be edited to load Light component
     WorldPointer->LoadEgg();
+    WorldPointer->setBulletRenderer(textures["bullet"],meshes["bullet"],programs["default"]);
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletRenderer(WorldPointer->getBulletRenderer());
     /////in LoadNode call Texture() for each Entity
     ////call Sampler() once (one Sampler for all Entities)
 /* int width, height;
@@ -165,10 +167,14 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //cout<<"xxxxxxxx"<<endl;
+    //vector<Entity*> chickens;
+   // WorldPointer->getTagEntities(chickens,"chicken");
     WorldPointer->moveEggs();
     WorldPointer->deleteEggsOnGround();
     WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
-    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime);
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime,WorldPointer->getEntities());
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->motionOfBullets(WorldPointer->getEntities());
+    //WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->getPointerToBulletsVector();
     //  cout<<"xxxxxxxx"<<endl;
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();

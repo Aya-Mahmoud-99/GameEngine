@@ -1,7 +1,7 @@
 //
 // Created by Aya on 11/17/2020.
 //
-
+#pragma once
 #ifndef GFX_LAB_WORLD_H
 #define GFX_LAB_WORLD_H
 #include <glm/glm.hpp>
@@ -16,8 +16,10 @@ struct MeshRendererTransform
     MeshRenderer* MR;
     glm::mat4 matrix;
 };
+
 class World {
 vector<Entity*> Entities;
+MeshRenderer* bulletRenderer;
 MeshRenderer* EggRenderer;
 public:
 
@@ -36,6 +38,8 @@ public:
     void LoadEgg();
     void deleteNullObjects();
     void deleteEggsOnGround();
+    void setBulletRenderer(Texture*t,our::Mesh*m,our::ShaderProgram*p);
+    MeshRenderer* getBulletRenderer();
     ~World();
 };
 
