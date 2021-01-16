@@ -45,11 +45,7 @@
 
   "children": {
     "camera": {
-<<<<<<< HEAD
-      "translation": [ 0, 0, 13 ],
-=======
       "translation": [ -5, 4, 18 ],
->>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
       "scale": [ 1, 1, 0 ],
       "camera": {
         "near": 0.1,
@@ -60,17 +56,6 @@
         "type": "prespective"
       }
     },
-<<<<<<< HEAD
-    "bullet": {
-      "mesh": "bullet",
-      "albedo_map": "bullet",
-      "specular_map": "bulletMetalness",
-      "roughness_map": "bulletroughness",
-      "ambient_occlusion_map": "bullet",
-      "emissive_map": "bullet",
-      "scale": [0.5,0.5,0.5],
-      "translation": [ 0, 5, 0 ],
-=======
     "cube": {
       "mesh": "cube",
       "albedo_map": "menuBack",
@@ -80,7 +65,6 @@
       "emissive_map": "menuBack",
       "scale": [8,5,0.1],
       "translation": [ -5, 5, -3 ],
->>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
       "program": "light",
       "uniforms": {
         "alpha": {
@@ -105,7 +89,6 @@
         "depth_enable":1,
         "dpfunc":"GL_LEQUAL",
         "cull_enable":0,
-<<<<<<< HEAD
         "cullface":"GL_FRONT",
         "frontwinding":"GL_CCW",
         "blend_enable":0,
