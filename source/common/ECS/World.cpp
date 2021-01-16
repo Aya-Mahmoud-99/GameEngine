@@ -186,6 +186,7 @@ void World::RenderingSystem(){
         p->set("material.emissive_tint", *eTint);
        // cout<<"start12"<<endl;
         //cout<<(*eTint)[0]<<endl;
+
         Texture* albedoMap=i.first->MR->getMaterial()->getPointerToAlbedoMap();
         glActiveTexture(GL_TEXTURE0);
         albedoMap->TextureBind();

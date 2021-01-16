@@ -10,6 +10,9 @@
 
 #include "GameState.h"
 
+#include <string>
+#include <./GL/glext.h>
+
 class MenuState : public GameState{
 
 private:
@@ -32,6 +35,7 @@ public:
     virtual void attachPrograms(const nlohmann::json& json);
     virtual void onDraw(our::Application* app,double deltaTime);
     virtual void loadNode(const nlohmann::json& json,World* worldPointer,Entity* parent,our::Application* app,Sampler* s);
+    void drawText(const std::string& text, const unsigned int x, const unsigned int y, const float r, const float g, const float b);
     // void resume();
     //void update();
 

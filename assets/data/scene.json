@@ -12,6 +12,7 @@
       "spaceshipMetalness": "assets/models/spaceship/Metal038_1K_Metalness.jpg",
       "egg": "assets/models/egg/Plastic010_1K_Color.jpg",
       "chicken": "assets/models/chicken/chicken.PNG",
+      "chickenInvaders": "assets/images/common/chicken_invaders_11.jpg",
       "asphalt_albedo":"assets/images/common/materials/asphalt/albedo.jpg",
       "asphalt_specular":"assets/images/common/materials/asphalt/specular.jpg",
       "asphalt_roughness":"assets/images/common/materials/asphalt/roughness.jpg",
@@ -20,7 +21,9 @@
     },
     "meshes": {
       "chicken": "assets/models/chicken/chicken.obj",
+      "cube": "assets/models/background/uploads_files_648761_cube.obj",
       "egg": "assets/models/egg/egg.obj",
+      "crackedegg": "assets/models/crackedegg/easter-egg.obj",
       "suzanne": "assets/models/Suzanne/Suzanne.obj",
       "house": "assets/models/House/House.obj",
       "spaceship": "assets/models/spaceship/16013_Fighter_Jet-USA_v1.obj",
@@ -44,7 +47,7 @@
 
   "children": {
     "camera": {
-      "translation": [ 0, 0, 13 ],
+      "translation": [ 0, 0, 17.5 ],
       "scale": [ 1, 1, 0 ],
       "camera": {
         "near": 0.1,
@@ -55,15 +58,59 @@
         "type": "prespective"
       }
     },
+    "cube": {
+      "mesh": "cube",
+      "albedo_map": "chickenInvaders",
+      "specular_map": "chickenInvaders",
+      "roughness_map": "chickenInvaders",
+      "ambient_occlusion_map": "chickenInvaders",
+      "emissive_map": "chickenInvaders",
+      "scale": [8.5,8.5,0.1],
+      "translation": [ -2, 5, -3 ],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 0.5
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":0,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
     "bullet": {
-      "mesh": "bullet",
-      "albedo_map": "bullet",
-      "specular_map": "bulletMetalness",
-      "roughness_map": "bulletroughness",
-      "ambient_occlusion_map": "bullet",
-      "emissive_map": "bullet",
-      "scale": [0.5,0.5,0.5],
-      "translation": [ 0, 5, 0 ],
+      "mesh": "crackedegg",
+      "texture": "egg",
+      "albedo_map": "egg",
+      "specular_map": "egg",
+      "roughness_map": "egg",
+      "ambient_occlusion_map": "egg",
+      "emissive_map": "egg",
+      "rotation": [0,-0.3,0],
+      "scale": [1.5,1.5,1.5],
+      "translation": [ -4, 0, 0 ],
       "program": "light",
       "uniforms": {
         "alpha": {
