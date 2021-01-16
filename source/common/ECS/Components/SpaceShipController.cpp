@@ -27,7 +27,7 @@ void SpaceShipController::update(double delta_time,vector<Entity*>& entities){
     if(app->getKeyboard().isPressed(GLFW_KEY_A) && x[0]>-10) this->x -= up * ((float)delta_time *100.0f);
     if(app->getKeyboard().isPressed(GLFW_KEY_S) && x[1]>-7) this->x += right * ((float)delta_time*100.0f);
     if(app->getKeyboard().isPressed(GLFW_KEY_W) && x[1]< 1) this->x -= right * ((float)delta_time*100.0f);
-    if(app->getKeyboard().justPressed(GLFW_KEY_SPACE) && lives >0) this->GenerateBullet(x, entities);
+    if(app->getKeyboard().justPressed(GLFW_KEY_SPACE) ) this->GenerateBullet(x, entities);//&& lives >0
     //if(app->getKeyboard().isPressed(GLFW_KEY_ENTER)) GenerateBullet(x);
     mat[3][0]=x[0];
     mat[3][1]=x[1];

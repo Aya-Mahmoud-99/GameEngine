@@ -44,12 +44,12 @@ public:
     void LoadBrokenEgg();
     void deleteNullObjects();
     void deleteEggsOnGround();
-<<<<<<< HEAD
+
     void setBulletRenderer(Texture*t,our::Mesh*m,our::ShaderProgram*p);
     MeshRenderer* getBulletRenderer();
-=======
+
     bool checkCollisionWithPlayer(glm::vec3);
->>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
+
     ~World();
     World();
 };

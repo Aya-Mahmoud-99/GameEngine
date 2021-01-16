@@ -8,10 +8,10 @@
 #include <mesh/mesh-utils.hpp>
 #include <mesh/common-vertex-types.hpp>
 #include <mesh/common-vertex-attributes.hpp>
-<<<<<<< HEAD
+
 //#include"Entity.h"
-=======
-#include"Entity.h"
+
+//#include"Entity.h"
 #include <cstdlib>
 #include <ctime>
 namespace glm {
@@ -21,7 +21,7 @@ namespace glm {
             v[index] = j[index].get<T>();
     }
 }
->>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
+
 
 void from_json2(const nlohmann::json& j, Light& l){
     std::string type_name = j.value("type", "point");
@@ -59,7 +59,7 @@ void MenuState::onEnter(our::Application* app){
 
     // create a cam entity from world
     //std::ifstream file_in("C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/data/scene2.json");
-    std::ifstream file_in("assets/data/scene2.json");
+    std::ifstream file_in("assets/data/scene.json");
     nlohmann::json json;
     file_in >> json;
     file_in.close();

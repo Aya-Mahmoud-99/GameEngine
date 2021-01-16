@@ -77,14 +77,14 @@ void GameState::onEnter(our::Application* app){
     Sampler* s=new Sampler();
     loadNode(json,WorldPointer,nullptr,app,s); ///to be edited to load textures of each Entity///to be edited to load Light component
     WorldPointer->LoadEgg();
-<<<<<<< HEAD
+
     WorldPointer->setBulletRenderer(textures["bullet"],meshes["bullet"],programs["default"]);
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletRenderer(WorldPointer->getBulletRenderer());
-=======
+
     WorldPointer->LoadBrokenEgg();
     backGround=new Sound("assets/tracks/ES_Slipping - AGST.mp3",true);
     backGround->play();
->>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
+
     /////in LoadNode call Texture() for each Entity
     ////call Sampler() once (one Sampler for all Entities)
 /* int width, height;

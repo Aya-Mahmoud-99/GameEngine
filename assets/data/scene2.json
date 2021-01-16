@@ -1,7 +1,6 @@
 {
   "resources": {
     "textures": {
-<<<<<<< HEAD
       "moon": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/images/common/moon.jpg",
       "house": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/House/House.jpeg",
       "bullet": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/Metal035_1K_Color.jpg",
@@ -26,31 +25,7 @@
       "house": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/House/House.obj",
       "spaceship": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/spaceship/16013_Fighter_Jet-USA_v1.obj",
       "bullet": "C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/models/bullet/556-rifle-bullet.obj"
-=======
-      "moon": "assets/images/common/moon.jpg",
-      "house": "assets/models/House/House.jpeg",
-      "bullet": "assets/models/bullet/Metal035_1K_Color.jpg",
-      "bulletNormal": "assets/models/bullet/Metal035_1K_Normal.jpg",
-      "bulletroughness": "assets/models/bullet/Metal035_1K_Roughness.jpg",
-      "bulletMetalness": "assets/models/bullet/Metal035_1K_Metalness.jpg",
-      "spaceshipColor": "assets/models/spaceship/Metal038_1K_Color.jpg",
-      "spaceshipRoughness": "assets/models/spaceship/Metal038_1K_Roughness.jpg",
-      "spaceshipMetalness": "assets/models/spaceship/Metal038_1K_Metalness.jpg",
-      "egg": "assets/models/egg/Plastic010_1K_Color.jpg",
-      "heart": "assets/models/heart/blank.jpg",
-      "chicken": "assets/models/chicken/chicken.PNG",
-      "chickenInvaders": "assets/images/common/chicken_invaders_4.jpg",
-      "menuBack": "assets/images/common/menu_background_2.jpg"
-    },
-    "meshes": {
-      "chicken": "assets/models/chicken/chicken.obj",
-      "cube": "assets/models/background/uploads_files_648761_cube.obj",
-      "egg": "assets/models/egg/egg.obj",
-      "suzanne": "assets/models/Suzanne/Suzanne.obj",
-      "house": "assets/models/House/House.obj",
-      "spaceship": "assets/models/spaceship/16013_Fighter_Jet-USA_v1.obj",
-      "bullet": "assets/models/bullet/556-rifle-bullet.obj"
->>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
+
     },
     "programs": {
       "default": {
