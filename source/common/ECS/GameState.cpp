@@ -77,8 +77,14 @@ void GameState::onEnter(our::Application* app){
     Sampler* s=new Sampler();
     loadNode(json,WorldPointer,nullptr,app,s); ///to be edited to load textures of each Entity///to be edited to load Light component
     WorldPointer->LoadEgg();
+<<<<<<< HEAD
     WorldPointer->setBulletRenderer(textures["bullet"],meshes["bullet"],programs["default"]);
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletRenderer(WorldPointer->getBulletRenderer());
+=======
+    WorldPointer->LoadBrokenEgg();
+    backGround=new Sound("assets/tracks/ES_Slipping - AGST.mp3",true);
+    backGround->play();
+>>>>>>> 77ef8e146cc3a9d47f5ed7db608ebd9c33752034
     /////in LoadNode call Texture() for each Entity
     ////call Sampler() once (one Sampler for all Entities)
 /* int width, height;
@@ -179,6 +185,7 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();
     WorldPointer->generateEggs();
+    WorldPointer->moveChickens();
 }
 
 void GameState::onExit(our::Application* app) {
@@ -235,6 +242,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
     }
     if(json.contains("SpaceShipController")){
         SpaceShipController *SpaceShipPtr = new SpaceShipController(app,t);
+        SpaceShipPtr->setLives(0);
         e->addComponent(SpaceShipPtr);
     }
     if(json.contains("light")){

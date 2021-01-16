@@ -32,12 +32,13 @@ void SpaceShipController::update(double delta_time,vector<Entity*>& entities){
     mat[3][0]=x[0];
     mat[3][1]=x[1];
     mat[3][2]=x[2];
+        T->setPosition(x);
   //  std::cout<<"SpaceShipController after changing \n";
   //  std::cout<<x[0]<<" "<<x[1]<<" "<<x[2]<<" \n";
     //mat[1][0]=y[0];
     //mat[1][1]=y[1];
     //mat[1][2]=y[2];
-    T->setMatrix(mat);
+    //T->setMatrix(mat);
 
 }
 glm::vec3 SpaceShipController::Right(){

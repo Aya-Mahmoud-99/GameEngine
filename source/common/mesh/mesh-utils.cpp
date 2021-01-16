@@ -26,10 +26,12 @@ bool our::mesh_utils::loadOBJ(our::Mesh &mesh, const char* filename) {
 
     // We get the parent path since we would like to see if contains any ".mtl" file that define the object materials
     auto parent_path_string = std::filesystem::path(filename).parent_path().string();
+    std::cout<<"1111111111"<<std::endl;
 
     // The data that we will use to initialize our mesh
     std::vector<our::Vertex> vertices;
     std::vector<GLuint> elements;
+    std::cout<<"22222222222222"<<std::endl;
 
     // Since the OBJ can have duplicated vertices, we make them unique using this map
     // The key is the vertex, the value is its index in the vector "vertices".
@@ -41,6 +43,7 @@ bool our::mesh_utils::loadOBJ(our::Mesh &mesh, const char* filename) {
     std::vector<tinyobj::shape_t> shapes;
     std::vector<tinyobj::material_t> materials;
     std::string warn, err;
+    std::cout<<"3333333333333333"<<std::endl;
 
     if (!tinyobj::LoadObj(&attrib, &shapes, &materials, &warn, &err, filename, parent_path_string.c_str())) {
         std::cerr << "Failed to load obj file \"" << filename << "\" due to error: " << err << std::endl;
@@ -97,7 +100,7 @@ bool our::mesh_utils::loadOBJ(our::Mesh &mesh, const char* filename) {
             }
         }
     }
-
+    std::cout<<"wewewwewewe"<<std::endl;
     // Create and populate the OpenGL objects in the mesh
     if (mesh.isCreated()) mesh.destroy();
     mesh.create({our::setup_buffer_accessors<Vertex>});

@@ -14,6 +14,10 @@
 const int MAX_LIGHT_COUNT = 16;
 
 //#include "Components\Camera.h"
+World::World(){
+    smashedEgg=new Sound("assets/tracks/Mirror Shattering-SoundBible.com-1752328245.mp3",false);
+    chickenFlag=30;
+}
 Entity* World::createEntity(Entity* e) {
     //=new Entity();
     Entities.push_back(e);
@@ -183,6 +187,7 @@ void World::RenderingSystem(){
         p->set("material.emissive_tint", *eTint);
        // cout<<"start12"<<endl;
         //cout<<(*eTint)[0]<<endl;
+
         Texture* albedoMap=i.first->MR->getMaterial()->getPointerToAlbedoMap();
         glActiveTexture(GL_TEXTURE0);
         albedoMap->TextureBind();
@@ -368,7 +373,7 @@ void World::getTagEntities(vector<Entity*>& entities,string tag){
     {
         if(Entities.at(i)&&Entities.at(i)->getEntityName()==tag)
         {
-            cout<<"makan 2el far5a 2le 2et7at"<<(Entities.at(i)->getComponent<Transform>()->getPosition())[1]<<endl;
+            //cout<<"makan 2el far5a 2le 2et7at"<<(Entities.at(i)->getComponent<Transform>()->getPosition())[1]<<endl;
             entities.push_back(Entities.at(i));
         }
     }
@@ -385,10 +390,10 @@ void World::generateEggs() {
         int randEgg = std::rand() % (size);
         Entity *genratorChicken = chickens.at(randEgg);
         Transform *chickTranform = genratorChicken->getComponent<Transform>();
-        cout<<"heeeeeeeeeeeeeeeeeeeeeeeeeh"<<endl;
-        cout<<"RANDDDDDEGGG"<<randEgg<<endl;
-        cout<<"makan 2el far5a"<<(chickTranform->getPosition())[1]<<endl;
-        cout<<"makan 2el beida"<<(chickTranform->getPosition()+glm::vec3{0,-1,0})[1]<<endl;
+      //  cout<<"heeeeeeeeeeeeeeeeeeeeeeeeeh"<<endl;
+      //  cout<<"RANDDDDDEGGG"<<randEgg<<endl;
+      //  cout<<"makan 2el far5a"<<(chickTranform->getPosition())[1]<<endl;
+       // cout<<"makan 2el beida"<<(chickTranform->getPosition()+glm::vec3{0,-1,0})[1]<<endl;
       //  Egg *e = new Egg(chickTranform->getPosition()+glm::vec3{0,-1,0});
         Entity* e=new Entity();
         e->addComponent(EggRenderer);
@@ -438,6 +443,60 @@ void World::LoadEgg(){
     );
     mat->setPointerToRenderState(r);
     EggRenderer=new MeshRenderer(mp,mat);
+
+}
+void World::LoadBrokenEgg(){
+    our::ShaderProgram *pp = new our::ShaderProgram();
+    cout<<"1111111111111111111111"<<endl;
+    pp->create();
+    pp->attach("assets/shaders/ex29_light/light_transform.vert", GL_VERTEX_SHADER);
+
+    pp->attach("assets/shaders/ex32_textured_material/light_array.frag", GL_FRAGMENT_SHADER);
+
+    pp->link();
+    cout<<"222222222222222222222222"<<endl;
+
+    our::Mesh* mp=new our::Mesh();
+    cout<<"999999999999999999999999"<<endl;
+    our::mesh_utils::loadOBJ(*mp,"assets/models/crackedegg/easter-egg.obj");
+    cout<<"7777777777777777777"<<endl;
+    Texture *tex = new Texture("assets/models/egg/Plastic010_1K_Color.jpg");
+    cout<<"888888888888888888888888"<<endl;
+    Material *mat=new Material(pp);
+    cout<<"3333333333333333333333333"<<endl;
+
+    mat->setPointerToEmissiveMap(tex);
+    mat->setPointerToRoughnessMap(tex);
+    mat->setPointerToAmbientOcuulsionMap(tex);
+    mat->setPointerToSpecularMap(tex);
+    mat->setPointerToAlbedoMap(tex);
+    cout<<"444444444444444444444444444"<<endl;
+
+    Sampler* s=new Sampler();
+    mat->setPointerToSampler(s);
+    mat->addUniform("alpha",1.0f);
+    mat->addUniform("specular_tint",glm::vec3{1,1,1});
+    mat->addUniform("emissive_tint",glm::vec3{1,1,1});
+    mat->addUniform("albedo_tint",glm::vec3{1,1,1});
+    mat->addUniform("roughness_range",glm::vec2{0,1});
+    cout<<"5555555555555555555555555555555555"<<endl;
+
+    RenderState* r=new RenderState(
+            true,
+            GL_LEQUAL,
+            false,
+            GL_FRONT,
+            GL_CCW,
+            false,
+            GL_FUNC_ADD,
+            GL_SRC_ALPHA,
+            GL_ONE_MINUS_SRC_ALPHA,
+            false
+    );
+    mat->setPointerToRenderState(r);
+    BrokenEggRenderer=new MeshRenderer(mp,mat);
+    cout<<"6666666666666666666666666666666666666"<<endl;
+
 }
 void World::moveEggs() {
     vector<Entity*> eggs;
@@ -449,20 +508,85 @@ void World::moveEggs() {
             Transform* eTransfrom=eggs.at(i)->getComponent<Transform>();
             glm::vec3 positionNow=eTransfrom->getPosition();
             eTransfrom->setPosition(positionNow+glm::vec3{0,-0.1,0});
+            bool collided=World::checkCollisionWithPlayer(eTransfrom->getPosition());
+            eggs.at(i)->setCollided(collided);
+            if(collided) {
+                smashedEgg->stop();
+                smashedEgg->play();
+                cout<<"COLLISION DETECTED"<<endl;
+            }
 
     }
 }
-void World::deleteEggsOnGround(){
-   int Size=Entities.size();
-    for(int i=0;i<Size;i++)
-    {
-if(Entities.at(i)->getEntityName()=="egg"&&Entities.at(i)->getComponent<Transform>()->getPosition()[1]<-8 ){
-    Entity* egg=Entities.at(i);
-    Entities.erase(Entities.begin()+i);
-    i--;
-    delete egg;
-    Size--;
+void World::deleteEggsOnGround() {
+   int Size = Entities.size();
+    for (int i = 0; i < Size; i++) {
+        if (Entities.at(i)->getEntityName() == "egg" &&
+            (Entities.at(i)->getComponent<Transform>()->getPosition()[1] < -8 || Entities.at(i)->getCollided())) {
+            if (Entities.at(i)->getComponent<Transform>()->getPosition()[1] < -8) {
+                Entity *e = new Entity();
+                e->addComponent(BrokenEggRenderer);
+                Transform *t = new Transform(Entities.at(i)->getComponent<Transform>()->getPosition());
+                e->addComponent(t);
+                e->setEntityName("brokenegg");
+                Entities.push_back(e);
+                Size++;
+            }
+            Entity *egg = Entities.at(i);
+            Entities.erase(Entities.begin() + i);
+            i--;
+            delete egg;
+            Size--;
+        }
+
+
+        if (Entities.at(i)->getEntityName() == "brokenegg") {
+            Entities.at(i)->setCounter(Entities.at(i)->getCounter() + 1);
+            if (Entities.at(i)->getCounter() == 40) {
+                Entity *egg = Entities.at(i);
+                Entities.erase(Entities.begin() + i);
+                i--;
+                delete egg;
+                Size--;
+            }
+
+        }
+    }
 }
+bool World::checkCollisionWithPlayer(glm::vec3 eggPosition){
+    vector<Entity*> players;
+    getTagEntities(players,"player");
+    Entity* player=players[0];
+    Transform* playerTransfrom=player->getComponent<Transform>();
+    glm::vec3 playerPosition=playerTransfrom->getPosition();
+    if(eggPosition[1]<=playerPosition[1]+1&&eggPosition[1]>=playerPosition[1]-1){
+        if(eggPosition[0]<=playerPosition[0]+1&&eggPosition[0]>=playerPosition[0]-1){
+            //cout<<"COLLISSION DETECTED"<<endl;
+            player->getComponent<SpaceShipController>()->setLives(player->getComponent<SpaceShipController>()->getLives()-1);
+            return true;
+        }
+
+    }
+    return false;
+};
+void World::moveChickens(){
+    vector<Entity*> chickens;
+    getTagEntities(chickens,"chicken");
+    int size=chickens.size();
+    for(int i=0;i<size;i++){
+        glm::vec3 chickenPosition=chickens.at(i)->getComponent<Transform>()->getPosition();
+        if(chickenFlag<=60){
+            chickenPosition=chickenPosition+glm::vec3 {0.01,0,0};
+        }
+        else {
+            chickenPosition = chickenPosition + glm::vec3{-0.01, 0, 0};
+        }
+        chickens.at(i)->getComponent<Transform>()->setPosition(chickenPosition);
+    }
+
+    chickenFlag++;
+    if(chickenFlag==120){
+        chickenFlag=0;
     }
 }
 void World::setBulletRenderer(Texture*ts,our::Mesh*ms,our::ShaderProgram*p){
