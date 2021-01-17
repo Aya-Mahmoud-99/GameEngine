@@ -69,7 +69,7 @@ GameState* MenuStatePointer=new MenuState();
             if (app->getKeyboard().isPressed(GLFW_KEY_H)) {
                 cout << "XXXXXXXXXXXX   DDDDD IS PRESSED" << endl;
                 GoToState(MenuStatePointer);
-            } else if (app->getKeyboard().isPressed(GLFW_KEY_G) && CurrentGameState != nullptr) {
+            } else if (app->getKeyboard().isPressed(GLFW_KEY_G) && CurrentGameState == MenuStatePointer) {
                 cout << "XXXXXXXXXXXX   GGGGG IS PRESSED" << endl;
                 GoToState(gamestatePointer);
             } else{
