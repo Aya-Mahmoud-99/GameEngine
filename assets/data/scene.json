@@ -11,6 +11,7 @@
       "spaceshipRoughness": "assets/models/spaceship/Metal038_1K_Roughness.jpg",
       "spaceshipMetalness": "assets/models/spaceship/Metal038_1K_Metalness.jpg",
       "egg": "assets/models/egg/Plastic010_1K_Color.jpg",
+      "heart":"assets/models/heart/red.jpg",
       "chicken": "assets/models/chicken/chicken.PNG",
       "chickenInvaders": "assets/images/common/chicken_invaders_11.jpg",
       "asphalt_albedo":"assets/images/common/materials/asphalt/albedo.jpg",
@@ -23,6 +24,7 @@
       "chicken": "assets/models/chicken/chicken.obj",
       "cube": "assets/models/background/uploads_files_648761_cube.obj",
       "egg": "assets/models/egg/egg.obj",
+      "heart":"assets/models/heart/uploads_files_2036667_LP_heart_OBJ.obj",
       "crackedegg": "assets/models/crackedegg/easter-egg.obj",
       "suzanne": "assets/models/Suzanne/Suzanne.obj",
       "house": "assets/models/House/House.obj",
@@ -727,6 +729,141 @@
       "emissive_map": "chicken",
       "translation": [ 8, 12, 0 ],
       "scale": [0.75,0.75,0.75],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "heart": {
+      "name": "heart",
+      "mesh": "heart",
+      "texture": "heart",
+      "albedo_map": "heart",
+      "specular_map": "heart",
+      "roughness_map": "heart",
+      "ambient_occlusion_map": "heart",
+      "emissive_map": "heart",
+      "translation": [ 14, -10, 0 ],
+      "scale": [0.03,0.03,0.03],
+      "rotation": [0,1.5,0],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "heart2": {
+      "name": "heart",
+      "mesh": "heart",
+      "texture": "heart",
+      "albedo_map": "heart",
+      "specular_map": "heart",
+      "roughness_map": "heart",
+      "ambient_occlusion_map": "heart",
+      "emissive_map": "heart",
+      "translation": [ 18, -10, 0 ],
+      "scale": [0.03,0.03,0.03],
+      "rotation": [0,1.5,0],
+      "program": "light",
+      "uniforms": {
+        "alpha": {
+          "type": "float",
+          "value": 1
+        },
+        "albedo_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },
+        "specular_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"emissive_tint": {
+          "type": "vec3",
+          "value": [1,1,1]
+        },"roughness_range":{
+          "type": "vec2",
+          "value": [0,1]
+        }
+      },"render_state": {
+        "depth_enable":1,
+        "dpfunc":"GL_LEQUAL",
+        "cull_enable":0,
+        "cullface":"GL_FRONT",
+        "frontwinding":"GL_CCW",
+        "blend_enable":1,
+        "blendFun":"GL_FUNC_ADD",
+        "source":"GL_SRC_ALPHA",
+        "dest":"GL_ONE_MINUS_SRC_ALPHA",
+        "transperent":0
+      }
+    },
+    "heart3": {
+      "name": "heart",
+      "mesh": "heart",
+      "texture": "heart",
+      "albedo_map": "heart",
+      "specular_map": "heart",
+      "roughness_map": "heart",
+      "ambient_occlusion_map": "heart",
+      "emissive_map": "heart",
+      "translation": [ 22, -10, 0 ],
+      "scale": [0.03,0.03,0.03],
+      "rotation": [0,1.5,0],
       "program": "light",
       "uniforms": {
         "alpha": {
