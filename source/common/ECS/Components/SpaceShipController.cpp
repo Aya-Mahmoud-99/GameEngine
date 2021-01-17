@@ -23,10 +23,10 @@ void SpaceShipController::update(double delta_time,vector<Entity*>& entities){
     //y={mat[1][0],mat[1][1],mat[1][2]};
     glm::vec3 up = Up(), right = Right();
 
-    if(app->getKeyboard().isPressed(GLFW_KEY_D) && x[0]<8) this->x += up * (5.0f);
-    if(app->getKeyboard().isPressed(GLFW_KEY_A) && x[0]>-10) this->x -= up * (5.0f);
-    if(app->getKeyboard().isPressed(GLFW_KEY_S) && x[1]>-7) this->x += right * (5.0f);
-    if(app->getKeyboard().isPressed(GLFW_KEY_W) && x[1]< 1) this->x -= right * (5.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_RIGHT) && x[0]<8) this->x += up * (5.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_LEFT) && x[0]>-10) this->x -= up * (5.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_DOWN) && x[1]>-7) this->x += right * (5.0f);
+    if(app->getKeyboard().isPressed(GLFW_KEY_UP) && x[1]< 1) this->x -= right * (5.0f);
     if(app->getKeyboard().justPressed(GLFW_KEY_SPACE) ) this->GenerateBullet(x, entities);//&& lives >0
     //if(app->getKeyboard().isPressed(GLFW_KEY_ENTER)) GenerateBullet(x);
     mat[3][0]=x[0];
