@@ -16,7 +16,6 @@ void GameStateManager::GoToState(GameState *PointerToGS) {
     void GameStateManager::run(our::Application* app){
 
 
-
         glfwInit();
         app->configureOpenGL();                                      // This function sets OpenGL window hints.
 
@@ -45,7 +44,6 @@ GameState* MenuStatePointer=new MenuState();
         ImGui::CreateContext();
         ImGuiIO& io = ImGui::GetIO();
         ImGui::StyleColorsDark();
-
 
 
         // Initialize ImGui for GLFW and OpenGL
@@ -94,8 +92,7 @@ GameState* MenuStatePointer=new MenuState();
             }
             if (CurrentGameState != nullptr) {
                 cout << "AAAAAAAAAAAAAAA  5" << endl;
-                CurrentGameState->onDraw(app, current_frame_time - last_frame_time);
-
+                 CurrentGameState->onDraw(app, current_frame_time - last_frame_time);
             }
             glfwSwapBuffers(app->window);
 

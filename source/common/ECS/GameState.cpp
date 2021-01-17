@@ -58,6 +58,8 @@ void from_json(const nlohmann::json& j, Light& l){
         l.spot_angle = {glm::quarter_pi<float>(), glm::half_pi<float>()};
     }
 }
+
+
 void GameState::onEnter(our::Application* app){
     //our::Application* App;
     //App=app;
@@ -77,6 +79,8 @@ void GameState::onEnter(our::Application* app){
     Sampler* s=new Sampler();
     loadNode(json,WorldPointer,nullptr,app,s); ///to be edited to load textures of each Entity///to be edited to load Light component
     WorldPointer->LoadEgg();
+    WorldPointer->LoadGameOver();
+    WorldPointer->LoadGameWon();
 
     WorldPointer->setBulletRenderer(textures["bullet"],meshes["bullet"],programs["default"]);
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletRenderer(WorldPointer->getBulletRenderer());
@@ -165,29 +169,45 @@ void GameState::onImmediateGui(ImGuiIO& io){
 
 }
 
-void GameState::onDraw(our::Application* app,double deltaTime){
-    our::Application* App;
-    App=app;
+void GameState::onDraw(our::Application* app,double deltaTime) {
+    our::Application *App;
+    App = app;
 /////////////////////////////////////////to be added lightcomp update/////////////////////////////////////////////////
 //int light_index = 0;
 //const int MAX_LIGHT_COUNT = 16;
 //WorldPointer->getLightEntity()->getComponent<LightComponent>()->lightSelect(light_index,MAX_LIGHT_COUNT,program);
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+if(WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->getLives()<=0){
+    WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
+    WorldPointer->RenderingSystem();
+    WorldPointer->GameOver();
 
+}else if(WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->getScore()>=14){
+    WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
+    WorldPointer->RenderingSystem();
+    WorldPointer->GameWon();
+
+}else{
+
+/////////////////////////////////////////////////////////////////////////////////////////
 //cout<<"xxxxxxxx"<<endl;
     //vector<Entity*> chickens;
-   // WorldPointer->getTagEntities(chickens,"chicken");
+    // WorldPointer->getTagEntities(chickens,"chicken");
+
     WorldPointer->deleteEggsOnGround();
     WorldPointer->moveEggs();
     WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
-    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime,WorldPointer->getEntities());
-    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->motionOfBullets(WorldPointer->getEntities());
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime,
+                                                                                    WorldPointer->getEntities());
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->motionOfBullets(
+            WorldPointer->getEntities());
     //WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->getPointerToBulletsVector();
     //  cout<<"xxxxxxxx"<<endl;
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind
     WorldPointer->RenderingSystem();
     WorldPointer->generateEggs();
     WorldPointer->moveChickens();
+    }
 }
 
 void GameState::onExit(our::Application* app) {

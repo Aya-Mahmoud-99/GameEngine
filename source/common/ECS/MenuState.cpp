@@ -49,6 +49,8 @@ void from_json2(const nlohmann::json& j, Light& l){
         l.spot_angle = {glm::quarter_pi<float>(), glm::half_pi<float>()};
     }
 }
+
+
 void MenuState::onEnter(our::Application* app){
     //our::Application* App;
     //App=app;
@@ -58,7 +60,7 @@ void MenuState::onEnter(our::Application* app){
     WorldPointer=new World();
 
     // create a cam entity from world
-    //std::ifstream file_in("C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/data/scene2.json");
+    //std::ifstream file_in("C:/COURSES/CMPN205_Graphics/Project/GameEngine/assets/data/scene2.json")
     std::ifstream file_in("assets/data/scene2.json");
     nlohmann::json json;
     file_in >> json;

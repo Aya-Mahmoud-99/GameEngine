@@ -43,7 +43,6 @@ private:
 
 
 public:
-
     virtual void onEnter(our::Application* app);
     virtual void onExit(our::Application* app);
     virtual void onImmediateGui(ImGuiIO& io);

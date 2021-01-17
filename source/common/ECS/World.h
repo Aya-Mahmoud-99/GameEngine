@@ -24,6 +24,8 @@ MeshRenderer* bulletRenderer;
 MeshRenderer* EggRenderer;
     MeshRenderer* HeartRenderer;
     MeshRenderer* BrokenEggRenderer;
+    MeshRenderer* GameOverRenderer;
+    MeshRenderer* GameWonRenderer;
     Sound* smashedEgg;
     int chickenFlag;
 public:
@@ -50,6 +52,12 @@ public:
     MeshRenderer* getBulletRenderer();
 
     bool checkCollisionWithPlayer(glm::vec3);
+
+    void GameOver();
+    void LoadGameOver();
+
+    void GameWon();
+    void LoadGameWon();
 
     ~World();
     World();
