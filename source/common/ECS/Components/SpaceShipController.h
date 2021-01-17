@@ -13,7 +13,7 @@ class SpaceShipController: public Component{
 our::Application* app;
 Transform* T;
 glm::vec3 x={0, 0, 0},y={0, 1, 0};
-int lives=5;
+int lives=3;
 int score=0;
 //vector<Bullet*> bulletsVector;
 MeshRenderer* bulletRendererr;
