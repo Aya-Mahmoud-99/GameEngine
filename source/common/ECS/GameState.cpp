@@ -82,6 +82,7 @@ void GameState::onEnter(our::Application* app){
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletRenderer(WorldPointer->getBulletRenderer());
 
     WorldPointer->LoadBrokenEgg();
+    WorldPointer->LoadHeart();
     backGround=new Sound("assets/tracks/ES_Slipping - AGST.mp3",true);
     backGround->play();
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletSound("assets/tracks/308-Bolt-Action-Rifle-Single-Close-Gunshot-A-www.fesliyanstudios.com-[AudioTrimmer.com].mp3",false);
@@ -176,8 +177,8 @@ void GameState::onDraw(our::Application* app,double deltaTime){
 //cout<<"xxxxxxxx"<<endl;
     //vector<Entity*> chickens;
    // WorldPointer->getTagEntities(chickens,"chicken");
-    WorldPointer->moveEggs();
     WorldPointer->deleteEggsOnGround();
+    WorldPointer->moveEggs();
     WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime,WorldPointer->getEntities());
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->motionOfBullets(WorldPointer->getEntities());
@@ -243,7 +244,7 @@ void GameState::loadNode(const nlohmann::json& json,World* worldPointer,Entity* 
     }
     if(json.contains("SpaceShipController")){
         SpaceShipController *SpaceShipPtr = new SpaceShipController(app,t);
-        SpaceShipPtr->setLives(0);
+        SpaceShipPtr->setLives(3);
         e->addComponent(SpaceShipPtr);
     }
     if(json.contains("light")){

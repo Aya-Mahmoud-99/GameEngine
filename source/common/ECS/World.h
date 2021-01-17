@@ -22,13 +22,14 @@ class World {
 vector<Entity*> Entities;
 MeshRenderer* bulletRenderer;
 MeshRenderer* EggRenderer;
+    MeshRenderer* HeartRenderer;
     MeshRenderer* BrokenEggRenderer;
     Sound* smashedEgg;
     int chickenFlag;
 public:
-
     Entity* createEntity(Entity* e);
     void moveChickens();
+    void LoadHeart();
     //void assignComponentToEntity(Entity* e,Component* c);
     vector<Entity*>& getEntities();
     void Rendering();
