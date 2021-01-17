@@ -84,7 +84,8 @@ void GameState::onEnter(our::Application* app){
     WorldPointer->LoadBrokenEgg();
     backGround=new Sound("assets/tracks/ES_Slipping - AGST.mp3",true);
     backGround->play();
-
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletSound("assets/tracks/308-Bolt-Action-Rifle-Single-Close-Gunshot-A-www.fesliyanstudios.com-[AudioTrimmer.com].mp3",false);
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setKillSound("assets/tracks/Chicken_hurt1.oga",false);
     /////in LoadNode call Texture() for each Entity
     ////call Sampler() once (one Sampler for all Entities)
 /* int width, height;

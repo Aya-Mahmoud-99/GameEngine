@@ -13,15 +13,16 @@ Bullet::Bullet(glm::vec3 pos) {
     addComponent(t);
     this->setEntityName("bullet");
 }
-void Bullet::moveBullet(int index,vector<Entity*>& entities)
+int Bullet::moveBullet(int index,vector<Entity*>& entities,Sound* s)
 {
-    bool flag =this->collideBullet(index,entities);
+    bool flag =this->collideBullet(index,entities,s);
     if(flag)
-        return;
+        return 1;
     glm::vec3 currentPosition = this->getComponent<Transform>()->getPosition();
     this->getComponent<Transform>()->setPosition(currentPosition+glm::vec3{0,+0.3,0});
+    return 0;
 }
-bool Bullet::collideBullet(int index,vector<Entity*>& entities)
+bool Bullet::collideBullet(int index,vector<Entity*>& entities,Sound* s)
 {
     //vector<Entity*>::iterator bullet=entities.;
     glm::vec3 posBullet=this->getComponent<Transform>()->getPosition();
@@ -31,8 +32,13 @@ bool Bullet::collideBullet(int index,vector<Entity*>& entities)
         glm::vec3 pos=entities.at(i)->getComponent<Transform>()->getPosition();
         if(entities.at(i)&&entities.at(i)->getEntityName()=="chicken"&& abs(pos.x-posBullet.x)<1 &&abs(pos.y-posBullet.y)<2.5)// &&  abs(pos.z-posBullet.z)<2.5)
         {
+            s->play();
             entities.erase(entities.begin()+index);
-            entities.erase(entities.begin()+i);
+            if(index>i)
+                entities.erase(entities.begin()+i);//remove chicken
+            else
+                entities.erase(entities.begin()+i-1);
+
             return true;
         }
     }

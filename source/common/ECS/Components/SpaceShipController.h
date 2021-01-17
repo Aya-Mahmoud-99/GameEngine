@@ -8,6 +8,7 @@
 #include "../Bullet.h"
 #include "MeshRenderer.h"
 #include <iostream>
+#include "../Sound.h"
 
 class SpaceShipController: public Component{
 our::Application* app;
@@ -17,7 +18,9 @@ int lives=5;
 int score=0;
 //vector<Bullet*> bulletsVector;
 MeshRenderer* bulletRendererr;
-int bulletID;//this will be count for all bullets generated
+Sound* bulletSound;
+Sound* killSound;
+//int bulletID;//this will be count for all bullets generated
 
 public:
     SpaceShipController(our::Application* application,Transform* Tran);
@@ -28,6 +31,8 @@ public:
     glm::vec3 Down();
     void setLives(int l);
     void setScore(int s);
+    void setBulletSound(const char* fileName,bool loop);
+    void setKillSound(const char* fileName,bool loop);
     int getLives();
     int getScore();
     void GenerateBullet(glm::vec3 position,vector<Entity*>& entities);

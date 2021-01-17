@@ -10,7 +10,7 @@ app=application;
 T=Tran;
 glm::mat4 mat=T->getMatrix();
 x= {mat[3][0],mat[3][1],mat[3][2]};
-bulletID=1;
+//bulletID=1;
 //y={mat[1][0],mat[1][1],mat[1][2]};
 }
 void SpaceShipController::update(double delta_time,vector<Entity*>& entities){
@@ -61,10 +61,11 @@ void SpaceShipController::GenerateBullet(glm::vec3 position,vector<Entity*>& ent
 //create new instance from bullet class
 //given x in position[0], y in position[1] but increment y alittle bit to see the bullet above the spaceship
     Bullet* bptr=new Bullet(position);
-    bptr->ID=bulletID++;
+    //bptr->ID=bulletID++;
     bptr->addComponent(bulletRendererr);
     //this->bulletsVector.push_back(bptr);
     entities.push_back(bptr);
+    bulletSound->play();
 }
 void SpaceShipController::setLives(int l){
     lives=l;
@@ -83,6 +84,16 @@ int SpaceShipController::getScore(){
     return bulletsVector;
 }
 */
+void SpaceShipController::setBulletSound(const char* fileName,bool loop)
+{
+    bulletSound=new Sound(fileName,loop);
+}
+
+void SpaceShipController::setKillSound(const char* fileName,bool loop)
+{
+    killSound=new Sound(fileName,loop);
+}
+
 void SpaceShipController::setBulletRenderer(MeshRenderer* r){
     bulletRendererr=r;
 }
@@ -105,7 +116,10 @@ void SpaceShipController::motionOfBullets(vector<Entity*>& entities){
                     //delete bullet;
                     //bullet=NULL;
                     else
-                        ((Bullet*)entities.at(i))->moveBullet(i,entities);
+                    {
+                        int coin= ((Bullet*)entities.at(i))->moveBullet(i,entities,killSound);
+                        score+=coin;
+                    }
                 }
 
             }

@@ -6,13 +6,14 @@
 #define GFX_LAB_BULLET_H
 #pragma once
 #include "Entity.h"
+#include"Sound.h"
 
 class Bullet : public Entity{
 public:
     int ID;
     Bullet(glm::vec3 pos);
-    void moveBullet(int index,vector<Entity*>& entities);
-    bool collideBullet(int index,vector<Entity*>& entities);
+    int moveBullet(int index,vector<Entity*>& entities,Sound* s);
+    bool collideBullet(int index,vector<Entity*>& entities,Sound* s);
     ~Bullet(){}
 };
 
