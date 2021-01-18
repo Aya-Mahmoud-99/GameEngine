@@ -98,15 +98,12 @@ void SpaceShipController::setBulletRenderer(MeshRenderer* r){
     bulletRendererr=r;
 }
 
-void SpaceShipController::motionOfBullets(vector<Entity*>& entities){
-    //vector<Bullet*>::iterator bullet;
-    //bullet=bulletsVector.begin();
-//    for(int j=0;j<bulletsVector.size();j++)
-//    {
-//        if(bulletsVector[j]->getComponent<Transform>()->getPosition().y>11)
-//        {   int id=bulletsVector[j]->ID;
-//            bulletsVector[j]=NULL;
-//            bulletsVector.erase(bulletsVector.begin()+j);
+void SpaceShipController::setScoreCubeRenderer(MeshRenderer* r){
+    scoreRenderer=r;
+}
+
+void SpaceShipController::motionOfBullets(vector<Entity*>& entities,Entity* &ScoreBar){
+
             for(int i=0;i<entities.size();i++)
             {
                 if(entities.at(i)&&entities.at(i)->getEntityName()=="bullet")//&& ((Bullet*)entities.at(i))->ID==id)
@@ -118,7 +115,23 @@ void SpaceShipController::motionOfBullets(vector<Entity*>& entities){
                     else
                     {
                         int coin= ((Bullet*)entities.at(i))->moveBullet(i,entities,killSound);
-                        score+=coin;
+                        if(coin==1)
+                        {
+                            score+=coin;
+                            Entity * temp=new Entity();
+                            Transform* t=new Transform(glm::vec3{-23, (-9.5+score),0},glm::vec3{0,0,0},glm::vec3{0.15,0.3,0.02});
+                            temp->addComponent(t);
+                            temp->addComponent(scoreRenderer);
+                            temp->setEntityName("scorebar");
+                            entities.push_back(temp);
+                            //[0.15,0.3,0.02]
+                            //Transform*t=ScoreBar->getComponent<Transform>();
+                            //t->setScale(glm::vec3{0.15,0.3*score,0.02});
+                            //cout << t->scale.x << " eeeeee "<<t->scale.y<<" eeeeee "<<t->scale.z<<endl;
+                            //t->scale.y=t->scale.y+0.3;
+                            //t->scale.z=t->scale.z+0.3;
+                            //t->scale.x=t->scale.x+0.3;
+                        }
                     }
                 }
 

@@ -817,8 +817,8 @@
       "roughness_map": "barcolor",
       "ambient_occlusion_map": "barcolor",
       "emissive_map": "barcolor",
-      "translation": [ -23, -10, 0 ],
-      "scale": [0.15,0.3,0.02],
+      "translation": [ -23,-10, 0 ],
+      "scale": [0.15,0,0.02],
       "program": "light",
       "uniforms": {
         "alpha": {

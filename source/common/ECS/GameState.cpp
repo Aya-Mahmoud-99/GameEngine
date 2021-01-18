@@ -84,6 +84,8 @@ void GameState::onEnter(our::Application* app){
 
     WorldPointer->setBulletRenderer(textures["bullet"],meshes["bullet"],programs["default"]);
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setBulletRenderer(WorldPointer->getBulletRenderer());
+    WorldPointer->setScoreRenderer(textures["bullet"],meshes["bullet"],programs["default"]);
+    WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->setScoreCubeRenderer(WorldPointer->getScoreRenderer());
 
     WorldPointer->LoadBrokenEgg();
     WorldPointer->LoadHeart();
@@ -197,10 +199,11 @@ if(WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->getL
     WorldPointer->deleteEggsOnGround();
     WorldPointer->moveEggs();
     WorldPointer->getCameraEntity()->getComponent<CameraController>()->update(deltaTime);
+    Entity*s=WorldPointer->getScoreBarEntity();
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->update(deltaTime,
                                                                                     WorldPointer->getEntities());
     WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->motionOfBullets(
-            WorldPointer->getEntities());
+            WorldPointer->getEntities(),s);
     //WorldPointer->getSpaceShipEntity()->getComponent<SpaceShipController>()->getPointerToBulletsVector();
     //  cout<<"xxxxxxxx"<<endl;
 //WorldPointer->Rendering();///to be edited to add TextureBind and SamplerBind

@@ -8,10 +8,11 @@
 
 
 class Transform: public Component{
+public:
     glm::vec3 translation, rotation, scale;
     Entity* parent;
     glm::mat4 V;
-public:
+//public:
     Transform(glm::vec3 translation={0,0,0} ,glm::vec3 rotation={0,0,0},glm::vec3 scale={1,1,1},Entity*parent= nullptr);
     glm::mat4 to_mat4();
     Entity* getParent();
@@ -20,6 +21,7 @@ public:
     glm::vec3 getPosition();
     void setMatrix(glm::mat4 Mat);
     void setPosition(glm::vec3);
+    void setScale(glm::vec3 s);
 };
 
 

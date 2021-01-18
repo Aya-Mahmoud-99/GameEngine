@@ -702,6 +702,51 @@ void World::setBulletRenderer(Texture*ts,our::Mesh*ms,our::ShaderProgram*p){
 
 }
 
+void World::setScoreRenderer(Texture*ts,our::Mesh*ms,our::ShaderProgram*p){
+
+    our::ShaderProgram *pp = new our::ShaderProgram();
+    pp->create();
+    pp->attach("assets/shaders/ex29_light/light_transform.vert", GL_VERTEX_SHADER);
+    pp->attach("assets/shaders/ex32_textured_material/light_array.frag", GL_FRAGMENT_SHADER);
+    pp->link();
+    our::Mesh* mp=new our::Mesh();
+    our::mesh_utils::loadOBJ(*mp,"assets/models/background/uploads_files_648761_cube.obj");
+    Texture *tex = new Texture("assets/Textures/colors.jpeg");
+    Material *mat=new Material(pp);
+    mat->setPointerToEmissiveMap(tex);
+    mat->setPointerToRoughnessMap(tex);
+    mat->setPointerToAmbientOcuulsionMap(tex);
+    mat->setPointerToSpecularMap(tex);
+    mat->setPointerToAlbedoMap(tex);
+    Sampler* s=new Sampler();
+    mat->setPointerToSampler(s);
+    mat->addUniform("alpha",1.0f);
+    mat->addUniform("specular_tint",glm::vec3{1,1,1});
+    mat->addUniform("emissive_tint",glm::vec3{1,1,1});
+    mat->addUniform("albedo_tint",glm::vec3{1,1,1});
+    mat->addUniform("roughness_range",glm::vec2{0,1});
+    RenderState* r=new RenderState(
+            true,
+            GL_LEQUAL,
+            false,
+            GL_FRONT,
+            GL_CCW,
+            false,
+            GL_FUNC_ADD,
+            GL_SRC_ALPHA,
+            GL_ONE_MINUS_SRC_ALPHA,
+            false
+    );
+    mat->setPointerToRenderState(r);
+    scoreCube=new MeshRenderer(mp,mat);
+
+}
+
+MeshRenderer* World::getScoreRenderer(){
+    return scoreCube;
+}
+
+
 void World::LoadGameOver(){
     our::ShaderProgram *pp = new our::ShaderProgram();
     cout<<"1111111111111111111111"<<endl;
@@ -834,6 +879,19 @@ void World::GameWon() {
 
 MeshRenderer* World::getBulletRenderer(){
     return bulletRenderer;
+}
+Entity* World::getScoreBarEntity()
+{
+    int Size=Entities.size();
+    for(int i=0;i<Size;i++)
+    {
+        if(Entities.at(i) && Entities.at(i)->getEntityName()=="scorebar")
+        {
+            cout<<Entities.at(i)->getEntityName();
+            return Entities[i];
+        }
+    }
+    return nullptr;
 }
 
 World::~World() {

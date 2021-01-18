@@ -41,3 +41,8 @@ glm::mat4 Transform::parents_mat() {
         }
     return matrix;
 }
+
+void Transform::setScale(glm::vec3 s)
+{
+    this->scale =s;
+}

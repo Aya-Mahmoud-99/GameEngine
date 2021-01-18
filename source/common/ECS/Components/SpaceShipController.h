@@ -18,6 +18,7 @@ int lives=3;
 int score=0;
 //vector<Bullet*> bulletsVector;
 MeshRenderer* bulletRendererr;
+MeshRenderer* scoreRenderer;
 Sound* bulletSound;
 Sound* killSound;
 //int bulletID;//this will be count for all bullets generated
@@ -38,7 +39,8 @@ public:
     void GenerateBullet(glm::vec3 position,vector<Entity*>& entities);
     //vector<Bullet*> getPointerToBulletsVector();
     void setBulletRenderer(MeshRenderer* r);
-    void motionOfBullets(vector<Entity*>& entities);
+    void setScoreCubeRenderer(MeshRenderer* r);
+    void motionOfBullets(vector<Entity*>& entities,Entity* &ScoreBar);
 };
 
 

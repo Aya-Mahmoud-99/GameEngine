@@ -26,6 +26,7 @@ MeshRenderer* EggRenderer;
     MeshRenderer* BrokenEggRenderer;
     MeshRenderer* GameOverRenderer;
     MeshRenderer* GameWonRenderer;
+    MeshRenderer* scoreCube;
     Sound* smashedEgg;
     int chickenFlag;
 public:
@@ -50,7 +51,8 @@ public:
 
     void setBulletRenderer(Texture*t,our::Mesh*m,our::ShaderProgram*p);
     MeshRenderer* getBulletRenderer();
-
+    void setScoreRenderer(Texture*t,our::Mesh*m,our::ShaderProgram*p);
+    MeshRenderer* getScoreRenderer();
     bool checkCollisionWithPlayer(glm::vec3);
 
     void GameOver();
@@ -58,7 +60,7 @@ public:
 
     void GameWon();
     void LoadGameWon();
-
+    Entity* getScoreBarEntity();
     ~World();
     World();
 };
